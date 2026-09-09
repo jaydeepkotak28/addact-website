@@ -26,10 +26,10 @@ const poppins = Poppins({
   display: "swap",
 });
 
-export const metadata = {
-  title: "Addact Technologies",
-  description: "Enterprise Digital Experience & Headless Engineering Solutions",
-};
+// export const metadata = {
+//   title: "Addact Technologies",
+//   description: "Enterprise Digital Experience & Headless Engineering Solutions",
+// };
 
 export default function RootLayout({
   children,

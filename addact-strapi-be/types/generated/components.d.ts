@@ -1,5 +1,19 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ContentRelationContentRelation extends Struct.ComponentSchema {
+  collectionName: 'components_content_relation_content_relations';
+  info: {
+    displayName: 'Content Relation';
+    icon: 'book';
+  };
+  attributes: {
+    content: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::title-description.title-description'
+    >;
+  };
+}
+
 export interface FeatureBaseHeading extends Struct.ComponentSchema {
   collectionName: 'components_feature_base_headings';
   info: {
@@ -84,6 +98,7 @@ export interface SiteSettingsSeo extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
+      'content-relation.content-relation': ContentRelationContentRelation;
       'feature.base-heading': FeatureBaseHeading;
       'feature.body': FeatureBody;
       'feature.content': FeatureContent;

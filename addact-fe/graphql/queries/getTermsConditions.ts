@@ -9,8 +9,8 @@ import type {
   SeoData,
 } from "@/lib/schemas/dynamicZoneSchema";
 
-export interface PrivacyPolicyData {
-  privacyPolicy: {
+export interface TermsConditionsData {
+  termsAndCondition: {
     pageHeading?: {
       PageHeading?: PageHeadingData;
       seo?: SeoData;
@@ -19,11 +19,11 @@ export interface PrivacyPolicyData {
   } | null;
 }
 
-export const GET_PRIVACY_POLICY = gql`
+export const GET_TERMS_CONDITIONS = gql`
   ${PAGE_HEADING_FRAGMENT}
   ${CONTENT_RELATION_FRAGMENT}
-  query GetPrivacyPolicy {
-    privacyPolicy {
+  query GetTermsConditions {
+    termsAndCondition {
       pageHeading {
         ...PageHeadingFields
       }
@@ -38,12 +38,12 @@ export const GET_PRIVACY_POLICY = gql`
 `;
 
 /**
- * Reusable Query Function for Privacy Policy
+ * Reusable Query Function for Terms and Conditions
  */
-export async function getPrivacyPolicy(): Promise<PrivacyPolicyData | null> {
-  return fetchStrapi<PrivacyPolicyData>(
-    GET_PRIVACY_POLICY,
+export async function getTermsConditions(): Promise<TermsConditionsData | null> {
+  return fetchStrapi<TermsConditionsData>(
+    GET_TERMS_CONDITIONS,
     undefined,
-    "GetPrivacyPolicy"
+    "GetTermsConditions"
   );
 }

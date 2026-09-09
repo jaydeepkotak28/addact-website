@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { getPrivacyPolicy } from "@/graphql/queries/getPrivacyPolicy";
+import { getTermsConditions } from "@/graphql/queries/getTermsConditions";
 import DynamicZoneRenderer from "@/components/dynamic-zone/DynamicZoneRenderer";
 import { generateStrapiMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await getPrivacyPolicy();
-  const seo = data?.privacyPolicy?.pageHeading?.seo;
+  const data = await getTermsConditions();
+  const seo = data?.termsAndCondition?.pageHeading?.seo;
 
   return generateStrapiMetadata(seo);
 }
 
-export default async function PrivacyPolicyPage() {
-  const data = await getPrivacyPolicy();
-  const sections = data?.privacyPolicy?.Section;
+export default async function TermsConditionsPage() {
+  const data = await getTermsConditions();
+  const sections = data?.termsAndCondition?.Section;
 
   const contentTitle = sections?.find(
     (s) => s?.content?.Body?.title
@@ -20,8 +20,8 @@ export default async function PrivacyPolicyPage() {
 
   const heading =
     contentTitle ||
-    data?.privacyPolicy?.pageHeading?.PageHeading?.pageTitle ||
-    "Privacy Policy";
+    data?.termsAndCondition?.pageHeading?.PageHeading?.pageTitle ||
+    "Terms of Use";
 
   return (
     <main className="bg-white company-policy min-h-screen">
@@ -32,7 +32,7 @@ export default async function PrivacyPolicyPage() {
           <DynamicZoneRenderer sections={sections} />
         ) : (
           <p className="text-gray-500">
-            No policy content available yet. (Please check Strapi Admin to publish content or enable API permissions).
+            No content available yet. (Please check Strapi Admin to publish content or enable API permissions).
           </p>
         )}
       </div>

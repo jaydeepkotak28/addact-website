@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "privacy_policies",
+  "collectionName": "terms_and_conditions",
   "info": {
-    "singularName": "privacy-policy",
-    "pluralName": "privacy-policies",
-    "displayName": "Privacy Policy"
+    "singularName": "terms-and-condition",
+    "pluralName": "terms-and-conditions",
+    "displayName": "Terms And Condition"
   },
   "options": {
     "draftAndPublish": true

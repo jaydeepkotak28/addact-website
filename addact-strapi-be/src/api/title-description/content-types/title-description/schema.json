@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "title_descriptions",
+  "info": {
+    "singularName": "title-description",
+    "pluralName": "title-descriptions",
+    "displayName": "Title Description"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string"
+    },
+    "Body": {
+      "type": "component",
+      "component": "feature.body",
+      "repeatable": false
+    }
+  }
+}

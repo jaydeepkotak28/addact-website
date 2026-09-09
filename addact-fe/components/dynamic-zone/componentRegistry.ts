@@ -1,5 +1,6 @@
 import React from "react";
 import ContentBlock from "./blocks/ContentBlock";
+import ContentRelationBlock from "./blocks/ContentRelationBlock";
 
 /**
  * Component Registry
@@ -15,9 +16,11 @@ export const componentRegistry: Record<
 > = {
   // Strapi GraphQL __typename for component 'feature.content'
   ComponentFeatureContent: ContentBlock,
-
-  // Fallback alias if REST API or different naming is used:
   "feature.content": ContentBlock,
+
+  // Strapi GraphQL __typename for component 'content-relation.content-relation'
+  ComponentContentRelationContentRelation: ContentRelationBlock,
+  "content-relation.content-relation": ContentRelationBlock,
 };
 
 export type ComponentRegistryType = typeof componentRegistry;

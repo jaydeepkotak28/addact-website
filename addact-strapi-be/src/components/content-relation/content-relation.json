@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_relation_content_relations",
+  "info": {
+    "displayName": "Content Relation",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::title-description.title-description"
+    }
+  },
+  "config": {}
+}
