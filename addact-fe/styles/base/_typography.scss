@@ -1,0 +1,169 @@
+@use "sass:math";
+
+@function pxToRem($px, $base: 16) {
+  @return math.div($px, $base) * 1rem;
+}
+
+@function lineHeightRatio($lineHeightPx, $fontSizePx: 16) {
+  @return math.div($lineHeightPx, $fontSizePx);
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2 {
+  font-size: pxToRem(60);
+  line-height: normal;
+  font-family: $font-main;
+  font-weight: 400;
+
+  @media (max-width: 1500px) {
+    font-size: pxToRem(45);
+  }
+
+  @media (max-width: 1300px) {
+    font-size: pxToRem(40);
+  }
+
+  @media (max-width: 767px) {
+    font-size: pxToRem(33);
+    font-weight: 500;
+  }
+
+  &.border-after {
+    position: relative;
+    padding-bottom: 40px;
+    height: fit-content;
+
+    @media (max-width: 767px) {
+      padding-bottom: 20px;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      height: 5px;
+      width: 160px;
+      left: 0;
+      bottom: 0;
+      background-color: $blue;
+
+      @media (max-width: 767px) {
+        content: "";
+        width: 80px;
+        height: 3px;
+      }
+    }
+  }
+}
+
+h2 {
+  font-family: $font-main;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: pxToRem(45);
+  line-height: normal;
+  font-family: $font-main;
+  font-weight: 400;
+
+  @media (max-width: 1400px) {
+    font-size: pxToRem(35);
+  }
+
+  @media (max-width: 1200px) {
+    font-size: pxToRem(32);
+  }
+
+  @media (max-width: 767px) {
+    font-size: pxToRem(30);
+    font-weight: 500;
+  }
+}
+
+h4 {
+  font-size: pxToRem(35);
+  line-height: normal;
+  font-family: $font-main;
+  font-weight: 400;
+
+  @media (max-width: 1400px) {
+    font-size: pxToRem(30);
+  }
+}
+
+h5 {
+  font-size: pxToRem(30);
+  line-height: normal;
+  font-family: $font-main;
+  font-weight: 400;
+
+  @media (max-width: 1400px) {
+    font-size: pxToRem(28);
+  }
+}
+
+h6 {
+  font-size: pxToRem(28);
+  line-height: normal;
+  font-family: $font-main;
+  font-weight: 400;
+
+  @media (max-width: 1400px) {
+    font-size: pxToRem(25);
+  }
+}
+
+p {
+  font-size: pxToRem(17);
+
+  @media (max-width: 767px) {
+    font-size: pxToRem(15);
+    line-height: lineHeightRatio(20, 15);
+  }
+
+  &.large {
+    font-size: pxToRem(34);
+    line-height: lineHeightRatio(54, 34);
+  }
+  &:not(:last-of-type) {
+    margin-bottom: 15px;
+  }
+}
+
+.text-15 {
+  font-size: 15px;
+
+  p {
+    font-size: 15px;
+  }
+}
+
+.custom-html-content {
+  p {
+    font-size: 18px;
+    line-height: 33px;
+  }
+
+  a {
+    display: block;
+    margin-top: 15px;
+  }
+}
+
+.hero-subtext {
+  p {
+    @media (min-width: 1400px) {
+      font-size: pxToRem(24);
+      line-height: lineHeightRatio(40, 24);
+    }
+
+    @media (max-width: 1400px) {
+      font-size: pxToRem(20);
+      line-height: lineHeightRatio(32, 20);
+    }
+  }
+}

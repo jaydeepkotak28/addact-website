@@ -1,0 +1,29 @@
+@import "../base/variables";
+@import "../base/mixins";
+@import "../base/typography";
+@import "../base/functions";
+
+.who-we-are {
+  .who-we-are__description {
+    color: #1e1f23;
+  }
+
+  .word {
+    display: inline-block;
+    opacity: 0.25;
+    will-change: opacity;
+  }
+
+  .fade-in {
+    animation: fadeWord 1.3s ease forwards;
+  }
+
+  @keyframes fadeWord {
+    from {
+      opacity: 0.5;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

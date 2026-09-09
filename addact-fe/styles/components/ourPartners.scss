@@ -1,0 +1,26 @@
+@import "./../base/variables";
+
+.partners {
+  &__marquee-content {
+    animation: scroll-marquee 30s linear infinite;
+  }
+}
+
+@keyframes scroll-marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.partners__marquee-content:hover {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .partners__marquee-content {
+    animation-duration: 20s;
+  }
+}

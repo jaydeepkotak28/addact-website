@@ -1,0 +1,151 @@
+@import "slick-image-compare/style";
+
+/* ── Circle base ── */
+.sic-main .sic-circle {
+  background-color: #ffff !important;
+  width: 80px !important;
+  height: 80px !important;
+  border: 1.5px solid #0f0f0f !important;
+  margin-left: -40px !important;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease !important;
+  position: relative !important;
+}
+
+/* ── "DRAG" label — centred in the circle ── */
+.sic-main .sic-circle::before {
+  content: "DRAG";
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  color: black !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
+  transition: color 0.2s ease !important;
+  z-index: 2 !important;
+  line-height: 1 !important;
+}
+
+/* ── Arrow 1 (left arrow) — vertically centred, left side ── */
+.sic-main .sic-arrow-1 {
+  position: absolute !important;
+  left: 2px !important;
+  top: 110% !important;
+  transform: translateY(-50%) !important;
+  width: 15px !important;
+  height: 15px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ── Arrow 2 (right arrow) — vertically centred, right side ── */
+.sic-main .sic-arrow-2 {
+  position: absolute !important;
+  right: -40px !important;
+  left: auto !important;
+  top: 110% !important;
+  transform: translateY(-50%) !important;
+  width: 15px !important;
+  height: 15px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.sic-main .sic-arrow-1 svg {
+  stroke: black !important;
+  stroke-width: 3px !important;
+  transition: stroke 0.2s ease !important;
+}
+
+.sic-main .sic-arrow-2 svg {
+  stroke: black !important;
+  stroke-width: 3px !important;
+  transition: stroke 0.2s ease !important;
+}
+
+@media (max-width: 500px) {
+  .sic-main .sic-circle {
+    width: 50px !important;
+    height: 50px !important;
+    margin-left: -24px !important;
+  }
+
+  .sic-main .sic-circle::before {
+    font-size: 7px !important;
+  }
+
+  .sic-main .sic-arrow-1 {
+    width: 12px !important;
+    height: 12px !important;
+    top: 115% !important;
+    left: 0px !important;
+  }
+
+  .sic-main .sic-arrow-2 {
+    width: 12px !important;
+    height: 12px !important;
+    right: -42px !important;
+    top: 115% !important;
+  }
+
+  .sic-main .sic-arrows {
+    width: 6px;
+    height: 21px;
+    position: absolute;
+  }
+}
+
+/* ── Active (interacting) state — blue circle ── */
+.uiux-impact-slider[data-interacting="true"] .sic-circle {
+  background-color: #3c4cff !important;
+  border-color: #3c4cff !important;
+}
+
+.uiux-impact-slider[data-interacting="true"] .sic-circle::before {
+  color: white !important;
+}
+
+.uiux-impact-slider[data-interacting="true"] .sic-arrow-1 svg,
+.uiux-impact-slider[data-interacting="true"] .sic-arrow-2 svg {
+  stroke: white !important;
+}
+
+/* ── Divider line ── */
+.sic-main .sic-line:before {
+  background-color: #0f0f0f !important;
+}
+
+/* ── Image sizing ── */
+.uiux-impact-slider.sic-main img,
+.uiux-impact-slider .sic-clip img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+.uiux-impact-slider.sic-main > img {
+  position: relative !important;
+  object-position: left center !important;
+}
+
+.uiux-impact-slider .sic-clip img {
+  object-position: right center !important;
+}
+
+/* ── Border radius ── */
+.uiux-impact-slider {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.uiux-impact-slider .sic-main,
+.uiux-impact-slider .sic-clip {
+  border-radius: inherit;
+}
