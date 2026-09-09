@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "project_cost_estimators",
+  "info": {
+    "singularName": "project-cost-estimator",
+    "pluralName": "project-cost-estimators",
+    "displayName": "Project Cost Estimator"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pageHeading": {
+      "type": "component",
+      "component": "page-structure.page",
+      "repeatable": false
+    }
+  }
+}

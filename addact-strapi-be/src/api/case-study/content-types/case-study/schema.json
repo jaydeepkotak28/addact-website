@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "case_studies",
+  "info": {
+    "singularName": "case-study",
+    "pluralName": "case-studies",
+    "displayName": "Case Study"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pageHeading": {
+      "type": "component",
+      "component": "page-structure.page",
+      "repeatable": false
+    }
+  }
+}

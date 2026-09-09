@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "digital_marketing_services",
+  "info": {
+    "singularName": "digital-marketing-service",
+    "pluralName": "digital-marketing-services",
+    "displayName": "Digital Marketing Service"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pageHeading": {
+      "type": "component",
+      "component": "page-structure.page",
+      "repeatable": false
+    }
+  }
+}
