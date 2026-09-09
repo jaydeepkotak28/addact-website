@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_feature_base_headings",
+  "info": {
+    "displayName": "Base Heading",
+    "icon": "collapse"
+  },
+  "options": {},
+  "attributes": {
+    "pageTitle": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "unique": true
+    }
+  },
+  "config": {}
+}
