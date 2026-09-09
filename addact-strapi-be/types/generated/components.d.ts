@@ -12,6 +12,18 @@ export interface FeatureBaseHeading extends Struct.ComponentSchema {
   };
 }
 
+export interface PageStructurePage extends Struct.ComponentSchema {
+  collectionName: 'components_page_structure_pages';
+  info: {
+    displayName: 'Page';
+    icon: 'apps';
+  };
+  attributes: {
+    PageHeading: Schema.Attribute.Component<'feature.base-heading', false>;
+    seo: Schema.Attribute.Component<'site-settings.seo', false>;
+  };
+}
+
 export interface SiteSettingsSeo extends Struct.ComponentSchema {
   collectionName: 'components_site_settings_seos';
   info: {
@@ -38,6 +50,7 @@ declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
       'feature.base-heading': FeatureBaseHeading;
+      'page-structure.page': PageStructurePage;
       'site-settings.seo': SiteSettingsSeo;
     }
   }

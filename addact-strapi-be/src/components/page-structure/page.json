@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_page_structure_pages",
+  "info": {
+    "displayName": "Page",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "PageHeading": {
+      "type": "component",
+      "component": "feature.base-heading",
+      "repeatable": false
+    },
+    "seo": {
+      "type": "component",
+      "component": "site-settings.seo",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}
