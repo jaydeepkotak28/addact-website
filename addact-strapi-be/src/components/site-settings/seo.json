@@ -1,0 +1,57 @@
+{
+  "collectionName": "components_site_settings_seos",
+  "info": {
+    "displayName": "SEO",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "text"
+    },
+    "metaDescription": {
+      "type": "text"
+    },
+    "ogTitle": {
+      "type": "text"
+    },
+    "ogDescription": {
+      "type": "text"
+    },
+    "ogImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "metaRobots": {
+      "type": "enumeration",
+      "enum": [
+        "index",
+        "follow",
+        "noindex",
+        "nofollow"
+      ]
+    },
+    "twitterCardTitle": {
+      "type": "text"
+    },
+    "canonicalURL": {
+      "type": "text"
+    },
+    "structuredData": {
+      "type": "json"
+    },
+    "languageTag": {
+      "type": "enumeration",
+      "enum": [
+        "en"
+      ]
+    }
+  },
+  "config": {}
+}
