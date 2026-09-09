@@ -1,19 +1,25 @@
 import React from "react";
 import ContentBlock from "./blocks/ContentBlock";
 import ContentRelationBlock from "./blocks/ContentRelationBlock";
+import type { DynamicZoneComponentMap } from "@/lib/schemas/dynamicZoneSchema";
 
 /**
- * Component Registry
+ * Type-Safe Component Registry Type
+ * Provides IDE autocomplete for all registered Strapi component typenames.
+ */
+export type ComponentRegistryType = {
+  [K in keyof DynamicZoneComponentMap]?: React.ComponentType<any>;
+} & Record<string, React.ComponentType<any>>;
+
+/**
+ * Component Registry (Single Source of Truth for Dynamic Zone Rendering)
  * Maps Strapi Dynamic Zone __typename to React Components.
  * 
  * To add a new component from Strapi:
- * 1. Build your React block component in ./blocks
- * 2. Add a single entry to this registry map.
+ * 1. Build your React block in ./blocks
+ * 2. Add an entry here (IDE will autocomplete the __typename)
  */
-export const componentRegistry: Record<
-  string,
-  React.ComponentType<any>
-> = {
+export const componentRegistry: ComponentRegistryType = {
   // Strapi GraphQL __typename for component 'feature.content'
   ComponentFeatureContent: ContentBlock,
   "feature.content": ContentBlock,
@@ -23,4 +29,3 @@ export const componentRegistry: Record<
   "content-relation.content-relation": ContentRelationBlock,
 };
 
-export type ComponentRegistryType = typeof componentRegistry;

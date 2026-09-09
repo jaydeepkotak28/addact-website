@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getPrivacyPolicy } from "@/graphql/queries/getPrivacyPolicy";
 import DynamicZoneRenderer from "@/components/dynamic-zone/DynamicZoneRenderer";
 import { generateStrapiMetadata } from "@/lib/seo";
+import { getPageHeading } from "@/lib/schemas/dynamicZoneSchema";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getPrivacyPolicy();
@@ -12,16 +13,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PrivacyPolicyPage() {
   const data = await getPrivacyPolicy();
+  const heading = getPageHeading(data?.privacyPolicy, "Privacy Policy");
   const sections = data?.privacyPolicy?.Section;
-
-  const contentTitle = sections?.find(
-    (s) => s?.content?.Body?.title
-  )?.content?.Body?.title;
-
-  const heading =
-    contentTitle ||
-    data?.privacyPolicy?.pageHeading?.PageHeading?.pageTitle ||
-    "Privacy Policy";
 
   return (
     <main className="bg-white company-policy min-h-screen">

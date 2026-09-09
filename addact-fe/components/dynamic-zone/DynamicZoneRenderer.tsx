@@ -1,9 +1,9 @@
 import React from "react";
 import { componentRegistry } from "./componentRegistry";
-import type { DynamicZoneBlock } from "@/lib/schemas/dynamicZoneSchema";
+import type { DynamicZone, DynamicZoneBlock } from "@/lib/schemas/dynamicZoneSchema";
 
 interface DynamicZoneRendererProps {
-  sections?: DynamicZoneBlock[] | null;
+  sections?: DynamicZone<any> | DynamicZoneBlock[] | any[] | null;
   className?: string;
 }
 

@@ -2,21 +2,10 @@ import { gql } from "graphql-request";
 import { fetchStrapi } from "@/lib/fetchStrapi";
 import { PAGE_HEADING_FRAGMENT } from "../fragments/pageHeading";
 import { CONTENT_RELATION_FRAGMENT } from "../fragments/dynamicZone";
-import type {
-  ContentRelationBlockData,
-  DynamicZoneBlock,
-  PageHeadingData,
-  SeoData,
-} from "@/lib/schemas/dynamicZoneSchema";
-
+import type { StandardPageData } from "@/lib/schemas/dynamicZoneSchema";
+ 
 export interface PrivacyPolicyData {
-  privacyPolicy: {
-    pageHeading?: {
-      PageHeading?: PageHeadingData;
-      seo?: SeoData;
-    } | null;
-    Section?: (DynamicZoneBlock & Partial<ContentRelationBlockData>)[] | null;
-  } | null;
+  privacyPolicy: StandardPageData | null;
 }
 
 export const GET_PRIVACY_POLICY = gql`

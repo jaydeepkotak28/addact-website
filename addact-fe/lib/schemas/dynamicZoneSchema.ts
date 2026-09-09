@@ -102,3 +102,176 @@ export const PageHeadingSchema = z
   .optional();
 
 export type PageHeadingData = z.infer<typeof PageHeadingSchema>;
+
+/* =========================================================================
+ * 1. COMPONENT KEY-VALUE MAP (Single Source of Truth)
+ * ========================================================================= */
+
+/**
+ * Key-Value Pair Map of Strapi Dynamic Zone Components.
+ * Key: Component __typename (from GraphQL)
+ * Value: Component Data / Props Interface
+ * 
+ * Best Practice: Jab bhi naya component banayein, bas ek line yahan add karein.
+ */
+export interface DynamicZoneComponentMap {
+  ComponentFeatureContent: ContentBlockData;
+  "feature.content": ContentBlockData;
+  ComponentContentRelationContentRelation: ContentRelationBlockData;
+  "content-relation.content-relation": ContentRelationBlockData;
+  // Future components:
+  // ComponentHeroHero: HeroBlockData;
+  // ComponentFeatureAccordion: AccordionBlockData;
+  [componentTypename: string]: any;
+}
+
+/**
+ * Base block interface for any Strapi Dynamic Zone Component
+ */
+export interface BaseDynamicZoneBlock {
+  __typename: string;
+  id?: string | number;
+  [key: string]: any;
+}
+
+/**
+ * Auto-derived Union of all known Dynamic Zone Blocks
+ * Derived directly from DynamicZoneComponentMap for 100% DRY compliance.
+ */
+export type KnownDynamicZoneBlock = DynamicZoneComponentMap[keyof DynamicZoneComponentMap];
+
+export type AnyDynamicZoneBlock =
+  | (DynamicZoneBlock & Partial<ContentRelationBlockData> & Partial<ContentBlockData>)
+  | KnownDynamicZoneBlock
+  | BaseDynamicZoneBlock;
+
+/**
+ * Generic Dynamic Zone Type
+ * Represents any dynamic zone in Strapi (e.g. Section, heroZone, footerBlocks, sidebar)
+ */
+export type DynamicZone<TBlock = AnyDynamicZoneBlock> = TBlock[] | null;
+
+/* =========================================================================
+ * 2. PAGE STRUCTURE & DYNAMIC ZONES MAP
+ * ========================================================================= */
+
+/**
+ * Page Structure Component (page-structure.page)
+ * Common heading and SEO wrapper for all Strapi pages.
+ */
+export interface PageHeadingStructure {
+  PageHeading?: PageHeadingData;
+  seo?: SeoData;
+}
+
+/**
+ * Key-Value Pair Map for a page containing multiple dynamic zones.
+ */
+export interface DynamicZonesMap {
+  Section?: DynamicZone;
+  heroZone?: DynamicZone;
+  bannerZone?: DynamicZone;
+  footerZone?: DynamicZone;
+  [zoneName: string]: DynamicZone | undefined;
+}
+
+/**
+ * Reusable & Extensible Page Content Interface
+ * Supports:
+ * - Common `pageHeading` & `Section`
+ * - Multiple Dynamic Zones (via index signature or generic TExtra)
+ * - Custom page fields returned by Strapi
+ */
+export interface StandardPageData<
+  TPrimarySection = AnyDynamicZoneBlock,
+  TExtra = Record<string, any>
+> {
+  pageHeading?: PageHeadingStructure | null;
+  Section?: DynamicZone<TPrimarySection>;
+  // Allows any additional dynamic zones or custom fields
+  [key: string]: any;
+}
+
+/**
+ * Helper for pages with multiple explicitly typed Dynamic Zones
+ */
+export type MultiDynamicZonePage<
+  TZones extends Record<string, DynamicZone<any>>,
+  TExtra = Record<string, any>
+> = {
+  pageHeading?: PageHeadingStructure | null;
+} & TZones & TExtra;
+
+/* =========================================================================
+ * 3. STRAPI PAGES MAP (Key-Value Pair for all 20+ Pages)
+ * ========================================================================= */
+
+export interface StrapiPagesMap {
+  termsAndCondition: StandardPageData;
+  privacyPolicy: StandardPageData;
+  home: StandardPageData;
+  aboutUs: StandardPageData;
+  blog: StandardPageData;
+  career: StandardPageData;
+  caseStudy: StandardPageData;
+  contactUs: StandardPageData;
+  aiService: StandardPageData;
+  developmentService: StandardPageData;
+  digitalMarketingService: StandardPageData;
+  qaTestingAndSupport: StandardPageData;
+  projectCostEstimator: StandardPageData;
+  brandGuideline: StandardPageData;
+  pressRelease: StandardPageData;
+  video: StandardPageData;
+  webinar: StandardPageData;
+  sitemapPage: StandardPageData;
+  thankYou: StandardPageData;
+  [pageKey: string]: StandardPageData;
+}
+
+/**
+ * Generic response helper for Strapi page queries
+ * Example: export type TermsConditionsData = StrapiPageResponse<"termsAndCondition">;
+ */
+export type StrapiPageResponse<
+  Key extends string,
+  TPageData = StandardPageData
+> = {
+  [K in Key]: TPageData | null;
+};
+
+/* =========================================================================
+ * 4. SMART UTILITY FUNCTIONS (Zero Boilerplate)
+ * ========================================================================= */
+
+/**
+ * Smart Heading Extractor
+ * Automatically extracts the best title for a page based on:
+ * 1. Relation Body title inside Dynamic Zone (if available)
+ * 2. PageHeading component (pageHeading.PageHeading.pageTitle)
+ * 3. Fallback string
+ */
+export function getPageHeading(
+  page?: StandardPageData | null,
+  fallback = ""
+): string {
+  if (!page) return fallback;
+
+  // Priority 1: Relation content title
+  const relationTitle = page.Section?.find(
+    (s: any) => s?.content?.Body?.title
+  )?.content?.Body?.title;
+
+  if (relationTitle && typeof relationTitle === "string" && relationTitle.trim()) {
+    return relationTitle.trim();
+  }
+
+  // Priority 2: Strapi PageHeading component
+  const pageTitle = page.pageHeading?.PageHeading?.pageTitle;
+  if (pageTitle && typeof pageTitle === "string" && pageTitle.trim()) {
+    return pageTitle.trim();
+  }
+
+  return fallback;
+}
+

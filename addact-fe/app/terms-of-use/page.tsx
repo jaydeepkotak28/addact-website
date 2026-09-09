@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTermsConditions } from "@/graphql/queries/getTermsConditions";
 import DynamicZoneRenderer from "@/components/dynamic-zone/DynamicZoneRenderer";
 import { generateStrapiMetadata } from "@/lib/seo";
+import { getPageHeading } from "@/lib/schemas/dynamicZoneSchema";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getTermsConditions();
@@ -12,16 +13,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function TermsConditionsPage() {
   const data = await getTermsConditions();
+  const heading = getPageHeading(data?.termsAndCondition, "Terms of Use");
   const sections = data?.termsAndCondition?.Section;
-
-  const contentTitle = sections?.find(
-    (s) => s?.content?.Body?.title
-  )?.content?.Body?.title;
-
-  const heading =
-    contentTitle ||
-    data?.termsAndCondition?.pageHeading?.PageHeading?.pageTitle ||
-    "Terms of Use";
 
   return (
     <main className="bg-white company-policy min-h-screen">
