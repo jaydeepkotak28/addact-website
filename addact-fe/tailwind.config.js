@@ -18,9 +18,6 @@ module.exports = {
       },
     },
 
-    colors: {
-      grayCustom: "#2e2e2e",
-    },
     extend: {
       screens: {
         "max-1900": { max: "1900px" },
@@ -42,6 +39,7 @@ module.exports = {
         "max-400": { max: "400px" },
       },
       colors: {
+        grayCustom: "#2e2e2e",
         border: {
           grayCustom: "#2e2e2e",
         },

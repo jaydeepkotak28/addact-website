@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono, Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
 import "../styles/custom.scss";
+import LayoutWrapper from "./LayoutWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,9 +31,11 @@ export const metadata = {
   description: "Enterprise Digital Experience & Headless Engineering Solutions",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-
-
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <head>
@@ -44,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${poppins.variable} antialiased`}
       >
-        {children}
+        <LayoutWrapper> {children}</LayoutWrapper>
       </body>
     </html>
   );
