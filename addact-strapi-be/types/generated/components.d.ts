@@ -12,6 +12,24 @@ export interface FeatureBaseHeading extends Struct.ComponentSchema {
   };
 }
 
+export interface FeatureBody extends Struct.ComponentSchema {
+  collectionName: 'components_feature_bodies';
+  info: {
+    displayName: 'Body';
+    icon: 'crown';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface FeatureContent extends Struct.ComponentSchema {
   collectionName: 'components_feature_contents';
   info: {
@@ -67,6 +85,7 @@ declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
       'feature.base-heading': FeatureBaseHeading;
+      'feature.body': FeatureBody;
       'feature.content': FeatureContent;
       'page-structure.page': PageStructurePage;
       'site-settings.seo': SiteSettingsSeo;
