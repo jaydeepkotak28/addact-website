@@ -1,20 +1,70 @@
 {
-  "kind": "singleType",
+  "kind": "collectionType",
   "collectionName": "case_studies",
   "info": {
     "singularName": "case-study",
     "pluralName": "case-studies",
-    "displayName": "Case Study"
+    "displayName": "Case Study",
+    "description": "Enterprise customer success stories and transformations"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
+    "internalName": {
+      "type": "string",
+      "required": true
+    },
     "pageHeading": {
       "type": "component",
       "component": "page-structure.page",
       "repeatable": false
+    },
+    "clientName": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "enumeration",
+      "enum": [
+        "Healthcare",
+        "FinTech",
+        "E-Commerce",
+        "Manufacturing",
+        "Technology",
+        "Retail",
+        "Automotive"
+      ],
+      "default": "Technology"
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "overview": {
+      "type": "text"
+    },
+    "challenge": {
+      "type": "text"
+    },
+    "solution": {
+      "type": "text"
+    },
+    "results": {
+      "type": "text"
+    },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "content-relation.promo-relation",
+        "content-relation.content-relation",
+        "feature.promo",
+        "feature.content"
+      ]
     }
   }
 }

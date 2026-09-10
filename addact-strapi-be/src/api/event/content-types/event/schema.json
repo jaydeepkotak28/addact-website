@@ -1,20 +1,67 @@
 {
-  "kind": "singleType",
+  "kind": "collectionType",
   "collectionName": "events",
   "info": {
     "singularName": "event",
     "pluralName": "events",
-    "displayName": "Event"
+    "displayName": "Event",
+    "description": "Industry events, conferences, summits, and meetups"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
+    "internalName": {
+      "type": "string",
+      "required": true
+    },
     "pageHeading": {
       "type": "component",
       "component": "page-structure.page",
       "repeatable": false
+    },
+    "eventType": {
+      "type": "enumeration",
+      "enum": [
+        "Conference",
+        "Meetup",
+        "Summit",
+        "Workshop"
+      ],
+      "default": "Conference"
+    },
+    "startDate": {
+      "type": "datetime"
+    },
+    "endDate": {
+      "type": "datetime"
+    },
+    "location": {
+      "type": "string"
+    },
+    "registrationUrl": {
+      "type": "string"
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "description": {
+      "type": "text"
+    },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "content-relation.promo-relation",
+        "content-relation.content-relation",
+        "feature.promo",
+        "feature.content"
+      ]
     }
   }
 }

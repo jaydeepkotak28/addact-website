@@ -1,11 +1,11 @@
 {
   "kind": "collectionType",
-  "collectionName": "webinars",
+  "collectionName": "services",
   "info": {
-    "singularName": "webinar",
-    "pluralName": "webinars",
-    "displayName": "Webinar",
-    "description": "Live and on-demand technical webinars and masterclasses"
+    "singularName": "service",
+    "pluralName": "services",
+    "displayName": "Service",
+    "description": "Recursive multi-layer services hierarchy (AI, Development, Marketing, QA, etc.)"
   },
   "options": {
     "draftAndPublish": true
@@ -21,30 +21,12 @@
       "component": "page-structure.page",
       "repeatable": false
     },
-    "webinarDate": {
-      "type": "datetime"
+    "parent": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::service.service"
     },
-    "speakerName": {
-      "type": "string"
-    },
-    "speakerRole": {
-      "type": "string"
-    },
-    "videoUrl": {
-      "type": "string"
-    },
-    "registrationUrl": {
-      "type": "string"
-    },
-    "status": {
-      "type": "enumeration",
-      "enum": [
-        "Upcoming",
-        "On-Demand / Recorded"
-      ],
-      "default": "Upcoming"
-    },
-    "coverImage": {
+    "icon": {
       "type": "media",
       "multiple": false,
       "required": false,
@@ -52,7 +34,7 @@
         "images"
       ]
     },
-    "description": {
+    "shortDescription": {
       "type": "text"
     },
     "sections": {

@@ -1,20 +1,76 @@
 {
-  "kind": "singleType",
+  "kind": "collectionType",
   "collectionName": "blogs",
   "info": {
     "singularName": "blog",
     "pluralName": "blogs",
-    "displayName": "Blog"
+    "displayName": "Blog",
+    "description": "Insightful technology articles, guides, and news"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
+    "internalName": {
+      "type": "string",
+      "required": true
+    },
     "pageHeading": {
       "type": "component",
       "component": "page-structure.page",
       "repeatable": false
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "excerpt": {
+      "type": "text"
+    },
+    "author": {
+      "type": "string"
+    },
+    "authorRole": {
+      "type": "string"
+    },
+    "readingTime": {
+      "type": "string"
+    },
+    "publishedDate": {
+      "type": "date"
+    },
+    "content": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Sitecore",
+        "AI & Machine Learning",
+        "Headless & Composable",
+        "Digital Marketing",
+        "QA & Testing",
+        "Cloud & DevOps"
+      ],
+      "default": "Sitecore"
+    },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "content-relation.promo-relation",
+        "content-relation.content-relation",
+        "feature.promo",
+        "feature.content"
+      ]
     }
   }
 }
