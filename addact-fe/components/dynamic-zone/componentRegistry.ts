@@ -4,6 +4,7 @@ import ContentRelationBlock from "./blocks/ContentRelationBlock";
 import PromoBlock from "./blocks/PromoBlock";
 import PromoRelationBlock from "./blocks/PromoRelationBlock";
 import BannerRelationBlock from "./blocks/BannerRelationBlock";
+import CtaRelationBlock from "./blocks/CtaRelationBlock";
 import type { DynamicZoneComponentMap } from "@/lib/schemas/dynamicZoneSchema";
 
 /**
@@ -38,6 +39,10 @@ export const componentRegistry: ComponentRegistryType = {
   // Strapi GraphQL __typename for component 'content-relation.banner-relation'
   ComponentContentRelationBannerRelation: BannerRelationBlock,
   "content-relation.banner-relation": BannerRelationBlock,
+
+  // Strapi GraphQL __typename for component 'content-relation.cta-relation'
+  ComponentContentRelationCtaRelation: CtaRelationBlock,
+  "content-relation.cta-relation": CtaRelationBlock,
 
   // Strapi GraphQL __typename for component 'feature.promo'
   ComponentFeaturePromo: PromoBlock,

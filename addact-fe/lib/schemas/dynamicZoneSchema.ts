@@ -177,6 +177,31 @@ export const BannerRelationBlockSchema = z.object({
 
 export type BannerRelationBlockData = z.infer<typeof BannerRelationBlockSchema>;
 
+/**
+ * Core CTA Entity Schema (matches Strapi 'api::cta.cta')
+ */
+export const CtaSchema = z.object({
+  documentId: z.string().optional(),
+  internalName: z.string().nullable().optional(),
+  title: SharedTitleSchema.nullable().optional(),
+  description: z.any().nullable().optional(),
+  image: StrapiMediaSchema.nullable().optional(),
+  link: SharedLinkSchema.nullable().optional(),
+});
+
+export type CtaData = z.infer<typeof CtaSchema>;
+
+/**
+ * Zod Schema for 'content-relation.cta-relation' component
+ */
+export const CtaRelationBlockSchema = z.object({
+  __typename: z.literal("ComponentContentRelationCtaRelation").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  cta: CtaSchema.nullable().optional(),
+});
+
+export type CtaRelationBlockData = z.infer<typeof CtaRelationBlockSchema>;
+
 
 /**
  * Generic Dynamic Zone Block Schema
@@ -267,6 +292,8 @@ export interface DynamicZoneComponentMap {
   "content-relation.promo-relation": PromoRelationBlockData;
   ComponentContentRelationBannerRelation: BannerRelationBlockData;
   "content-relation.banner-relation": BannerRelationBlockData;
+  ComponentContentRelationCtaRelation: CtaRelationBlockData;
+  "content-relation.cta-relation": CtaRelationBlockData;
   ComponentFeaturePromo: PromoBlockData;
   "feature.promo": PromoBlockData;
   // Future components:
@@ -295,7 +322,8 @@ export type AnyDynamicZoneBlock =
       Partial<ContentRelationBlockData> &
       Partial<ContentBlockData> &
       Partial<PromoRelationBlockData> &
-      Partial<BannerRelationBlockData>)
+      Partial<BannerRelationBlockData> &
+      Partial<CtaRelationBlockData>)
   | KnownDynamicZoneBlock
   | BaseDynamicZoneBlock;
 

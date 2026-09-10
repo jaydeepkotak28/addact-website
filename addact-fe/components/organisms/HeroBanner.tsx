@@ -4,6 +4,7 @@ import React from "react";
 import { openContactDrawer, shouldOpenContactDrawer } from "@/lib/contactDrawer";
 import Image from "next/image";
 import Link from "next/link";
+import DynamicTitle from "../atoms/DynamicTitle";
 
 import type { HeroBannerProps } from "@/types";
 
@@ -95,21 +96,21 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           {chipsText && chipsText.length > 0 && (
             <div className={`flex flex-wrap gap-2 mb-4 ${isTextAlignCenter ? "justify-center" : "justify-start"}`}>
               {chipsText.map((chip, idx) => (
-                <span
+                <DynamicTitle
                   key={idx}
+                  data={chip}
+                  defaultTag="span"
                   className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/30"
-                >
-                  {chip.title}
-                </span>
+                />
               ))}
             </div>
           )}
 
-          <h1
+          <DynamicTitle
+            title={title}
+            defaultTag="h1"
             className={`text-white mb-[20px] md:mb-[15px] !font-bold !text-[33px] md:!text-[45px] leading-[55px] 2xl:!text-[60px] !2xl:leading-[63px] xl:max-w-[60%] ${isTextAlignCenter ? "mx-auto" : ""}`}
-          >
-            {title}
-          </h1>
+          />
 
           {description && (
             <div

@@ -1,18 +1,39 @@
 import React from "react";
 import type { SharedTitle } from "@/lib/schemas/dynamicZoneSchema";
 
+export type HeadingTag =
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "span"
+  | "div"
+  | "p";
+
+export type StrapiHeadingTag =
+  | "H1"
+  | "H2"
+  | "H3"
+  | "H4"
+  | "H5"
+  | "H6"
+  | string;
+
 export interface DynamicTitleProps {
   data?: SharedTitle | null;
-  title?: string | null;
-  tag?: "H1" | "H2" | "H3" | "H4" | "H5" | "H6" | string | null;
-  defaultTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "div";
+  title?: string | SharedTitle | null;
+  tag?: StrapiHeadingTag | HeadingTag | null;
+  defaultTag?: HeadingTag;
   className?: string;
   children?: React.ReactNode;
 }
 
 /**
- * Reusable Atom component to render 'shared.title' component
- * dynamically with its selected semantic HTML tag (H1-H6).
+ * Reusable DynamicTitle Component
+ * Standardized across all organisms, dynamic-zone blocks, and pages.
+ * Dynamically resolves heading level (H1-H6) from Strapi shared.title or tag prop.
  */
 export const DynamicTitle: React.FC<DynamicTitleProps> = ({
   data,
@@ -22,11 +43,25 @@ export const DynamicTitle: React.FC<DynamicTitleProps> = ({
   className = "",
   children,
 }) => {
-  const content = children || data?.title || title;
+  // Extract text content from children, title (string or object), or data
+  const content =
+    children ||
+    (typeof title === "object" && title !== null ? title.title : title) ||
+    data?.title;
+
   if (!content) return null;
 
-  const rawTag = data?.tag || tag;
-  const tagName = rawTag ? (rawTag.toLowerCase() as keyof React.JSX.IntrinsicElements) : defaultTag;
+  // Resolve HTML tag with precedence: explicit tag prop > title.tag > data.tag > defaultTag
+  const resolvedTag =
+    tag ||
+    (typeof title === "object" && title !== null ? title.tag : null) ||
+    data?.tag ||
+    defaultTag;
+
+  const tagName = resolvedTag
+    ? (resolvedTag.toLowerCase() as HeadingTag)
+    : defaultTag;
+
   const Tag = tagName as any;
 
   return <Tag className={className}>{content}</Tag>;

@@ -4,10 +4,12 @@ import { MEDIA_FRAGMENT } from "../fragments/media";
 import { LINK_FRAGMENT, TITLE_FRAGMENT } from "../fragments/shared";
 import { PAGE_HEADING_FRAGMENT } from "../fragments/pageHeading";
 import { BANNER_FIELDS_FRAGMENT } from "../fragments/banner";
+import { CTA_FIELDS_FRAGMENT } from "../fragments/cta";
 import {
   PROMO_RELATION_FRAGMENT,
   CONTENT_RELATION_FRAGMENT,
   BANNER_RELATION_FRAGMENT,
+  CTA_RELATION_FRAGMENT,
 } from "../fragments/dynamicZone";
 import type { StandardPageData } from "@/lib/schemas/dynamicZoneSchema";
 
@@ -29,9 +31,11 @@ export const GET_PAGE_BY_SLUG = gql`
   ${TITLE_FRAGMENT}
   ${PAGE_HEADING_FRAGMENT}
   ${BANNER_FIELDS_FRAGMENT}
+  ${CTA_FIELDS_FRAGMENT}
   ${PROMO_RELATION_FRAGMENT}
   ${CONTENT_RELATION_FRAGMENT}
   ${BANNER_RELATION_FRAGMENT}
+  ${CTA_RELATION_FRAGMENT}
   query GetPageBySlug($slug: String!, $slugWithSlash: String!) {
     pages(
       filters: {
@@ -58,6 +62,9 @@ export const GET_PAGE_BY_SLUG = gql`
         }
         ... on ComponentContentRelationBannerRelation {
           ...BannerRelationFields
+        }
+        ... on ComponentContentRelationCtaRelation {
+          ...CtaRelationFields
         }
       }
     }

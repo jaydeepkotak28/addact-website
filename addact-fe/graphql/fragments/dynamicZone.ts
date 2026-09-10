@@ -71,3 +71,15 @@ export const BANNER_RELATION_FRAGMENT = gql`
     }
   }
 `;
+
+/**
+ * Reusable GraphQL Fragment for 'content-relation.cta-relation'
+ */
+export const CTA_RELATION_FRAGMENT = gql`
+  fragment CtaRelationFields on ComponentContentRelationCtaRelation {
+    cta {
+      ...CtaFields
+    }
+  }
+`;
+

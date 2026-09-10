@@ -616,6 +616,13 @@ export interface ApiCtaCta extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     internalName: Schema.Attribute.String;
     link: Schema.Attribute.Component<'shared.link', false>;
@@ -771,6 +778,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'content-relation.promo-relation',
         'content-relation.content-relation',
         'content-relation.banner-relation',
+        'content-relation.cta-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;

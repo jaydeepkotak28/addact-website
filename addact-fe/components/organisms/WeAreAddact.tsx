@@ -1,6 +1,7 @@
 import React from "react";
 import StrapiImage from "../atoms/StrapiImage";
 import RichText from "../atoms/RichText";
+import DynamicTitle from "../atoms/DynamicTitle";
 import type { BasePromoProps } from "@/lib/schemas/dynamicZoneSchema";
 
 export interface WeAreAddactProps extends BasePromoProps {}
@@ -44,9 +45,11 @@ export const WeAreAddact: React.FC<WeAreAddactProps> = ({
           )}
 
           {title && (
-            <h2 className="!text-[28px] md:!text-[40px] 2xl:!text-[60px] text-black mb-[20px] !font-normal">
-              {title}
-            </h2>
+            <DynamicTitle
+              title={title}
+              defaultTag="h2"
+              className="!text-[28px] md:!text-[40px] 2xl:!text-[60px] text-black mb-[20px] !font-normal"
+            />
           )}
 
           {/* Mobile Image (in-between title & content) */}

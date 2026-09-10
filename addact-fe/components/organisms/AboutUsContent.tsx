@@ -1,6 +1,7 @@
 import React from "react";
 import StrapiImage from "../atoms/StrapiImage";
 import RichText from "../atoms/RichText";
+import DynamicTitle from "../atoms/DynamicTitle";
 import type { BasePromoProps } from "@/lib/schemas/dynamicZoneSchema";
 
 export interface AboutUsContentProps extends BasePromoProps {}
@@ -25,9 +26,11 @@ export const AboutUsContent: React.FC<AboutUsContentProps> = ({
           </p>
         )}
         {title && (
-          <h3 className="text-[#000] font-[400] 2xl:mb-[40px] mb-[30px]">
-            {title}
-          </h3>
+          <DynamicTitle
+            title={title}
+            defaultTag="h3"
+            className="text-[#000] font-[400] 2xl:mb-[40px] mb-[30px]"
+          />
         )}
         {content && <RichText html={content} />}
         {currentImage && (
