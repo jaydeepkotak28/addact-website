@@ -33,3 +33,17 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+scratch/
+
+# Database dumps & SQL backups
+*.sql
+*.dump
+*.tar.gz
+*.sqlite
+*.sqlite3
+
+# Scripts & Scratch
+scripts/
+scratch/
+
+
