@@ -134,7 +134,8 @@ export type SharedLink = z.infer<typeof SharedLinkSchema>;
  * Shared Title Component Schema ('shared.title')
  */
 export const SharedTitleSchema = z.object({
-  title: z.string(),
+  title: z.string().nullable().optional(),
+  tag: z.enum(["H1", "H2", "H3", "H4", "H5", "H6"]).nullable().optional(),
 });
 
 export type SharedTitle = z.infer<typeof SharedTitleSchema>;

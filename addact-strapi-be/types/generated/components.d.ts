@@ -155,6 +155,7 @@ export interface SharedTitle extends Struct.ComponentSchema {
     displayName: 'Title';
   };
   attributes: {
+    tag: Schema.Attribute.Enumeration<['H1', 'H2', 'H3', 'H4', 'H5', 'H6']>;
     title: Schema.Attribute.String;
   };
 }

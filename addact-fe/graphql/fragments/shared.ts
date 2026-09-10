@@ -18,5 +18,6 @@ export const LINK_FRAGMENT = gql`
 export const TITLE_FRAGMENT = gql`
   fragment TitleFields on ComponentSharedTitle {
     title
+    tag
   }
 `;

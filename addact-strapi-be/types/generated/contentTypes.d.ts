@@ -602,6 +602,34 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCtaCta extends Struct.CollectionTypeSchema {
+  collectionName: 'ctas';
+  info: {
+    displayName: 'CTA';
+    pluralName: 'ctas';
+    singularName: 'cta';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    internalName: Schema.Attribute.String;
+    link: Schema.Attribute.Component<'shared.link', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::cta.cta'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.Component<'shared.title', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   collectionName: 'events';
   info: {
@@ -1542,6 +1570,7 @@ declare module '@strapi/strapi' {
       'api::banner.banner': ApiBannerBanner;
       'api::blog.blog': ApiBlogBlog;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
+      'api::cta.cta': ApiCtaCta;
       'api::event.event': ApiEventEvent;
       'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::home.home': ApiHomeHome;
