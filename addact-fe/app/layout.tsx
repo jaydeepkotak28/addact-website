@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat, Poppins } from "next/font/google";
 import { getGlobalSetting } from "@/graphql/queries/getGlobalSetting";
 import { getStrapiMediaUrl } from "@/lib/media";
+import Header from "@/components/organisms/Header";
+import Footer from "@/components/organisms/Footer";
 import "./globals.css";
 import "../styles/custom.scss";
 import LayoutWrapper from "./LayoutWrapper";
@@ -28,10 +31,24 @@ const poppins = Poppins({
   display: "swap",
 });
 
-// export const metadata = {
-//   title: "Addact Technologies",
-//   description: "Enterprise Digital Experience & Headless Engineering Solutions",
-// };
+export async function generateMetadata(): Promise<Metadata> {
+  const globalData = await getGlobalSetting().catch(() => null);
+  const favicon = globalData?.globalSetting?.brandAssets?.favicon;
+  const faviconUrl = favicon?.url ? getStrapiMediaUrl(favicon.url) : "/favicon.ico";
+
+  return {
+    title: {
+      default: "Addact Technologies | Digital Experience Solutions",
+      template: "%s | Addact Technologies",
+    },
+    description: "Enterprise Digital Experience & Headless Engineering Solutions",
+    icons: {
+      icon: faviconUrl,
+      shortcut: faviconUrl,
+      apple: faviconUrl,
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -41,7 +58,9 @@ export default async function RootLayout({
   const globalData = await getGlobalSetting().catch(() => null);
   const theme = globalData?.globalSetting?.themeColors;
   const typography = globalData?.globalSetting?.typographyLayout;
-  const favicon = globalData?.globalSetting?.brandAssets?.favicon;
+  const brandAssets = globalData?.globalSetting?.brandAssets;
+  const siteInfo = globalData?.globalSetting?.siteInfo;
+  const favicon = brandAssets?.favicon;
   const faviconUrl = favicon?.url ? getStrapiMediaUrl(favicon.url) : null;
 
   return (
@@ -66,9 +85,18 @@ export default async function RootLayout({
         `}</style>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${poppins.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${poppins.variable} antialiased flex flex-col min-h-screen`}
       >
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <Header headerLogo={brandAssets?.headerLogo} />
+        <LayoutWrapper>
+          <div className="flex-1">{children}</div>
+        </LayoutWrapper>
+        <Footer
+          footerLogo={brandAssets?.footerLogo}
+          copyrightText={siteInfo?.copyrightText}
+          supportEmail={siteInfo?.supportEmail}
+          socialLinks={siteInfo?.socialLinks}
+        />
       </body>
     </html>
   );
