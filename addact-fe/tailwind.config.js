@@ -40,6 +40,10 @@ module.exports = {
       },
       colors: {
         grayCustom: "#2e2e2e",
+        brandBlue: "var(--brand-blue, #3C4CFF)",
+        siteDark: "var(--bg-dark, #0F0F0F)",
+        siteLight: "var(--bg-light, #F4F4F4)",
+        siteCard: "var(--card-bg, #FFFFFF)",
         border: {
           grayCustom: "#2e2e2e",
         },

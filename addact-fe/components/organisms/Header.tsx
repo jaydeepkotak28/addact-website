@@ -20,7 +20,7 @@ export const Header: React.FC<HeaderProps> = ({ headerLogo }) => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[var(--bg-dark,#0F0F0F)]/95 backdrop-blur-md border-b border-white/10 transition-colors duration-200">
+    <header className="sticky top-0 z-50 bg-siteDark/95 backdrop-blur-md border-b border-white/10 transition-colors duration-200">
       <div className="container-main">
         <div className="flex items-center justify-between h-20">
           {/* Brand Logo */}
@@ -39,7 +39,7 @@ export const Header: React.FC<HeaderProps> = ({ headerLogo }) => {
                 <span className="text-2xl font-bold tracking-wider text-white font-montserrat">
                   ADDACT
                 </span>
-                <span className="text-3xl leading-none text-[var(--brand-blue,#3C4CFF)] font-bold">
+                <span className="text-3xl leading-none text-brandBlue font-bold">
                   .
                 </span>
               </div>
@@ -52,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({ headerLogo }) => {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-gray-300 hover:text-white text-sm font-medium transition-colors hover:text-[var(--brand-blue,#3C4CFF)]"
+                className="text-gray-300 hover:text-white text-sm font-medium transition-colors hover:text-brandBlue"
               >
                 {link.label}
               </Link>
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({ headerLogo }) => {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="/#contact"
-              className="px-6 py-2.5 rounded-full text-sm font-semibold text-white bg-[var(--brand-blue,#3C4CFF)] hover:opacity-90 shadow-md shadow-[var(--brand-blue,#3C4CFF)]/20 transition-all hover:scale-[1.02]"
+              className="px-6 py-2.5 rounded-full text-sm font-semibold text-white bg-brandBlue hover:opacity-90 shadow-md shadow-brandBlue/20 transition-all hover:scale-[1.02]"
             >
               Let&apos;s Talk
             </Link>
@@ -125,7 +125,7 @@ export const Header: React.FC<HeaderProps> = ({ headerLogo }) => {
               <Link
                 href="/#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-center w-full px-6 py-2.5 rounded-full text-sm font-semibold text-white bg-[var(--brand-blue,#3C4CFF)] hover:opacity-90 transition-all"
+                className="block text-center w-full px-6 py-2.5 rounded-full text-sm font-semibold text-white bg-brandBlue hover:opacity-90 transition-all"
               >
                 Let&apos;s Talk
               </Link>

@@ -84,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({
   const defaultCopyright = `© ${new Date().getFullYear()} Addact Technologies. All Rights Reserved.`;
 
   return (
-    <footer className="bg-[var(--bg-dark,#0F0F0F)] text-white pt-16 pb-12 border-t border-white/10">
+    <footer className="bg-siteDark text-white pt-16 pb-12 border-t border-white/10">
       <div className="container-main">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12">
           {/* Brand Info */}
@@ -103,7 +103,7 @@ export const Footer: React.FC<FooterProps> = ({
                   <span className="text-2xl font-bold tracking-wider text-white font-montserrat">
                     ADDACT
                   </span>
-                  <span className="text-3xl leading-none text-[var(--brand-blue,#3C4CFF)] font-bold">
+                  <span className="text-3xl leading-none text-brandBlue font-bold">
                     .
                   </span>
                 </div>
@@ -122,7 +122,7 @@ export const Footer: React.FC<FooterProps> = ({
                 </span>
                 <a
                   href={`mailto:${supportEmail}`}
-                  className="text-base font-medium text-white hover:text-[var(--brand-blue,#3C4CFF)] transition-colors"
+                  className="text-base font-medium text-white hover:text-brandBlue transition-colors"
                 >
                   {supportEmail}
                 </a>
@@ -203,7 +203,7 @@ export const Footer: React.FC<FooterProps> = ({
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:bg-[var(--brand-blue,#3C4CFF)] hover:border-[var(--brand-blue,#3C4CFF)] transition-all duration-200"
+                      className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:bg-brandBlue hover:border-brandBlue transition-all duration-200"
                       aria-label={item.platform || "Social Link"}
                       title={item.platform}
                     >

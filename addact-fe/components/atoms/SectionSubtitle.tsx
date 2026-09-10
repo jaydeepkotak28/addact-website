@@ -12,7 +12,7 @@ export const SectionSubtitle: React.FC<SectionSubtitleProps> = ({
   if (!children) return null;
 
   return (
-    <p className={`text-[var(--brand-blue,#3C4CFF)] text-[17px] mb-[15px] leading-[26px] font-medium ${className}`}>
+    <p className={`text-brandBlue text-[17px] mb-[15px] leading-[26px] font-medium ${className}`}>
       {children}
     </p>
   );
