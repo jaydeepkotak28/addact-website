@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_relation_cta_relations",
+  "info": {
+    "displayName": "CTA Relation",
+    "icon": "discuss"
+  },
+  "options": {},
+  "attributes": {
+    "cta": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cta.cta"
+    }
+  },
+  "config": {}
+}

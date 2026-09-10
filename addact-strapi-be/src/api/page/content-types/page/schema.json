@@ -47,7 +47,8 @@
       "components": [
         "content-relation.promo-relation",
         "content-relation.content-relation",
-        "content-relation.banner-relation"
+        "content-relation.banner-relation",
+        "content-relation.cta-relation"
       ]
     }
   }

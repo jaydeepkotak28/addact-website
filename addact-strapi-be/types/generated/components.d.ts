@@ -25,6 +25,17 @@ export interface ContentRelationContentRelation extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentRelationCtaRelation extends Struct.ComponentSchema {
+  collectionName: 'components_content_relation_cta_relations';
+  info: {
+    displayName: 'CTA Relation';
+    icon: 'discuss';
+  };
+  attributes: {
+    cta: Schema.Attribute.Relation<'oneToOne', 'api::cta.cta'>;
+  };
+}
+
 export interface ContentRelationPromoRelation extends Struct.ComponentSchema {
   collectionName: 'components_content_relation_promo_relations';
   info: {
@@ -277,6 +288,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'content-relation.banner-relation': ContentRelationBannerRelation;
       'content-relation.content-relation': ContentRelationContentRelation;
+      'content-relation.cta-relation': ContentRelationCtaRelation;
       'content-relation.promo-relation': ContentRelationPromoRelation;
       'feature.base-heading': FeatureBaseHeading;
       'feature.body': FeatureBody;
