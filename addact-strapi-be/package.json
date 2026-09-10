@@ -11,6 +11,7 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "strapi": "strapi",
+    "sync-s3": "node scripts/sync-s3-to-db.js",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
@@ -20,6 +21,7 @@
     "@strapi/plugin-cloud": "5.52.3",
     "@strapi/plugin-graphql": "^5.52.3",
     "@strapi/plugin-users-permissions": "5.52.3",
+    "@strapi/provider-upload-aws-s3": "^5.52.3",
     "@strapi/strapi": "5.52.3",
     "pg": "8.20.0",
     "react": "^18.0.0",
