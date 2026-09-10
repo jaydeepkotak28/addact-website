@@ -734,7 +734,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     pageHeading: Schema.Attribute.Component<'page-structure.page', false>;
     pageType: Schema.Attribute.Enumeration<
-      ['Standard', 'LegalPolicy', 'FullWidth']
+      ['Standard', 'Dark', 'Light', 'LegalPolicy', 'FullWidth']
     > &
       Schema.Attribute.DefaultTo<'Standard'>;
     publishedAt: Schema.Attribute.DateTime;
@@ -748,6 +748,10 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    variant: Schema.Attribute.Enumeration<
+      ['default', 'dark', 'light', 'legal_policy']
+    > &
+      Schema.Attribute.DefaultTo<'default'>;
   };
 }
 

@@ -21,8 +21,20 @@
       "default": "Standard",
       "enum": [
         "Standard",
+        "Dark",
+        "Light",
         "LegalPolicy",
         "FullWidth"
+      ]
+    },
+    "variant": {
+      "type": "enumeration",
+      "default": "default",
+      "enum": [
+        "default",
+        "dark",
+        "light",
+        "legal_policy"
       ]
     },
     "pageHeading": {

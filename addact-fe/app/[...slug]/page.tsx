@@ -59,8 +59,10 @@ export default async function CatchAllPage({ params }: PageProps) {
     "";
   const sections = page.sections || [];
 
-  // Dynamic layout selection driven directly by Strapi CMS (pageType field)
-  const isPolicyPage = page.pageType === "LegalPolicy";
+  // Dynamic layout selection driven directly by Strapi CMS (pageType / variant field)
+  const isPolicyPage = page.pageType === "LegalPolicy" || page.variant === "legal_policy";
+  const isDarkPage = page.pageType === "Dark" || page.variant === "dark";
+  const isLightPage = page.pageType === "Light" || page.variant === "light";
 
   if (isPolicyPage) {
     return (
@@ -73,13 +75,27 @@ export default async function CatchAllPage({ params }: PageProps) {
     );
   }
 
+  // Variant classes:
+  // - Dark: bg-siteDark text-white
+  // - Light: bg-siteLight
+  // - Standard/Default: no forced background (clean <main>)
+  const mainVariantClass = isDarkPage
+    ? "bg-siteDark text-white"
+    : isLightPage
+      ? "bg-siteLight"
+      : "";
+
   return (
-    <main className="bg-siteLight min-h-screen">
+    <main className={`${mainVariantClass} min-h-screen`.trim()}>
       {sections.length > 0 ? (
         <DynamicZoneRenderer sections={sections} />
       ) : heading ? (
         <div className="container-main py-12 text-center">
-          <h1 className="text-3xl font-bold text-black font-montserrat">
+          <h1
+            className={`text-3xl font-bold font-montserrat ${
+              isDarkPage ? "text-white" : "text-black"
+            }`}
+          >
             {heading}
           </h1>
         </div>

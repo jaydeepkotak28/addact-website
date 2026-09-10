@@ -14,7 +14,8 @@ import type { StandardPageData } from "@/lib/schemas/dynamicZoneSchema";
 export interface PageItemData extends StandardPageData {
   documentId?: string;
   internalName?: string;
-  pageType?: "Standard" | "LegalPolicy" | "FullWidth" | string;
+  pageType?: "Standard" | "Dark" | "Light" | "LegalPolicy" | "FullWidth" | string;
+  variant?: "default" | "dark" | "light" | "legal_policy" | string;
   sections?: any[];
 }
 
@@ -43,6 +44,7 @@ export const GET_PAGE_BY_SLUG = gql`
       documentId
       internalName
       pageType
+      variant
       pageHeading {
         ...PageHeadingFields
       }
