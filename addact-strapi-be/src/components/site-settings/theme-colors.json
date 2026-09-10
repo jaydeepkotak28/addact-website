@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_site_settings_theme_colors",
+  "info": {
+    "displayName": "Theme Colors",
+    "icon": "paint-brush",
+    "description": "Brand & UI color palette for Addact website"
+  },
+  "options": {},
+  "attributes": {
+    "brandBlue": {
+      "type": "string",
+      "default": "#3C4CFF"
+    },
+    "darkBackground": {
+      "type": "string",
+      "default": "#0F0F0F"
+    },
+    "lightBackground": {
+      "type": "string",
+      "default": "#F4F4F4"
+    },
+    "cardBackground": {
+      "type": "string",
+      "default": "#FFFFFF"
+    },
+    "textPrimary": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "textMuted": {
+      "type": "string",
+      "default": "#2E2E2E"
+    }
+  }
+}

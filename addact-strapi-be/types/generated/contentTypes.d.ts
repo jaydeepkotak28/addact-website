@@ -721,6 +721,47 @@ export interface ApiEventEvent extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
+  collectionName: 'global_settings';
+  info: {
+    description: 'Global website theme, colors, typography, logos, and site info';
+    displayName: 'Global Setting';
+    pluralName: 'global-settings';
+    singularName: 'global-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    brandAssets: Schema.Attribute.Component<
+      'site-settings.brand-assets',
+      false
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::global-setting.global-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    siteInfo: Schema.Attribute.Component<'site-settings.site-info', false>;
+    themeColors: Schema.Attribute.Component<
+      'site-settings.theme-colors',
+      false
+    >;
+    typographyLayout: Schema.Attribute.Component<
+      'site-settings.typography-layout',
+      false
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHireExpertHireExpert extends Struct.SingleTypeSchema {
   collectionName: 'hire_experts';
   info: {
@@ -1736,6 +1777,7 @@ declare module '@strapi/strapi' {
       'api::development-service.development-service': ApiDevelopmentServiceDevelopmentService;
       'api::digital-marketing-service.digital-marketing-service': ApiDigitalMarketingServiceDigitalMarketingService;
       'api::event.event': ApiEventEvent;
+      'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::hire-expert.hire-expert': ApiHireExpertHireExpert;
       'api::home.home': ApiHomeHome;
       'api::press-release.press-release': ApiPressReleasePressRelease;

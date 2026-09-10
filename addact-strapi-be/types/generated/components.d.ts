@@ -114,6 +114,20 @@ export interface PageStructurePage extends Struct.ComponentSchema {
   };
 }
 
+export interface SiteSettingsBrandAssets extends Struct.ComponentSchema {
+  collectionName: 'components_site_settings_brand_assets';
+  info: {
+    description: 'Logos and favicon for Addact';
+    displayName: 'Brand Assets';
+    icon: 'landscape';
+  };
+  attributes: {
+    favicon: Schema.Attribute.Media<'images'>;
+    footerLogo: Schema.Attribute.Media<'images'>;
+    headerLogo: Schema.Attribute.Media<'images'>;
+  };
+}
+
 export interface SiteSettingsSeo extends Struct.ComponentSchema {
   collectionName: 'components_site_settings_seos';
   info: {
@@ -136,6 +150,82 @@ export interface SiteSettingsSeo extends Struct.ComponentSchema {
   };
 }
 
+export interface SiteSettingsSiteInfo extends Struct.ComponentSchema {
+  collectionName: 'components_site_settings_site_infos';
+  info: {
+    description: 'Global company info, copyright, and social channels';
+    displayName: 'Site Info & Social Links';
+    icon: 'information';
+  };
+  attributes: {
+    copyrightText: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'\u00A9 2026 Addact Technologies. All Rights Reserved.'>;
+    socialLinks: Schema.Attribute.Component<'site-settings.social-link', true>;
+    supportEmail: Schema.Attribute.Email &
+      Schema.Attribute.DefaultTo<'info@addact.net'>;
+  };
+}
+
+export interface SiteSettingsSocialLink extends Struct.ComponentSchema {
+  collectionName: 'components_site_settings_social_links';
+  info: {
+    description: 'Social media platform and URL';
+    displayName: 'Social Link';
+    icon: 'link';
+  };
+  attributes: {
+    platform: Schema.Attribute.Enumeration<
+      ['LinkedIn', 'Twitter / X', 'Instagram', 'Facebook', 'YouTube', 'GitHub']
+    > &
+      Schema.Attribute.DefaultTo<'LinkedIn'>;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SiteSettingsThemeColors extends Struct.ComponentSchema {
+  collectionName: 'components_site_settings_theme_colors';
+  info: {
+    description: 'Brand & UI color palette for Addact website';
+    displayName: 'Theme Colors';
+    icon: 'paint-brush';
+  };
+  attributes: {
+    brandBlue: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#3C4CFF'>;
+    cardBackground: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#FFFFFF'>;
+    darkBackground: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#0F0F0F'>;
+    lightBackground: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#F4F4F4'>;
+    textMuted: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#2E2E2E'>;
+    textPrimary: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#000000'>;
+  };
+}
+
+export interface SiteSettingsTypographyLayout extends Struct.ComponentSchema {
+  collectionName: 'components_site_settings_typography_layouts';
+  info: {
+    description: 'Global fonts and layout settings';
+    displayName: 'Typography & Layout';
+    icon: 'bold';
+  };
+  attributes: {
+    bodyFont: Schema.Attribute.Enumeration<
+      ['Poppins', 'Montserrat', 'Geist', 'Inter', 'Roboto']
+    > &
+      Schema.Attribute.DefaultTo<'Poppins'>;
+    containerMaxWidth: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'1600px'>;
+    defaultBorderRadius: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'16px'>;
+    headingFont: Schema.Attribute.Enumeration<
+      ['Montserrat', 'Poppins', 'Geist', 'Inter', 'Roboto']
+    > &
+      Schema.Attribute.DefaultTo<'Montserrat'>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
@@ -146,7 +236,12 @@ declare module '@strapi/strapi' {
       'feature.content': FeatureContent;
       'feature.promo': FeaturePromo;
       'page-structure.page': PageStructurePage;
+      'site-settings.brand-assets': SiteSettingsBrandAssets;
       'site-settings.seo': SiteSettingsSeo;
+      'site-settings.site-info': SiteSettingsSiteInfo;
+      'site-settings.social-link': SiteSettingsSocialLink;
+      'site-settings.theme-colors': SiteSettingsThemeColors;
+      'site-settings.typography-layout': SiteSettingsTypographyLayout;
     }
   }
 }

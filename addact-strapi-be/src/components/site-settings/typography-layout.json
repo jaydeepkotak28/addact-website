@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_site_settings_typography_layouts",
+  "info": {
+    "displayName": "Typography & Layout",
+    "icon": "bold",
+    "description": "Global fonts and layout settings"
+  },
+  "options": {},
+  "attributes": {
+    "headingFont": {
+      "type": "enumeration",
+      "enum": [
+        "Montserrat",
+        "Poppins",
+        "Geist",
+        "Inter",
+        "Roboto"
+      ],
+      "default": "Montserrat"
+    },
+    "bodyFont": {
+      "type": "enumeration",
+      "enum": [
+        "Poppins",
+        "Montserrat",
+        "Geist",
+        "Inter",
+        "Roboto"
+      ],
+      "default": "Poppins"
+    },
+    "defaultBorderRadius": {
+      "type": "string",
+      "default": "16px"
+    },
+    "containerMaxWidth": {
+      "type": "string",
+      "default": "1600px"
+    }
+  }
+}

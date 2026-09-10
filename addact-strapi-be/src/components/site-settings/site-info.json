@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_site_settings_site_infos",
+  "info": {
+    "displayName": "Site Info & Social Links",
+    "icon": "information",
+    "description": "Global company info, copyright, and social channels"
+  },
+  "options": {},
+  "attributes": {
+    "copyrightText": {
+      "type": "string",
+      "default": "© 2026 Addact Technologies. All Rights Reserved."
+    },
+    "supportEmail": {
+      "type": "email",
+      "default": "info@addact.net"
+    },
+    "socialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "site-settings.social-link"
+    }
+  }
+}

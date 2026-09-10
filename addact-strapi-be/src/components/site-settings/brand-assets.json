@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_site_settings_brand_assets",
+  "info": {
+    "displayName": "Brand Assets",
+    "icon": "landscape",
+    "description": "Logos and favicon for Addact"
+  },
+  "options": {},
+  "attributes": {
+    "headerLogo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "footerLogo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "favicon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

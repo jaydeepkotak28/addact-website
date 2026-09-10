@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_site_settings_social_links",
+  "info": {
+    "displayName": "Social Link",
+    "icon": "link",
+    "description": "Social media platform and URL"
+  },
+  "options": {},
+  "attributes": {
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "LinkedIn",
+        "Twitter / X",
+        "Instagram",
+        "Facebook",
+        "YouTube",
+        "GitHub"
+      ],
+      "default": "LinkedIn"
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

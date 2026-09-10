@@ -1,4 +1,6 @@
 import { Geist, Geist_Mono, Montserrat, Poppins } from "next/font/google";
+import { getGlobalSetting } from "@/graphql/queries/getGlobalSetting";
+import { getStrapiMediaUrl } from "@/lib/media";
 import "./globals.css";
 import "../styles/custom.scss";
 import LayoutWrapper from "./LayoutWrapper";
@@ -31,11 +33,17 @@ const poppins = Poppins({
 //   description: "Enterprise Digital Experience & Headless Engineering Solutions",
 // };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const globalData = await getGlobalSetting().catch(() => null);
+  const theme = globalData?.globalSetting?.themeColors;
+  const typography = globalData?.globalSetting?.typographyLayout;
+  const favicon = globalData?.globalSetting?.brandAssets?.favicon;
+  const faviconUrl = favicon?.url ? getStrapiMediaUrl(favicon.url) : null;
+
   return (
     <html lang="en">
       <head>
@@ -43,11 +51,24 @@ export default function RootLayout({
           name="google-site-verification"
           content="YqKQYm1Ppyy0SPQ6Fs2swuVEI9kcjqLNc1Ovys8rQlA"
         />
+        {faviconUrl && <link rel="icon" href={faviconUrl} />}
+        <style>{`
+          :root {
+            --brand-blue: ${theme?.brandBlue || "#3C4CFF"};
+            --bg-dark: ${theme?.darkBackground || "#0F0F0F"};
+            --bg-light: ${theme?.lightBackground || "#F4F4F4"};
+            --card-bg: ${theme?.cardBackground || "#FFFFFF"};
+            --text-primary: ${theme?.textPrimary || "#000000"};
+            --text-muted: ${theme?.textMuted || "#2E2E2E"};
+            --border-radius: ${typography?.defaultBorderRadius || "16px"};
+            --container-max-width: ${typography?.containerMaxWidth || "1600px"};
+          }
+        `}</style>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${poppins.variable} antialiased`}
       >
-        <LayoutWrapper> {children}</LayoutWrapper>
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

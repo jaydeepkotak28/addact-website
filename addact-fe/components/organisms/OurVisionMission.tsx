@@ -26,7 +26,7 @@ export const OurVisionMission: React.FC<OurVisionMissionProps> = ({
   return (
     <section id={anchorId || undefined} className={`my-[60px] sm:my-[60px] ${className}`}>
       <div className="container-main">
-        <div className="bg-white px-[20px] lg:px-[100px] py-[15px] lg:py-[60px] rounded-2xl flex flex-col gap-[60px]">
+        <div className="bg-[var(--card-bg,#FFFFFF)] px-[20px] lg:px-[100px] py-[15px] lg:py-[60px] rounded-2xl flex flex-col gap-[60px]">
           {items.map((item: any, index) => {
             const isEven = index % 2 === 0;
             const itemImage = item.image || item.Image;

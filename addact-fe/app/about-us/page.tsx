@@ -18,7 +18,7 @@ export default async function AboutUsPage() {
   const sections = page?.section || page?.Section;
 
   return (
-    <main className="bg-[#f4f4f4] min-h-screen py-10">
+    <main className="bg-[var(--bg-light,#f4f4f4)] min-h-screen py-10">
       {/* Dynamic Zone Sections */}
       {sections && sections.length > 0 ? (
         <DynamicZoneRenderer sections={sections} />
