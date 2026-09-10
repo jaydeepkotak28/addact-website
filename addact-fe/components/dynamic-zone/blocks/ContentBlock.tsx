@@ -1,5 +1,5 @@
 import React from "react";
-import parse from "html-react-parser";
+import RichText from "@/components/atoms/RichText";
 import type { ContentBlockData } from "@/lib/schemas/dynamicZoneSchema";
 
 export interface ContentBlockProps extends ContentBlockData {
@@ -13,11 +13,10 @@ export const ContentBlock: React.FC<ContentBlockProps> = ({
   if (!body) return null;
 
   return (
-    <div
-      className={`content-block text-[17px] leading-[32px] font-normal text-gray-800 space-y-4 ${className}`}
-    >
-      {parse(body)}
-    </div>
+    <RichText
+      html={body}
+      className={`content-block text-[17px] leading-[32px] font-normal text-gray-800 ${className}`}
+    />
   );
 };
 

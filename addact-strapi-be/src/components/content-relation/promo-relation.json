@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_relation_promo_relations",
+  "info": {
+    "displayName": "Promo Relation",
+    "icon": "bold"
+  },
+  "options": {},
+  "attributes": {
+    "promos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::promo.promo"
+    }
+  },
+  "config": {}
+}

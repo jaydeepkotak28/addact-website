@@ -1,6 +1,34 @@
 import { z } from "zod";
 
 /**
+ * Shared Strapi Media Schema & Type
+ */
+export const StrapiMediaSchema = z.object({
+  url: z.string().nullable().optional(),
+  alternativeText: z.string().nullable().optional(),
+  width: z.number().nullable().optional(),
+  height: z.number().nullable().optional(),
+});
+
+export type StrapiMedia = z.infer<typeof StrapiMediaSchema>;
+
+/**
+ * Common Props for all Promo-based Organism Components
+ * (AboutUsContent, WeAreAddact, etc.)
+ */
+export interface BasePromoProps {
+  subtitle?: string | null;
+  subTitle?: string | null;
+  title?: string | null;
+  content?: string | null;
+  description?: string | null;
+  image?: StrapiMedia | null;
+  anchorId?: string | null;
+  className?: string;
+  [key: string]: any;
+}
+
+/**
  * Zod Schema for 'feature.content' CKEditor component
  */
 export const ContentBlockSchema = z.object({
@@ -33,6 +61,60 @@ export const ContentRelationBlockSchema = z.object({
 });
 
 export type ContentRelationBlockData = z.infer<typeof ContentRelationBlockSchema>;
+
+/**
+ * Zod Schema for 'feature.promo' component
+ */
+export const PromoBlockSchema = z.object({
+  __typename: z.literal("ComponentFeaturePromo").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  variant: z
+    .enum([
+      "about_us_content",
+      "our_vision_mission",
+      "we_are_addact",
+      "stacked_image_bottom",
+      "stacked-image-bottom",
+      "image-right",
+      "image-left",
+    ])
+    .optional(),
+  anchorId: z.string().nullable().optional(),
+  title: z.string().nullable().optional(),
+  subTitle: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+  image: z
+    .object({
+      url: z.string(),
+      alternativeText: z.string().nullable().optional(),
+      width: z.number().nullable().optional(),
+      height: z.number().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+});
+
+export type PromoBlockData = z.infer<typeof PromoBlockSchema>;
+
+export const PromoItemSchema = z.object({
+  internalName: z.string().nullable().optional(),
+  promo: PromoBlockSchema.nullable().optional(),
+});
+
+export type PromoItemData = z.infer<typeof PromoItemSchema>;
+
+/**
+ * Zod Schema for 'content-relation.promo-relation' component
+ * Supports multiple promo relations (promos array) or single (promo)
+ */
+export const PromoRelationBlockSchema = z.object({
+  __typename: z.literal("ComponentContentRelationPromoRelation").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  promos: z.array(PromoItemSchema).nullable().optional(),
+  promo: PromoItemSchema.nullable().optional(),
+});
+
+export type PromoRelationBlockData = z.infer<typeof PromoRelationBlockSchema>;
 
 /**
  * Generic Dynamic Zone Block Schema
@@ -119,6 +201,10 @@ export interface DynamicZoneComponentMap {
   "feature.content": ContentBlockData;
   ComponentContentRelationContentRelation: ContentRelationBlockData;
   "content-relation.content-relation": ContentRelationBlockData;
+  ComponentContentRelationPromoRelation: PromoRelationBlockData;
+  "content-relation.promo-relation": PromoRelationBlockData;
+  ComponentFeaturePromo: PromoBlockData;
+  "feature.promo": PromoBlockData;
   // Future components:
   // ComponentHeroHero: HeroBlockData;
   // ComponentFeatureAccordion: AccordionBlockData;
@@ -188,6 +274,7 @@ export interface StandardPageData<
 > {
   pageHeading?: PageHeadingStructure | null;
   Section?: DynamicZone<TPrimarySection>;
+  section?: DynamicZone<TPrimarySection>;
   // Allows any additional dynamic zones or custom fields
   [key: string]: any;
 }
@@ -247,7 +334,7 @@ export type StrapiPageResponse<
 /**
  * Smart Heading Extractor
  * Automatically extracts the best title for a page based on:
- * 1. Relation Body title inside Dynamic Zone (if available)
+ * 1. Relation Body title or Promo title inside Dynamic Zone (if available)
  * 2. PageHeading component (pageHeading.PageHeading.pageTitle)
  * 3. Fallback string
  */
@@ -257,13 +344,24 @@ export function getPageHeading(
 ): string {
   if (!page) return fallback;
 
-  // Priority 1: Relation content title
-  const relationTitle = page.Section?.find(
-    (s: any) => s?.content?.Body?.title
-  )?.content?.Body?.title;
+  // Priority 1: Relation content title (Content Relation or Promo Relation)
+  const sections = page.Section || page.section;
+  const relationBlock = sections?.find(
+    (s: any) =>
+      s?.content?.Body?.title ||
+      s?.promo?.promo?.title ||
+      s?.promos?.[0]?.promo?.title ||
+      s?.title
+  );
 
-  if (relationTitle && typeof relationTitle === "string" && relationTitle.trim()) {
-    return relationTitle.trim();
+  const title =
+    (relationBlock as any)?.content?.Body?.title ||
+    (relationBlock as any)?.promo?.promo?.title ||
+    (relationBlock as any)?.promos?.[0]?.promo?.title ||
+    (relationBlock as any)?.title;
+
+  if (title && typeof title === "string" && title.trim()) {
+    return title.trim();
   }
 
   // Priority 2: Strapi PageHeading component

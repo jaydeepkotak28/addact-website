@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "promos",
+  "info": {
+    "singularName": "promo",
+    "pluralName": "promos",
+    "displayName": "Promo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string"
+    },
+    "promo": {
+      "type": "component",
+      "component": "feature.promo",
+      "repeatable": false
+    }
+  }
+}

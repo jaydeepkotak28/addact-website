@@ -14,6 +14,17 @@ export interface ContentRelationContentRelation extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentRelationPromoRelation extends Struct.ComponentSchema {
+  collectionName: 'components_content_relation_promo_relations';
+  info: {
+    displayName: 'Promo Relation';
+    icon: 'bold';
+  };
+  attributes: {
+    promos: Schema.Attribute.Relation<'oneToMany', 'api::promo.promo'>;
+  };
+}
+
 export interface FeatureBaseHeading extends Struct.ComponentSchema {
   collectionName: 'components_feature_base_headings';
   info: {
@@ -61,6 +72,36 @@ export interface FeatureContent extends Struct.ComponentSchema {
   };
 }
 
+export interface FeaturePromo extends Struct.ComponentSchema {
+  collectionName: 'components_feature_promos';
+  info: {
+    displayName: 'Promo';
+    icon: 'archive';
+  };
+  attributes: {
+    anchorId: Schema.Attribute.String;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    subTitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+    variant: Schema.Attribute.Enumeration<
+      [
+        'about_us_content',
+        'our_vision_mission',
+        'we_are_addact',
+        'stacked_image_bottom',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'about_us_content'>;
+  };
+}
+
 export interface PageStructurePage extends Struct.ComponentSchema {
   collectionName: 'components_page_structure_pages';
   info: {
@@ -99,9 +140,11 @@ declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
       'content-relation.content-relation': ContentRelationContentRelation;
+      'content-relation.promo-relation': ContentRelationPromoRelation;
       'feature.base-heading': FeatureBaseHeading;
       'feature.body': FeatureBody;
       'feature.content': FeatureContent;
+      'feature.promo': FeaturePromo;
       'page-structure.page': PageStructurePage;
       'site-settings.seo': SiteSettingsSeo;
     }

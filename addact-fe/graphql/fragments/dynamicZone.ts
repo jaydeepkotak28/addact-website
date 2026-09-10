@@ -16,11 +16,56 @@ export const CONTENT_RELATION_FRAGMENT = gql`
 `;
 
 /**
+ * Reusable GraphQL Fragment for 'feature.promo'
+ */
+export const PROMO_FRAGMENT = gql`
+  fragment PromoFields on ComponentFeaturePromo {
+    variant
+    anchorId
+    title
+    subTitle
+    description
+    image {
+      url
+      alternativeText
+      width
+      height
+    }
+  }
+`;
+
+/**
+ * Reusable GraphQL Fragment for 'content-relation.promo-relation'
+ */
+export const PROMO_RELATION_FRAGMENT = gql`
+  fragment PromoRelationFields on ComponentContentRelationPromoRelation {
+    promos {
+      internalName
+      promo {
+        variant
+        anchorId
+        title
+        subTitle
+        description
+        image {
+          url
+          alternativeText
+          width
+          height
+        }
+      }
+    }
+  }
+`;
+
+/**
  * Composite Dynamic Zone Section Query Part
  * Compose your page's Dynamic Zone fragments here.
  */
 export const DYNAMIC_ZONE_SECTION_FRAGMENT = gql`
   ${CONTENT_RELATION_FRAGMENT}
+  ${PROMO_RELATION_FRAGMENT}
+  ${PROMO_FRAGMENT}
   fragment DynamicZoneSectionFields on ComponentContentRelationContentRelation {
     ...ContentRelationFields
   }

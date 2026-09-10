@@ -1,5 +1,5 @@
 import React from "react";
-import parse from "html-react-parser";
+import RichText from "@/components/atoms/RichText";
 import type { ContentRelationBlockData } from "@/lib/schemas/dynamicZoneSchema";
 
 export interface ContentRelationBlockProps extends ContentRelationBlockData {
@@ -16,11 +16,10 @@ export const ContentRelationBlock: React.FC<ContentRelationBlockProps> = ({
   if (!description) return null;
 
   return (
-    <div
-      className={`content-relation-block text-[17px] leading-[32px] font-normal text-gray-800 space-y-4 ${className}`}
-    >
-      {parse(description)}
-    </div>
+    <RichText
+      html={description}
+      className={`content-relation-block text-[17px] leading-[32px] font-normal text-gray-800 ${className}`}
+    />
   );
 };
 

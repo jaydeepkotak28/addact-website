@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_feature_promos",
+  "info": {
+    "displayName": "Promo",
+    "icon": "archive"
+  },
+  "options": {},
+  "attributes": {
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "about_us_content",
+        "our_vision_mission",
+        "we_are_addact",
+        "stacked_image_bottom"
+      ],
+      "default": "about_us_content"
+    },
+    "anchorId": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "subTitle": {
+      "type": "text"
+    },
+    "description": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  },
+  "config": {}
+}

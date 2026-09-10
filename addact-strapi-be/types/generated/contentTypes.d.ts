@@ -465,6 +465,7 @@ export interface ApiAboutUsAboutUs extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     pageHeading: Schema.Attribute.Component<'page-structure.page', false>;
     publishedAt: Schema.Attribute.DateTime;
+    section: Schema.Attribute.DynamicZone<['content-relation.promo-relation']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -854,6 +855,32 @@ export interface ApiProjectCostEstimatorProjectCostEstimator
     > &
       Schema.Attribute.Private;
     pageHeading: Schema.Attribute.Component<'page-structure.page', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPromoPromo extends Struct.CollectionTypeSchema {
+  collectionName: 'promos';
+  info: {
+    displayName: 'Promo';
+    pluralName: 'promos';
+    singularName: 'promo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    internalName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::promo.promo'> &
+      Schema.Attribute.Private;
+    promo: Schema.Attribute.Component<'feature.promo', false>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1714,6 +1741,7 @@ declare module '@strapi/strapi' {
       'api::press-release.press-release': ApiPressReleasePressRelease;
       'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;
       'api::project-cost-estimator.project-cost-estimator': ApiProjectCostEstimatorProjectCostEstimator;
+      'api::promo.promo': ApiPromoPromo;
       'api::qa-testing-and-support.qa-testing-and-support': ApiQaTestingAndSupportQaTestingAndSupport;
       'api::sitemap-page.sitemap-page': ApiSitemapPageSitemapPage;
       'api::terms-and-condition.terms-and-condition': ApiTermsAndConditionTermsAndCondition;

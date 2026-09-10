@@ -1,6 +1,7 @@
 import { GraphQLClient } from "graphql-request";
-import fs from "fs";
-import path from "path";
+import { getStrapiMediaUrl } from "./media";
+
+export { getStrapiMediaUrl };
 
 // Best Practice: Revalidation time in seconds (ISR)
 export const STRAPI_REVALIDATE_SECONDS = 60;
@@ -19,8 +20,10 @@ function getToken(): string | undefined {
     process.env.NEXT_PUBLIC_STRAPI_TOKEN;
 
   // Fallback: If dev server was started before .env.local was updated, read from file directly
-  if (!token || token === "dummy_static_token") {
+  if ((!token || token === "dummy_static_token") && typeof window === "undefined") {
     try {
+      const fs = require("fs");
+      const path = require("path");
       const envPath = path.resolve(process.cwd(), ".env.local");
       if (fs.existsSync(envPath)) {
         const content = fs.readFileSync(envPath, "utf-8");
