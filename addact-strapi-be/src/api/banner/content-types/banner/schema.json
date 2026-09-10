@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "banners",
+  "info": {
+    "singularName": "banner",
+    "pluralName": "banners",
+    "displayName": "Banner"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string"
+    },
+    "bannerTitle": {
+      "type": "string"
+    },
+    "bannerDescription": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "bannerImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "bannerLink": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "showSearchbox": {
+      "type": "boolean",
+      "default": false
+    },
+    "bannerLogo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "videoLink": {
+      "type": "string"
+    },
+    "isVideo": {
+      "type": "boolean"
+    },
+    "isTextAlignCenter": {
+      "type": "boolean"
+    },
+    "chipsText": {
+      "type": "component",
+      "component": "shared.title",
+      "repeatable": true
+    },
+    "anchorLinks": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true
+    }
+  }
+}

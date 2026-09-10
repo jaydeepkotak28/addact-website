@@ -1,8 +1,6 @@
 import React from "react";
-import SectionSubtitle from "../atoms/SectionSubtitle";
 import StrapiImage from "../atoms/StrapiImage";
 import RichText from "../atoms/RichText";
-
 import type { BasePromoProps } from "@/lib/schemas/dynamicZoneSchema";
 
 export interface VisionMissionItem extends BasePromoProps {
@@ -24,10 +22,10 @@ export const OurVisionMission: React.FC<OurVisionMissionProps> = ({
   if (!items || items.length === 0) return null;
 
   return (
-    <section id={anchorId || undefined} className={`my-[60px] sm:my-[60px] ${className}`}>
+    <section id={anchorId || "vision-mission"} className={`my-[60px] sm:my-[60px] ${className}`}>
       <div className="container-main">
-        <div className="bg-[var(--card-bg,#FFFFFF)] px-[20px] lg:px-[100px] py-[15px] lg:py-[60px] rounded-2xl flex flex-col gap-[60px]">
-          {items.map((item: any, index) => {
+        <div className="bg-white px-[20px] lg:px-[100px] py-[15px] lg:py-[60px] rounded-2xl flex flex-col gap-[60px]">
+          {items.map((item: any, index: number) => {
             const isEven = index % 2 === 0;
             const itemImage = item.image || item.Image;
             const itemTitle = item.title || item.Title;
@@ -52,7 +50,9 @@ export const OurVisionMission: React.FC<OurVisionMissionProps> = ({
                   }`}
                 >
                   {itemSubTitle && (
-                    <SectionSubtitle>{itemSubTitle}</SectionSubtitle>
+                    <p className="text-[#3C4CFF] text-[17px] mb-[15px] leading-[26px]">
+                      {itemSubTitle}
+                    </p>
                   )}
                   {itemTitle && (
                     <h3 className="text-[#000] font-[400] 2xl:mb-[40px] mb-[20px]">
@@ -66,7 +66,6 @@ export const OurVisionMission: React.FC<OurVisionMissionProps> = ({
                           ? itemDescription
                           : undefined
                       }
-                      className="text-[#000] mb-[30px] md:mb-0 [&>p]:text-[#000] [&>p]:mb-[30px] md:[&>p]:mb-0"
                     />
                   )}
                 </div>

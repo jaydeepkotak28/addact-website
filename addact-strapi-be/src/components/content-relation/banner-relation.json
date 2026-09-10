@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_relation_banner_relations",
+  "info": {
+    "displayName": "Banner Relation",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "banner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
+    }
+  },
+  "config": {}
+}

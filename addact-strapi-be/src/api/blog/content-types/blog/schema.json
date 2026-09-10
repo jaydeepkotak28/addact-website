@@ -53,6 +53,7 @@
     },
     "category": {
       "type": "enumeration",
+      "default": "Sitecore",
       "enum": [
         "Sitecore",
         "AI & Machine Learning",
@@ -60,16 +61,13 @@
         "Digital Marketing",
         "QA & Testing",
         "Cloud & DevOps"
-      ],
-      "default": "Sitecore"
+      ]
     },
     "sections": {
       "type": "dynamiczone",
       "components": [
         "content-relation.promo-relation",
-        "content-relation.content-relation",
-        "feature.promo",
-        "feature.content"
+        "content-relation.content-relation"
       ]
     }
   }

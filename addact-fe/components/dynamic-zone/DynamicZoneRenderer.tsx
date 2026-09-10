@@ -23,7 +23,7 @@ export const DynamicZoneRenderer: React.FC<DynamicZoneRendererProps> = ({
   }
 
   return (
-    <div className={`dynamic-zone-container space-y-8 ${className}`}>
+    <div className={`dynamic-zone-container ${className}`}>
       {sections.map((block, index) => {
         const typeName =
           block.__typename || (block as any).__component || "";

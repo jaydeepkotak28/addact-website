@@ -1,8 +1,6 @@
 import React from "react";
-import SectionSubtitle from "../atoms/SectionSubtitle";
 import StrapiImage from "../atoms/StrapiImage";
 import RichText from "../atoms/RichText";
-
 import type { BasePromoProps } from "@/lib/schemas/dynamicZoneSchema";
 
 export interface AboutUsContentProps extends BasePromoProps {}
@@ -16,18 +14,22 @@ export const AboutUsContent: React.FC<AboutUsContentProps> = ({
   className = "",
   ...rest
 }) => {
-  const currentImage = (image || (rest as any)?.Image);
+  const currentImage = image || (rest as any)?.Image;
 
   return (
-    <section className={`my-[60px] sm:my-[60px] ${className}`} id={anchorId || undefined}>
+    <section className={`my-[60px] sm:my-[60px] ${className}`} id={anchorId || "overview"}>
       <div className="container-main">
-        {subtitle && <SectionSubtitle>{subtitle}</SectionSubtitle>}
+        {subtitle && (
+          <p className="text-[#3C4CFF] text-[17px] mb-[15px] leading-[26px]">
+            {subtitle}
+          </p>
+        )}
         {title && (
-          <h3 className="text-[#000] font-[400] 2xl:mb-[40px] mb-[30px] text-2xl md:text-3xl">
+          <h3 className="text-[#000] font-[400] 2xl:mb-[40px] mb-[30px]">
             {title}
           </h3>
         )}
-        <RichText html={content} />
+        {content && <RichText html={content} />}
         {currentImage && (
           <StrapiImage
             src={currentImage}

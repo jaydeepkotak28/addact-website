@@ -10,7 +10,7 @@ export interface PromoBlockProps extends PromoBlockData {
 
 /**
  * PromoBlock (Dynamic Zone Component Adapter)
- * Connects Strapi Promo data to Atomic/Organism components.
+ * Connects Strapi Promo data to Atomic/Organism components strictly driven by 'variant'.
  */
 export const PromoBlock: React.FC<PromoBlockProps> = ({
   variant = "about_us_content",
@@ -25,28 +25,22 @@ export const PromoBlock: React.FC<PromoBlockProps> = ({
     .toLowerCase()
     .replace(/-/g, "_");
 
-  // Route to WeAreAddact if variant is we_are_addact / image_left or title is Our Team
-  const isTeam =
-    normalizedKey === "we_are_addact" ||
-    normalizedKey === "image_left" ||
-    title?.toLowerCase().includes("team") ||
-    title?.toLowerCase().includes("who we are") ||
-    title?.toLowerCase().includes("we are addact");
-
-  if (isTeam) {
-    return (
-      <WeAreAddact
-        subtitle={subTitle}
-        title={title}
-        content={description}
-        image={image}
-        anchorId={anchorId}
-        className={className}
-      />
-    );
-  }
-
   switch (normalizedKey) {
+    // Variant 1: We Are Addact (Image Left / Text Right)
+    case "we_are_addact":
+    case "image_left":
+      return (
+        <WeAreAddact
+          subtitle={subTitle}
+          title={title}
+          content={description}
+          image={image}
+          anchorId={anchorId || "who-we-are"}
+          className={className}
+        />
+      );
+
+    // Variant 2: Our Vision Mission (Alternating Row Card Layout)
     case "our_vision_mission":
     case "image_right":
       return (
@@ -60,11 +54,12 @@ export const PromoBlock: React.FC<PromoBlockProps> = ({
               variant: "image-right",
             },
           ]}
-          anchorId={anchorId}
+          anchorId={anchorId || "vision-mission"}
           className={className}
         />
       );
 
+    // Variant 3: About Us Content / Stacked Image Bottom (Centered Content with Image below)
     case "about_us_content":
     case "stacked_image_bottom":
     default:
@@ -74,7 +69,7 @@ export const PromoBlock: React.FC<PromoBlockProps> = ({
           title={title}
           content={description}
           image={image}
-          anchorId={anchorId}
+          anchorId={anchorId || "overview"}
           className={className}
         />
       );

@@ -18,12 +18,12 @@
     },
     "pageType": {
       "type": "enumeration",
+      "default": "Standard",
       "enum": [
         "Standard",
         "LegalPolicy",
         "FullWidth"
-      ],
-      "default": "Standard"
+      ]
     },
     "pageHeading": {
       "type": "component",
@@ -35,8 +35,7 @@
       "components": [
         "content-relation.promo-relation",
         "content-relation.content-relation",
-        "feature.promo",
-        "feature.content"
+        "content-relation.banner-relation"
       ]
     }
   }

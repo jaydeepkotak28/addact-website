@@ -443,6 +443,55 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBannerBanner extends Struct.CollectionTypeSchema {
+  collectionName: 'banners';
+  info: {
+    displayName: 'Banner';
+    pluralName: 'banners';
+    singularName: 'banner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    anchorLinks: Schema.Attribute.Component<'shared.link', true>;
+    bannerDescription: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    bannerImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    bannerLink: Schema.Attribute.Component<'shared.link', false>;
+    bannerLogo: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    bannerTitle: Schema.Attribute.String;
+    chipsText: Schema.Attribute.Component<'shared.title', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    internalName: Schema.Attribute.String;
+    isTextAlignCenter: Schema.Attribute.Boolean;
+    isVideo: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::banner.banner'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    showSearchbox: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    videoLink: Schema.Attribute.String;
+  };
+}
+
 export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
   collectionName: 'blogs';
   info: {
@@ -489,12 +538,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
     publishedDate: Schema.Attribute.Date;
     readingTime: Schema.Attribute.String;
     sections: Schema.Attribute.DynamicZone<
-      [
-        'content-relation.promo-relation',
-        'content-relation.content-relation',
-        'feature.promo',
-        'feature.content',
-      ]
+      ['content-relation.promo-relation', 'content-relation.content-relation']
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -698,8 +742,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
       [
         'content-relation.promo-relation',
         'content-relation.content-relation',
-        'feature.promo',
-        'feature.content',
+        'content-relation.banner-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -842,13 +885,15 @@ export interface ApiWebinarWebinar extends Struct.CollectionTypeSchema {
     >;
     speakerName: Schema.Attribute.String;
     speakerRole: Schema.Attribute.String;
-    status: Schema.Attribute.Enumeration<['Upcoming', 'On-Demand / Recorded']> &
-      Schema.Attribute.DefaultTo<'Upcoming'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     videoUrl: Schema.Attribute.String;
     webinarDate: Schema.Attribute.DateTime;
+    webinarStatus: Schema.Attribute.Enumeration<
+      ['Upcoming', 'On-Demand / Recorded']
+    > &
+      Schema.Attribute.DefaultTo<'Upcoming'>;
   };
 }
 
@@ -1490,6 +1535,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::banner.banner': ApiBannerBanner;
       'api::blog.blog': ApiBlogBlog;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
       'api::event.event': ApiEventEvent;

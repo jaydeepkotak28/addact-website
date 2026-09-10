@@ -117,6 +117,67 @@ export const PromoRelationBlockSchema = z.object({
 export type PromoRelationBlockData = z.infer<typeof PromoRelationBlockSchema>;
 
 /**
+ * Shared Link Component Schema ('shared.link')
+ */
+export const SharedLinkSchema = z.object({
+  href: z.string().default("/"),
+  label: z.string().default("Read Now"),
+  target: z.enum(["_self", "_blank", "_parent", "_top"]).default("_self"),
+  isExternal: z.boolean().default(false),
+  subDisc: z.string().nullable().optional(),
+  icon: StrapiMediaSchema.nullable().optional(),
+});
+
+export type SharedLink = z.infer<typeof SharedLinkSchema>;
+
+/**
+ * Shared Title Component Schema ('shared.title')
+ */
+export const SharedTitleSchema = z.object({
+  title: z.string(),
+});
+
+export type SharedTitle = z.infer<typeof SharedTitleSchema>;
+
+/**
+ * Core Banner Entity Schema (matches Strapi 'api::banner.banner')
+ * Reuses StrapiMedia, SharedLink, and SharedTitle field types.
+ */
+export const BannerSchema = z.object({
+  documentId: z.string().optional(),
+  internalName: z.string().optional(),
+  bannerTitle: z.string().nullable().optional(),
+  bannerDescription: z.string().nullable().optional(),
+  bannerImage: StrapiMediaSchema.nullable().optional(),
+  bannerLink: SharedLinkSchema.nullable().optional(),
+  showSearchbox: z.boolean().default(false).optional(),
+  bannerLogo: StrapiMediaSchema.nullable().optional(),
+  videoLink: z.string().nullable().optional(),
+  isVideo: z.boolean().default(false).optional(),
+  isTextAlignCenter: z.boolean().default(false).optional(),
+  chipsText: z.array(SharedTitleSchema).nullable().optional(),
+  anchorLinks: z.array(SharedLinkSchema).nullable().optional(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
+  publishedAt: z.string().nullable().optional(),
+});
+
+export type BannerData = z.infer<typeof BannerSchema>;
+
+/**
+ * Zod Schema for 'content-relation.banner-relation' component
+ * Reuses BannerData schema and type.
+ */
+export const BannerRelationBlockSchema = z.object({
+  __typename: z.literal("ComponentContentRelationBannerRelation").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  banner: BannerSchema.nullable().optional(),
+});
+
+export type BannerRelationBlockData = z.infer<typeof BannerRelationBlockSchema>;
+
+
+/**
  * Generic Dynamic Zone Block Schema
  * Captures __typename and any component-specific props
  */
@@ -203,6 +264,8 @@ export interface DynamicZoneComponentMap {
   "content-relation.content-relation": ContentRelationBlockData;
   ComponentContentRelationPromoRelation: PromoRelationBlockData;
   "content-relation.promo-relation": PromoRelationBlockData;
+  ComponentContentRelationBannerRelation: BannerRelationBlockData;
+  "content-relation.banner-relation": BannerRelationBlockData;
   ComponentFeaturePromo: PromoBlockData;
   "feature.promo": PromoBlockData;
   // Future components:
@@ -227,7 +290,11 @@ export interface BaseDynamicZoneBlock {
 export type KnownDynamicZoneBlock = DynamicZoneComponentMap[keyof DynamicZoneComponentMap];
 
 export type AnyDynamicZoneBlock =
-  | (DynamicZoneBlock & Partial<ContentRelationBlockData> & Partial<ContentBlockData>)
+  | (DynamicZoneBlock &
+      Partial<ContentRelationBlockData> &
+      Partial<ContentBlockData> &
+      Partial<PromoRelationBlockData> &
+      Partial<BannerRelationBlockData>)
   | KnownDynamicZoneBlock
   | BaseDynamicZoneBlock;
 

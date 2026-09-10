@@ -63,10 +63,9 @@ export const WeAreAddact: React.FC<WeAreAddactProps> = ({
           )}
 
           {content && (
-            <RichText
-              html={content}
-              className="text-base text-black leading-relaxed mb-8 space-y-3"
-            />
+            <div className="text-base text-black leading-relaxed mb-8">
+              <RichText html={content} />
+            </div>
           )}
         </div>
       </div>

@@ -36,7 +36,7 @@
     "registrationUrl": {
       "type": "string"
     },
-    "status": {
+    "webinarStatus": {
       "type": "enumeration",
       "enum": [
         "Upcoming",

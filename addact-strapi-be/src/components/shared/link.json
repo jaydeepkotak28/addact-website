@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_shared_links",
+  "info": {
+    "displayName": "Link",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": "Read Now",
+      "required": false
+    },
+    "href": {
+      "type": "text",
+      "default": "/",
+      "maxLength": 500000,
+      "required": false
+    },
+    "target": {
+      "type": "enumeration",
+      "default": "_self",
+      "enum": [
+        "_self",
+        "_blank",
+        "_parent",
+        "_top"
+      ]
+    },
+    "isExternal": {
+      "type": "boolean",
+      "default": false
+    },
+    "subDisc": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

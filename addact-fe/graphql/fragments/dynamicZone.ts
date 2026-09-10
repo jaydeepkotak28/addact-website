@@ -26,10 +26,7 @@ export const PROMO_FRAGMENT = gql`
     subTitle
     description
     image {
-      url
-      alternativeText
-      width
-      height
+      ...MediaFields
     }
   }
 `;
@@ -48,10 +45,7 @@ export const PROMO_RELATION_FRAGMENT = gql`
         subTitle
         description
         image {
-          url
-          alternativeText
-          width
-          height
+          ...MediaFields
         }
       }
     }
@@ -68,16 +62,12 @@ export const FEATURE_CONTENT_FRAGMENT = gql`
 `;
 
 /**
- * Composite Dynamic Zone Section Query Part
- * Compose your page's Dynamic Zone fragments here.
+ * Reusable GraphQL Fragment for 'content-relation.banner-relation'
  */
-export const DYNAMIC_ZONE_SECTION_FRAGMENT = gql`
-  ${CONTENT_RELATION_FRAGMENT}
-  ${PROMO_RELATION_FRAGMENT}
-  ${PROMO_FRAGMENT}
-  ${FEATURE_CONTENT_FRAGMENT}
-  fragment DynamicZoneSectionFields on ComponentContentRelationContentRelation {
-    ...ContentRelationFields
+export const BANNER_RELATION_FRAGMENT = gql`
+  fragment BannerRelationFields on ComponentContentRelationBannerRelation {
+    banner {
+      ...BannerFields
+    }
   }
 `;
-

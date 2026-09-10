@@ -1,5 +1,16 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ContentRelationBannerRelation extends Struct.ComponentSchema {
+  collectionName: 'components_content_relation_banner_relations';
+  info: {
+    displayName: 'Banner Relation';
+    icon: 'book';
+  };
+  attributes: {
+    banner: Schema.Attribute.Relation<'oneToOne', 'api::banner.banner'>;
+  };
+}
+
 export interface ContentRelationContentRelation extends Struct.ComponentSchema {
   collectionName: 'components_content_relation_content_relations';
   info: {
@@ -111,6 +122,40 @@ export interface PageStructurePage extends Struct.ComponentSchema {
   attributes: {
     PageHeading: Schema.Attribute.Component<'feature.base-heading', false>;
     seo: Schema.Attribute.Component<'site-settings.seo', false>;
+  };
+}
+
+export interface SharedLink extends Struct.ComponentSchema {
+  collectionName: 'components_shared_links';
+  info: {
+    description: '';
+    displayName: 'Link';
+    icon: 'link';
+  };
+  attributes: {
+    href: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500000;
+      }> &
+      Schema.Attribute.DefaultTo<'/'>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    isExternal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Read Now'>;
+    subDisc: Schema.Attribute.Text;
+    target: Schema.Attribute.Enumeration<
+      ['_self', '_blank', '_parent', '_top']
+    > &
+      Schema.Attribute.DefaultTo<'_self'>;
+  };
+}
+
+export interface SharedTitle extends Struct.ComponentSchema {
+  collectionName: 'components_shared_titles';
+  info: {
+    displayName: 'Title';
+  };
+  attributes: {
+    title: Schema.Attribute.String;
   };
 }
 
@@ -229,6 +274,7 @@ export interface SiteSettingsTypographyLayout extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
+      'content-relation.banner-relation': ContentRelationBannerRelation;
       'content-relation.content-relation': ContentRelationContentRelation;
       'content-relation.promo-relation': ContentRelationPromoRelation;
       'feature.base-heading': FeatureBaseHeading;
@@ -236,6 +282,8 @@ declare module '@strapi/strapi' {
       'feature.content': FeatureContent;
       'feature.promo': FeaturePromo;
       'page-structure.page': PageStructurePage;
+      'shared.link': SharedLink;
+      'shared.title': SharedTitle;
       'site-settings.brand-assets': SiteSettingsBrandAssets;
       'site-settings.seo': SiteSettingsSeo;
       'site-settings.site-info': SiteSettingsSiteInfo;
