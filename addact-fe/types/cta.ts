@@ -25,6 +25,9 @@ export type CtaTitle =
   | string;
 
 export interface CTAProps {
+  internalName?: string;
+  variant?: "home" | "banner1" | "banner2" | "cta2" | "generic" | "default" | string;
+  hasIcon?: boolean;
   title?: CtaTitle | CtaTitle[] | null;
   description?:
     | string

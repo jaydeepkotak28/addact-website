@@ -10,6 +10,7 @@ export const CTA_FIELDS_FRAGMENT = gql`
   fragment CtaFields on Cta {
     documentId
     internalName
+    variant
     title {
       ...TitleFields
     }

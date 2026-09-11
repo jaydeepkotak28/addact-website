@@ -634,6 +634,10 @@ export interface ApiCtaCta extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    variant: Schema.Attribute.Enumeration<
+      ['default', 'cta-logo', 'cta-center']
+    > &
+      Schema.Attribute.DefaultTo<'default'>;
   };
 }
 

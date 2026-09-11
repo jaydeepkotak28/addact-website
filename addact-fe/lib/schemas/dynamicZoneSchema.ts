@@ -183,6 +183,7 @@ export type BannerRelationBlockData = z.infer<typeof BannerRelationBlockSchema>;
 export const CtaSchema = z.object({
   documentId: z.string().optional(),
   internalName: z.string().nullable().optional(),
+  variant: z.enum(["default", "cta-logo", "cta-center"]).nullable().optional(),
   title: SharedTitleSchema.nullable().optional(),
   description: z.any().nullable().optional(),
   image: StrapiMediaSchema.nullable().optional(),

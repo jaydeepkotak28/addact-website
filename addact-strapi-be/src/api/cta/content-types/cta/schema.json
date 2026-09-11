@@ -40,6 +40,15 @@
       "type": "component",
       "component": "shared.link",
       "repeatable": false
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "default",
+        "cta-logo",
+        "cta-center"
+      ],
+      "default": "default"
     }
   }
 }
