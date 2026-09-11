@@ -50,7 +50,8 @@
         "content-relation.banner-relation",
         "content-relation.cta-relation",
         "content-relation.capabilities-relation",
-        "media-relation.video-relation"
+        "media-relation.video-relation",
+        "ai.animation-banner"
       ]
     }
   }

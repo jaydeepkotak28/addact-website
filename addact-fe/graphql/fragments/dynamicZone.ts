@@ -133,4 +133,29 @@ export const VIDEO_RELATION_FRAGMENT = gql`
   }
 `;
 
-
+/**
+ * Reusable GraphQL Fragment for 'ai.animation-banner'
+ */
+export const ANIMATION_BANNER_FRAGMENT = gql`
+  fragment AnimationBannerFields on ComponentAiAnimationBanner {
+    id
+    animationTitle
+    bannerTitle
+    bannerSubTitle {
+      ...TitleFields
+    }
+    bannerDescription
+    bannerLink {
+      ...LinkFields
+    }
+    firstAnimationImage {
+      ...MediaFields
+    }
+    secondAnimationImage {
+      ...MediaFields
+    }
+    bannerImage {
+      ...MediaFields
+    }
+  }
+`;

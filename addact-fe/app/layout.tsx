@@ -95,7 +95,7 @@ export default async function RootLayout({
       >
         <Header headerData={headerData} />
         <LayoutWrapper>
-          <div className="flex-1 pt-20 lg:pt-24">{children}</div>
+          <div className="flex-1">{children}</div>
         </LayoutWrapper>
         <Footer data={footerData} />
       </body>

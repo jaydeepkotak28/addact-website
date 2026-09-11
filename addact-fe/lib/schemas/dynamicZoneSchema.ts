@@ -276,6 +276,24 @@ export const VideoRelationBlockSchema = z.object({
 
 export type VideoRelationBlockData = z.infer<typeof VideoRelationBlockSchema>;
 
+/**
+ * Zod Schema for 'ai.animation-banner' component
+ */
+export const AnimationBannerBlockSchema = z.object({
+  __typename: z.literal("ComponentAiAnimationBanner").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  animationTitle: z.string().nullable().optional(),
+  bannerTitle: z.string().nullable().optional(),
+  bannerSubTitle: z.array(SharedTitleSchema).nullable().optional(),
+  bannerDescription: z.string().nullable().optional(),
+  bannerLink: SharedLinkSchema.nullable().optional(),
+  firstAnimationImage: StrapiMediaSchema.nullable().optional(),
+  secondAnimationImage: StrapiMediaSchema.nullable().optional(),
+  bannerImage: StrapiMediaSchema.nullable().optional(),
+});
+
+export type AnimationBannerBlockData = z.infer<typeof AnimationBannerBlockSchema>;
+
 
 /**
  * Generic Dynamic Zone Block Schema
@@ -374,6 +392,8 @@ export interface DynamicZoneComponentMap {
   "media-relation.video-relation": VideoRelationBlockData;
   ComponentFeaturePromo: PromoBlockData;
   "feature.promo": PromoBlockData;
+  ComponentAiAnimationBanner: AnimationBannerBlockData;
+  "ai.animation-banner": AnimationBannerBlockData;
   // Future components:
   // ComponentHeroHero: HeroBlockData;
   // ComponentFeatureAccordion: AccordionBlockData;
@@ -403,7 +423,8 @@ export type AnyDynamicZoneBlock =
       Partial<BannerRelationBlockData> &
       Partial<CtaRelationBlockData> &
       Partial<CapabilitiesRelationBlockData> &
-      Partial<VideoRelationBlockData>)
+      Partial<VideoRelationBlockData> &
+      Partial<AnimationBannerBlockData>)
   | KnownDynamicZoneBlock
   | BaseDynamicZoneBlock;
 

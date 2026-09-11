@@ -901,6 +901,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'content-relation.cta-relation',
         'content-relation.capabilities-relation',
         'media-relation.video-relation',
+        'ai.animation-banner',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;

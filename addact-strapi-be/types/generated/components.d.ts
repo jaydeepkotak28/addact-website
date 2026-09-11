@@ -1,5 +1,36 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface AiAnimationBanner extends Struct.ComponentSchema {
+  collectionName: 'components_ai_animation_banners';
+  info: {
+    description: '';
+    displayName: 'Animation Banner';
+    icon: 'layer-group';
+  };
+  attributes: {
+    animationTitle: Schema.Attribute.String;
+    bannerDescription: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
+    bannerImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    bannerLink: Schema.Attribute.Component<'shared.link', false>;
+    bannerSubTitle: Schema.Attribute.Component<'shared.title', true>;
+    bannerTitle: Schema.Attribute.String;
+    firstAnimationImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    secondAnimationImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+  };
+}
+
 export interface ContentRelationBannerRelation extends Struct.ComponentSchema {
   collectionName: 'components_content_relation_banner_relations';
   info: {
@@ -464,6 +495,7 @@ export interface SiteSettingsTypographyLayout extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
+      'ai.animation-banner': AiAnimationBanner;
       'content-relation.banner-relation': ContentRelationBannerRelation;
       'content-relation.capabilities-relation': ContentRelationCapabilitiesRelation;
       'content-relation.content-relation': ContentRelationContentRelation;
