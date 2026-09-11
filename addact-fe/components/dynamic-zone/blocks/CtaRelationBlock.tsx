@@ -14,8 +14,8 @@ export const CtaRelationBlock: React.FC<CtaRelationBlockProps> = ({
 
   return (
     <GenericCTA
-      internalName={cta.internalName}
-      variant={cta.variant}
+      internalName={cta.internalName ?? undefined}
+      variant={cta.variant ?? undefined}
       title={cta.title}
       description={cta.description}
       image={cta.image}

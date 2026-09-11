@@ -11,6 +11,22 @@ export interface ContentRelationBannerRelation extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentRelationCapabilitiesRelation
+  extends Struct.ComponentSchema {
+  collectionName: 'components_content_relation_capabilities_relations';
+  info: {
+    displayName: 'Capabilities Relation';
+    icon: 'collapse';
+  };
+  attributes: {
+    ourCapabilities: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::our-capabilitie.our-capabilitie'
+    >;
+    title: Schema.Attribute.Component<'shared.title', false>;
+  };
+}
+
 export interface ContentRelationContentRelation extends Struct.ComponentSchema {
   collectionName: 'components_content_relation_content_relations';
   info: {
@@ -73,6 +89,27 @@ export interface FeatureBody extends Struct.ComponentSchema {
           preset: 'defaultHtml';
         }
       >;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface FeatureCapabilities extends Struct.ComponentSchema {
+  collectionName: 'components_feature_capabilities';
+  info: {
+    displayName: 'Capabilities';
+    icon: 'book';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    link: Schema.Attribute.Component<'shared.link', false>;
+    subLinks: Schema.Attribute.Component<'shared.link', true>;
     title: Schema.Attribute.String;
   };
 }
@@ -287,11 +324,13 @@ declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
       'content-relation.banner-relation': ContentRelationBannerRelation;
+      'content-relation.capabilities-relation': ContentRelationCapabilitiesRelation;
       'content-relation.content-relation': ContentRelationContentRelation;
       'content-relation.cta-relation': ContentRelationCtaRelation;
       'content-relation.promo-relation': ContentRelationPromoRelation;
       'feature.base-heading': FeatureBaseHeading;
       'feature.body': FeatureBody;
+      'feature.capabilities': FeatureCapabilities;
       'feature.content': FeatureContent;
       'feature.promo': FeaturePromo;
       'page-structure.page': PageStructurePage;

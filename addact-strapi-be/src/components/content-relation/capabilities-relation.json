@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_content_relation_capabilities_relations",
+  "info": {
+    "displayName": "Capabilities Relation",
+    "icon": "collapse"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "component",
+      "component": "shared.title",
+      "repeatable": false
+    },
+    "ourCapabilities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::our-capabilitie.our-capabilitie"
+    }
+  },
+  "config": {}
+}

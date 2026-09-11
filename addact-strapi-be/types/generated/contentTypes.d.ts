@@ -752,6 +752,36 @@ export interface ApiHomeHome extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiOurCapabilitieOurCapabilitie
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'our_capabilities';
+  info: {
+    displayName: 'Our Capabilities';
+    pluralName: 'our-capabilities';
+    singularName: 'our-capabilitie';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    capabilities: Schema.Attribute.Component<'feature.capabilities', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    internalName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::our-capabilitie.our-capabilitie'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
@@ -783,6 +813,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'content-relation.content-relation',
         'content-relation.banner-relation',
         'content-relation.cta-relation',
+        'content-relation.capabilities-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -1586,6 +1617,7 @@ declare module '@strapi/strapi' {
       'api::event.event': ApiEventEvent;
       'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::home.home': ApiHomeHome;
+      'api::our-capabilitie.our-capabilitie': ApiOurCapabilitieOurCapabilitie;
       'api::page.page': ApiPagePage;
       'api::promo.promo': ApiPromoPromo;
       'api::service.service': ApiServiceService;

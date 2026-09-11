@@ -120,10 +120,11 @@ export type PromoRelationBlockData = z.infer<typeof PromoRelationBlockSchema>;
  * Shared Link Component Schema ('shared.link')
  */
 export const SharedLinkSchema = z.object({
-  href: z.string().default("/"),
-  label: z.string().default("Read Now"),
-  target: z.enum(["_self", "_blank", "_parent", "_top"]).default("_self"),
-  isExternal: z.boolean().default(false),
+  id: z.union([z.string(), z.number()]).optional(),
+  href: z.string().nullable().optional(),
+  label: z.string().nullable().optional(),
+  target: z.string().nullable().optional(),
+  isExternal: z.boolean().nullable().optional(),
   subDisc: z.string().nullable().optional(),
   icon: StrapiMediaSchema.nullable().optional(),
 });
@@ -202,6 +203,43 @@ export const CtaRelationBlockSchema = z.object({
 });
 
 export type CtaRelationBlockData = z.infer<typeof CtaRelationBlockSchema>;
+
+/**
+ * Zod Schema for 'feature.capabilities' component
+ */
+export const CapabilitiesFeatureSchema = z.object({
+  id: z.union([z.string(), z.number()]).optional(),
+  title: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+  link: SharedLinkSchema.nullable().optional(),
+  image: StrapiMediaSchema.nullable().optional(),
+  subLinks: z.array(SharedLinkSchema).nullable().optional(),
+});
+
+export type CapabilitiesFeatureData = z.infer<typeof CapabilitiesFeatureSchema>;
+
+/**
+ * Zod Schema for 'api::our-capabilitie.our-capabilitie' entity
+ */
+export const OurCapabilitieEntitySchema = z.object({
+  documentId: z.string().optional(),
+  internalName: z.string().nullable().optional(),
+  capabilities: CapabilitiesFeatureSchema.nullable().optional(),
+});
+
+export type OurCapabilitieEntityData = z.infer<typeof OurCapabilitieEntitySchema>;
+
+/**
+ * Zod Schema for 'content-relation.capabilities-relation' component
+ */
+export const CapabilitiesRelationBlockSchema = z.object({
+  __typename: z.literal("ComponentContentRelationCapabilitiesRelation").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  title: SharedTitleSchema.nullable().optional(),
+  ourCapabilities: z.array(OurCapabilitieEntitySchema).nullable().optional(),
+});
+
+export type CapabilitiesRelationBlockData = z.infer<typeof CapabilitiesRelationBlockSchema>;
 
 
 /**
@@ -295,6 +333,8 @@ export interface DynamicZoneComponentMap {
   "content-relation.banner-relation": BannerRelationBlockData;
   ComponentContentRelationCtaRelation: CtaRelationBlockData;
   "content-relation.cta-relation": CtaRelationBlockData;
+  ComponentContentRelationCapabilitiesRelation: CapabilitiesRelationBlockData;
+  "content-relation.capabilities-relation": CapabilitiesRelationBlockData;
   ComponentFeaturePromo: PromoBlockData;
   "feature.promo": PromoBlockData;
   // Future components:
@@ -324,7 +364,8 @@ export type AnyDynamicZoneBlock =
       Partial<ContentBlockData> &
       Partial<PromoRelationBlockData> &
       Partial<BannerRelationBlockData> &
-      Partial<CtaRelationBlockData>)
+      Partial<CtaRelationBlockData> &
+      Partial<CapabilitiesRelationBlockData>)
   | KnownDynamicZoneBlock
   | BaseDynamicZoneBlock;
 

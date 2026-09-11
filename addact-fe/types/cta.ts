@@ -1,18 +1,7 @@
 import type { StrapiMedia, SharedLink, SharedTitle } from "@/lib/schemas/dynamicZoneSchema";
 
-export type CTAImageType = {
-  url: string;
-  alternativeText?: string | null;
-  width?: number | null;
-  height?: number | null;
-};
-
-export type CTALinkType = {
-  label: string;
-  href: string;
-  target?: string | null;
-  isExternal?: boolean;
-};
+export type CTAImageType = StrapiMedia;
+export type CTALinkType = SharedLink;
 
 export type CtaTitle =
   | SharedTitle

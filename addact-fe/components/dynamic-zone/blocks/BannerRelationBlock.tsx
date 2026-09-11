@@ -33,7 +33,7 @@ export const BannerRelationBlock: React.FC<BannerRelationBlockProps> = ({
     ? {
         label: bannerLink.label || "Read Now",
         url: bannerLink.href,
-        isExternal: bannerLink.target === "_blank" || bannerLink.isExternal,
+        isExternal: bannerLink.target === "_blank" || Boolean(bannerLink.isExternal),
       }
     : undefined;
 

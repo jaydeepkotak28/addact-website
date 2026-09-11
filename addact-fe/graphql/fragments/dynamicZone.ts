@@ -83,3 +83,32 @@ export const CTA_RELATION_FRAGMENT = gql`
   }
 `;
 
+/**
+ * Reusable GraphQL Fragment for 'content-relation.capabilities-relation'
+ */
+export const CAPABILITIES_RELATION_FRAGMENT = gql`
+  fragment CapabilitiesRelationFields on ComponentContentRelationCapabilitiesRelation {
+    title {
+      ...TitleFields
+    }
+    ourCapabilities {
+      documentId
+      internalName
+      capabilities {
+        title
+        description
+        link {
+          ...LinkFields
+        }
+        image {
+          ...MediaFields
+        }
+        subLinks {
+          ...LinkFields
+        }
+      }
+    }
+  }
+`;
+
+
