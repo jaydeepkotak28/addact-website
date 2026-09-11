@@ -91,7 +91,11 @@ export async function getPageBySlug(slug: string): Promise<PageItemData | null> 
   const data = await fetchStrapi<GetPageBySlugResponse>(
     GET_PAGE_BY_SLUG,
     { slug: cleanSlug, slugWithSlash },
-    "GetPageBySlug"
+    {
+      queryName: "GetPageBySlug",
+      tags: ["pages", "page", `page:${cleanSlug || "home"}`],
+      revalidate: 60,
+    }
   );
 
   return data?.pages?.[0] || null;

@@ -1,5 +1,6 @@
 import React from "react";
 import { componentRegistry } from "./componentRegistry";
+import { GenericErrorBoundary } from "@/components/atoms/GenericErrorBoundary";
 import type { DynamicZone, DynamicZoneBlock } from "@/lib/schemas/dynamicZoneSchema";
 
 interface DynamicZoneRendererProps {
@@ -8,11 +9,47 @@ interface DynamicZoneRendererProps {
 }
 
 /**
+ * Smart Component Resolver
+ * Resolves a component from registry using exact match, or normalized kebab-case / PascalCase.
+ */
+function resolveComponent(typeName: string): React.ComponentType<any> | null {
+  if (!typeName) return null;
+
+  // 1. Exact match
+  if (componentRegistry[typeName]) {
+    return componentRegistry[typeName];
+  }
+
+  // 2. Normalize PascalCase "ComponentCategoryComponent" to "category.component"
+  if (typeName.startsWith("Component")) {
+    const raw = typeName.replace(/^Component/, "");
+    // Try finding a key that matches case-insensitively without dots/hyphens
+    const cleanRaw = raw.toLowerCase();
+    for (const [key, comp] of Object.entries(componentRegistry)) {
+      const cleanKey = key.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+      if (cleanKey === cleanRaw || `component${cleanKey}` === cleanRaw) {
+        return comp;
+      }
+    }
+  }
+
+  // 3. Normalize "category.component-name" to PascalCase
+  const cleanKebab = typeName.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+  for (const [key, comp] of Object.entries(componentRegistry)) {
+    const cleanKey = key.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+    if (cleanKey === cleanKebab) {
+      return comp;
+    }
+  }
+
+  return null;
+}
+
+/**
  * DynamicZoneRenderer (Component Factory)
  * 
  * Renders components dynamically based on the exact order returned by Strapi.
- * When an editor reorders (moves UP or DOWN) components in Strapi Backend,
- * this factory automatically reflects that new order on the frontend.
+ * Every block is protected by a GenericErrorBoundary to prevent partial crashes.
  */
 export const DynamicZoneRenderer: React.FC<DynamicZoneRendererProps> = ({
   sections,
@@ -28,7 +65,7 @@ export const DynamicZoneRenderer: React.FC<DynamicZoneRendererProps> = ({
         const typeName =
           block.__typename || (block as any).__component || "";
 
-        const Component = componentRegistry[typeName];
+        const Component = resolveComponent(typeName);
 
         if (!Component) {
           if (process.env.NODE_ENV === "development") {
@@ -45,7 +82,14 @@ export const DynamicZoneRenderer: React.FC<DynamicZoneRendererProps> = ({
           return null;
         }
 
-        return <Component key={block.id || index} {...block} />;
+        return (
+          <GenericErrorBoundary
+            key={block.id || block.documentId || index}
+            componentName={typeName}
+          >
+            <Component {...block} />
+          </GenericErrorBoundary>
+        );
       })}
     </div>
   );

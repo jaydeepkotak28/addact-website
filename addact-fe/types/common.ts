@@ -54,3 +54,39 @@ export interface BaseCard {
 }
 
 export type SharedCard = BaseCard;
+
+/**
+ * ─── Generic Utility Types ─────────────────────────────────────────────────────
+ */
+
+export type Nullable<T> = T | null | undefined;
+export type Maybe<T> = T | null | undefined;
+
+export type WithId<T = {}> = T & {
+  id?: string | number | null;
+  documentId?: string | null;
+};
+
+export type WithLink<T = {}> = T & {
+  link?: BaseLink | null;
+};
+
+export type WithImage<T = {}> = T & {
+  image?: ImageType | null;
+};
+
+export type WithClass<T = {}> = T & {
+  className?: string;
+};
+
+export type GenericBlockProps<T = {}> = WithClass<T & { id?: string | number }>;
+
+export interface GenericListProps<T> {
+  items?: T[] | null;
+  className?: string;
+  itemClassName?: string;
+  renderItem: (item: T, index: number) => React.ReactNode;
+  emptyFallback?: React.ReactNode;
+}
+
+export type { StrapiCollectionResponse, StrapiSingleResponse } from "./api";

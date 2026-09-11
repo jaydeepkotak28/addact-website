@@ -135,7 +135,11 @@ export async function getFooterData(region: string = "global"): Promise<FooterDa
   const data = await fetchStrapi<FootersQueryResponse>(
     GET_FOOTER,
     { region },
-    "GetFooters"
+    {
+      queryName: "GetFooters",
+      tags: ["footer", "global", `footer:${region}`],
+      revalidate: 60,
+    }
   );
   if (data?.footers && data.footers.length > 0) {
     return normalizeFooter(data.footers[0]);
@@ -145,7 +149,11 @@ export async function getFooterData(region: string = "global"): Promise<FooterDa
     const fallback = await fetchStrapi<FootersQueryResponse>(
       GET_FOOTER,
       { region: "global" },
-      "GetFootersFallback"
+      {
+        queryName: "GetFootersFallback",
+        tags: ["footer", "global"],
+        revalidate: 60,
+      }
     );
     return fallback?.footers?.[0] ? normalizeFooter(fallback.footers[0]) : null;
   }

@@ -138,7 +138,11 @@ export async function getHeaderData(region: string = "global"): Promise<AddactHe
   const data = await fetchStrapi<HeadersQueryResponse>(
     GET_HEADER,
     { region },
-    "GetHeaders"
+    {
+      queryName: "GetHeaders",
+      tags: ["header", "global", `header:${region}`],
+      revalidate: 60,
+    }
   );
   if (data?.headers && data.headers.length > 0) {
     return normalizeHeader(data.headers[0]);
@@ -148,7 +152,11 @@ export async function getHeaderData(region: string = "global"): Promise<AddactHe
     const fallback = await fetchStrapi<HeadersQueryResponse>(
       GET_HEADER,
       { region: "global" },
-      "GetHeadersFallback"
+      {
+        queryName: "GetHeadersFallback",
+        tags: ["header", "global"],
+        revalidate: 60,
+      }
     );
     return fallback?.headers?.[0] ? normalizeHeader(fallback.headers[0]) : null;
   }

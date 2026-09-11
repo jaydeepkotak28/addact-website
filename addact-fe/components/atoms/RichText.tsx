@@ -1,19 +1,25 @@
 import React from "react";
 import parse from "html-react-parser";
+import DOMPurify from "isomorphic-dompurify";
 
 export interface RichTextProps {
   html?: string | null;
   className?: string;
+  sanitize?: boolean;
 }
 
 export const RichText: React.FC<RichTextProps> = ({
   html,
   className = "",
+  sanitize = true,
 }) => {
   if (!html) return null;
 
-  // Strip pasted inline "white-space: pre" from Slate/CKEditor which prevents text wrapping
-  const cleanedHtml = html.replace(/white-space:\s*pre;?/gi, "white-space: normal;");
+  // 1. Sanitize HTML against XSS vulnerabilities if enabled
+  const safeHtml = sanitize ? DOMPurify.sanitize(html) : html;
+
+  // 2. Strip pasted inline "white-space: pre" from Slate/CKEditor which prevents text wrapping
+  const cleanedHtml = safeHtml.replace(/white-space:\s*pre;?/gi, "white-space: normal;");
 
   return (
     <div

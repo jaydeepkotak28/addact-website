@@ -90,4 +90,5 @@ export function generateStrapiMetadata(seo?: SeoData | null): Metadata {
   return metadata;
 }
 
+export * from "./seo/pageMetadata";
 export default generateStrapiMetadata;

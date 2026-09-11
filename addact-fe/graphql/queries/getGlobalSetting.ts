@@ -49,6 +49,10 @@ export async function getGlobalSetting(): Promise<GlobalSettingData | null> {
   return fetchStrapi<GlobalSettingData>(
     GET_GLOBAL_SETTING,
     undefined,
-    "GetGlobalSetting"
+    {
+      queryName: "GetGlobalSetting",
+      tags: ["globalSetting", "global"],
+      revalidate: 60,
+    }
   );
 }
