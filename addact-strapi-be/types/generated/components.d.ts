@@ -161,6 +161,46 @@ export interface FeaturePromo extends Struct.ComponentSchema {
   };
 }
 
+export interface MediaRelationVideoRelation extends Struct.ComponentSchema {
+  collectionName: 'components_media_relation_video_relations';
+  info: {
+    displayName: 'Video Relation';
+    icon: 'magic';
+  };
+  attributes: {
+    videoListings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::video-listing.video-listing'
+    >;
+  };
+}
+
+export interface MediaIFrame extends Struct.ComponentSchema {
+  collectionName: 'components_media_i_frames';
+  info: {
+    displayName: 'IFrame';
+    icon: 'headphone';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    link: Schema.Attribute.Component<'shared.link', false>;
+    richtext: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface PageStructurePage extends Struct.ComponentSchema {
   collectionName: 'components_page_structure_pages';
   info: {
@@ -333,6 +373,8 @@ declare module '@strapi/strapi' {
       'feature.capabilities': FeatureCapabilities;
       'feature.content': FeatureContent;
       'feature.promo': FeaturePromo;
+      'media-relation.video-relation': MediaRelationVideoRelation;
+      'media.i-frame': MediaIFrame;
       'page-structure.page': PageStructurePage;
       'shared.link': SharedLink;
       'shared.title': SharedTitle;

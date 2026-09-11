@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_media_relation_video_relations",
+  "info": {
+    "displayName": "Video Relation",
+    "icon": "magic"
+  },
+  "options": {},
+  "attributes": {
+    "videoListings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video-listing.video-listing"
+    }
+  },
+  "config": {}
+}

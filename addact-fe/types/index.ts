@@ -6,6 +6,7 @@ export type {
 export * from "./banner";
 export * from "./cta";
 export * from "./capabilities";
+export * from "./video";
 export type {
   DynamicTitleProps,
   HeadingTag,

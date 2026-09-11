@@ -111,4 +111,26 @@ export const CAPABILITIES_RELATION_FRAGMENT = gql`
   }
 `;
 
+/**
+ * Reusable GraphQL Fragment for 'media-relation.video-relation'
+ */
+export const VIDEO_RELATION_FRAGMENT = gql`
+  fragment VideoRelationFields on ComponentMediaRelationVideoRelation {
+    id
+    videoListings(pagination: { limit: -1 }) {
+      documentId
+      internalName
+      Video {
+        id
+        title
+        description
+        richtext
+        link {
+          ...LinkFields
+        }
+      }
+    }
+  }
+`;
+
 

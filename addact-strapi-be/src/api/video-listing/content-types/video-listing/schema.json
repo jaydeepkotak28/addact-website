@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "video_listings",
+  "info": {
+    "singularName": "video-listing",
+    "pluralName": "video-listings",
+    "displayName": "Video Listing"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string"
+    },
+    "Video": {
+      "type": "component",
+      "component": "media.i-frame",
+      "repeatable": false
+    }
+  }
+}

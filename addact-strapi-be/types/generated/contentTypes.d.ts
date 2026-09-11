@@ -814,6 +814,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'content-relation.banner-relation',
         'content-relation.cta-relation',
         'content-relation.capabilities-relation',
+        'media-relation.video-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -920,6 +921,36 @@ export interface ApiTitleDescriptionTitleDescription
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiVideoListingVideoListing
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'video_listings';
+  info: {
+    displayName: 'Video Listing';
+    pluralName: 'video-listings';
+    singularName: 'video-listing';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    internalName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::video-listing.video-listing'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Video: Schema.Attribute.Component<'media.i-frame', false>;
   };
 }
 
@@ -1622,6 +1653,7 @@ declare module '@strapi/strapi' {
       'api::promo.promo': ApiPromoPromo;
       'api::service.service': ApiServiceService;
       'api::title-description.title-description': ApiTitleDescriptionTitleDescription;
+      'api::video-listing.video-listing': ApiVideoListingVideoListing;
       'api::webinar.webinar': ApiWebinarWebinar;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

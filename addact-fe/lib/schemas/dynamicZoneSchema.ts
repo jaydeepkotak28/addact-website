@@ -241,6 +241,41 @@ export const CapabilitiesRelationBlockSchema = z.object({
 
 export type CapabilitiesRelationBlockData = z.infer<typeof CapabilitiesRelationBlockSchema>;
 
+/**
+ * Zod Schema for 'media.i-frame' component
+ */
+export const MediaIFrameSchema = z.object({
+  id: z.union([z.string(), z.number()]).optional(),
+  title: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+  richtext: z.string().nullable().optional(),
+  link: SharedLinkSchema.nullable().optional(),
+});
+
+export type MediaIFrameData = z.infer<typeof MediaIFrameSchema>;
+
+/**
+ * Zod Schema for 'api::video-listing.video-listing' entity
+ */
+export const VideoListingEntitySchema = z.object({
+  documentId: z.string().optional(),
+  internalName: z.string().nullable().optional(),
+  Video: MediaIFrameSchema.nullable().optional(),
+});
+
+export type VideoListingEntityData = z.infer<typeof VideoListingEntitySchema>;
+
+/**
+ * Zod Schema for 'media-relation.video-relation' component
+ */
+export const VideoRelationBlockSchema = z.object({
+  __typename: z.literal("ComponentMediaRelationVideoRelation").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  videoListings: z.array(VideoListingEntitySchema).nullable().optional(),
+});
+
+export type VideoRelationBlockData = z.infer<typeof VideoRelationBlockSchema>;
+
 
 /**
  * Generic Dynamic Zone Block Schema
@@ -335,6 +370,8 @@ export interface DynamicZoneComponentMap {
   "content-relation.cta-relation": CtaRelationBlockData;
   ComponentContentRelationCapabilitiesRelation: CapabilitiesRelationBlockData;
   "content-relation.capabilities-relation": CapabilitiesRelationBlockData;
+  ComponentMediaRelationVideoRelation: VideoRelationBlockData;
+  "media-relation.video-relation": VideoRelationBlockData;
   ComponentFeaturePromo: PromoBlockData;
   "feature.promo": PromoBlockData;
   // Future components:
@@ -365,7 +402,8 @@ export type AnyDynamicZoneBlock =
       Partial<PromoRelationBlockData> &
       Partial<BannerRelationBlockData> &
       Partial<CtaRelationBlockData> &
-      Partial<CapabilitiesRelationBlockData>)
+      Partial<CapabilitiesRelationBlockData> &
+      Partial<VideoRelationBlockData>)
   | KnownDynamicZoneBlock
   | BaseDynamicZoneBlock;
 

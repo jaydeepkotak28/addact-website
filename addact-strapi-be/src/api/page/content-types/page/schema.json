@@ -49,7 +49,8 @@
         "content-relation.content-relation",
         "content-relation.banner-relation",
         "content-relation.cta-relation",
-        "content-relation.capabilities-relation"
+        "content-relation.capabilities-relation",
+        "media-relation.video-relation"
       ]
     }
   }
