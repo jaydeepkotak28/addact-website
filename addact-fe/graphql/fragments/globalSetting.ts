@@ -1,6 +1,7 @@
 import { gql } from "graphql-request";
+import { MEDIA_FIELDS } from "./media";
 
-export const GLOBAL_SETTING_FRAGMENT = gql`
+export const GLOBAL_SETTING_FIELDS = `
   fragment GlobalSettingFields on GlobalSetting {
     documentId
     themeColors {
@@ -19,16 +20,10 @@ export const GLOBAL_SETTING_FRAGMENT = gql`
     }
     brandAssets {
       headerLogo {
-        url
-        alternativeText
-        width
-        height
+        ...MediaFields
       }
       footerLogo {
-        url
-        alternativeText
-        width
-        height
+        ...MediaFields
       }
       favicon {
         url
@@ -43,4 +38,9 @@ export const GLOBAL_SETTING_FRAGMENT = gql`
       }
     }
   }
+`;
+
+export const GLOBAL_SETTING_FRAGMENT = gql`
+  ${MEDIA_FIELDS}
+  ${GLOBAL_SETTING_FIELDS}
 `;

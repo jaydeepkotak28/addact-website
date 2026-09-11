@@ -1,5 +1,5 @@
+import type { SharedLink } from "./common";
 import type {
-  SharedLink,
   VideoRelationBlockData,
   VideoListingEntityData,
   MediaIFrameData,

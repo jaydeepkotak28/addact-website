@@ -1,6 +1,6 @@
-import type { StrapiMedia, SharedLink, SharedTitle } from "@/lib/schemas/dynamicZoneSchema";
+import type { ImageType, SharedLink, SharedTitle } from "./common";
 
-export type CTAImageType = StrapiMedia;
+export type CTAImageType = ImageType;
 export type CTALinkType = SharedLink;
 
 export type CtaTitle =
@@ -25,7 +25,7 @@ export interface CTAProps {
         children?: { text: string }[];
       }[]
     | null;
-  image?: CTAImageType | StrapiMedia | null;
-  link?: CTALinkType | SharedLink | null;
+  image?: CTAImageType | null;
+  link?: CTALinkType | null;
   className?: string;
 }

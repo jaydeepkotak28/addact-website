@@ -1,15 +1,11 @@
-import type {
-  StrapiMedia,
-  SharedLink,
-  SharedTitle,
-  CapabilitiesRelationBlockData,
-} from "@/lib/schemas/dynamicZoneSchema";
+import type { ImageType, SharedLink, SharedTitle } from "./common";
+import type { CapabilitiesRelationBlockData } from "@/lib/schemas/dynamicZoneSchema";
 
 /**
- * Reusable type aliases - Reusing global SharedLink and StrapiMedia
+ * Reusable type aliases - Reusing global SharedLink and ImageType
  */
 export type CapabilityLink = SharedLink;
-export type CapabilityImage = StrapiMedia;
+export type CapabilityImage = ImageType;
 
 /**
  * Single Capability Tab Item
@@ -19,7 +15,7 @@ export interface CapabilityItem {
   title: string;
   description?: string | null;
   link?: SharedLink | null;
-  image?: StrapiMedia | null;
+  image?: ImageType | null;
   sublinks?: SharedLink[] | null;
 }
 

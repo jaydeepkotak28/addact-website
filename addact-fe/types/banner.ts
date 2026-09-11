@@ -1,4 +1,4 @@
-import type { SharedTitle, SharedLink } from "@/lib/schemas/dynamicZoneSchema";
+import type { SharedTitle, SharedLink } from "./common";
 
 /**
  * Reusable CTA Button for Banners

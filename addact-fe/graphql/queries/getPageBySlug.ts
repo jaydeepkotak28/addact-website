@@ -1,7 +1,7 @@
 import { gql } from "graphql-request";
 import { fetchStrapi } from "@/lib/fetchStrapi";
-import { MEDIA_FRAGMENT } from "../fragments/media";
-import { LINK_FRAGMENT, TITLE_FRAGMENT } from "../fragments/shared";
+import { MEDIA_FIELDS } from "../fragments/media";
+import { LINK_FIELDS, TITLE_FIELDS } from "../fragments/shared";
 import { PAGE_HEADING_FRAGMENT } from "../fragments/pageHeading";
 import { BANNER_FIELDS_FRAGMENT } from "../fragments/banner";
 import { CTA_FIELDS_FRAGMENT } from "../fragments/cta";
@@ -28,9 +28,9 @@ export interface GetPageBySlugResponse {
 }
 
 export const GET_PAGE_BY_SLUG = gql`
-  ${MEDIA_FRAGMENT}
-  ${LINK_FRAGMENT}
-  ${TITLE_FRAGMENT}
+  ${MEDIA_FIELDS}
+  ${LINK_FIELDS}
+  ${TITLE_FIELDS}
   ${PAGE_HEADING_FRAGMENT}
   ${BANNER_FIELDS_FRAGMENT}
   ${CTA_FIELDS_FRAGMENT}
