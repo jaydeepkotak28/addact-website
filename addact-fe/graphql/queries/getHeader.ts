@@ -1,73 +1,35 @@
 import { gql } from "graphql-request";
 import { fetchStrapi } from "@/lib/fetchStrapi";
 
-export interface HeaderImage {
-  alternativeText?: string;
-  url?: string;
-  width?: number;
-  height?: number;
-}
+import type {
+  HeaderImage,
+  HeaderLink,
+  HeaderCard,
+  HeaderSubLayer2,
+  HeaderSubLayer,
+  HeaderMenuItem,
+  AddactHeaderData,
+  HeadersQueryResponse,
+  HeaderProps,
+} from "@/types/header";
 
-export interface HeaderLink {
-  id?: string;
-  href?: string;
-  label?: string;
-  target?: string;
-  isExternal?: boolean;
-  subDisc?: string;
-  SubDisc?: string;
-  icon?: HeaderImage;
-  Icon?: HeaderImage;
-}
+export type {
+  HeaderImage,
+  HeaderLink,
+  HeaderCard,
+  HeaderSubLayer2,
+  HeaderSubLayer,
+  HeaderMenuItem,
+  AddactHeaderData,
+  HeadersQueryResponse,
+  HeaderProps,
+};
 
-export interface HeaderCard {
-  title?: string;
-  description?: string;
-  image?: HeaderImage;
-  Image?: HeaderImage;
-  link?: HeaderLink;
-}
-
-export interface HeaderSubLayer2 {
-  id?: string;
-  link?: HeaderLink;
-  card?: HeaderCard;
-  isCardShow?: boolean;
-  isNavHide?: boolean;
-}
-
-export interface HeaderSubLayer {
-  id?: string;
-  link?: HeaderLink;
-  card?: HeaderCard;
-  subLayers?: HeaderSubLayer2[];
-  isCardShow?: boolean;
-  isNavHide?: boolean;
-}
-
-export interface HeaderMenuItem {
-  id?: string;
-  link?: HeaderLink;
-  card?: HeaderCard;
-  subLayers?: HeaderSubLayer[];
-  isCardShow?: boolean;
-  isNavHide?: boolean;
-}
-
-export interface AddactHeaderData {
-  documentId?: string;
-  internalName?: string;
-  region?: string;
-  logo?: HeaderImage;
-  contactButton?: HeaderCard;
-  menu?: HeaderMenuItem[];
-  additionalText?: string;
-  contactDetails?: HeaderLink[];
-}
-
-export interface HeadersQueryResponse {
-  headers: AddactHeaderData[];
-}
+import {
+  MEDIA_FIELDS,
+  LINK_FIELDS,
+  CARD_FIELDS,
+} from "@/graphql/fragments/shared";
 
 export const GET_HEADER = gql`
   query GetHeaders($region: String) {
@@ -77,158 +39,62 @@ export const GET_HEADER = gql`
       region
       additionalText
       logo {
-        url
-        alternativeText
-        width
-        height
+        ...MediaFields
       }
       contactButton {
-        title
-        description
-        image {
-          url
-          alternativeText
-          width
-          height
-        }
-        link {
-          id
-          href
-          label
-          target
-          isExternal
-          icon {
-            url
-            alternativeText
-            width
-            height
-          }
-        }
+        ...CardFields
       }
       contactDetails(pagination: { limit: -1 }) {
-        id
-        href
-        label
-        target
-        isExternal
-        subDisc
-        icon {
-          url
-          alternativeText
-          width
-          height
-        }
+        ...LinkFields
       }
       menu(pagination: { limit: -1 }) {
         id
+        label
         isCardShow
         isNavHide
         link {
-          id
-          href
-          label
-          target
-          isExternal
-          subDisc
-          icon {
-            url
-            alternativeText
-            width
-            height
-          }
+          ...LinkFields
         }
         card {
-          title
-          description
-          image {
-            url
-            alternativeText
-            width
-            height
-          }
-          link {
-            id
-            href
-            label
-            target
-            isExternal
-          }
+          ...CardFields
         }
         subLayers(pagination: { limit: -1 }) {
           id
+          label
           isCardShow
           isNavHide
           link {
-            id
-            href
-            label
-            target
-            isExternal
-            subDisc
-            icon {
-              url
-              alternativeText
-              width
-              height
-            }
+            ...LinkFields
           }
           card {
-            title
-            description
-            image {
-              url
-              alternativeText
-              width
-              height
-            }
-            link {
-              id
-              href
-              label
-              target
-              isExternal
-            }
+            ...CardFields
           }
           subLayers(pagination: { limit: -1 }) {
             id
+            label
             isCardShow
             isNavHide
             link {
-              id
-              href
-              label
-              target
-              isExternal
-              subDisc
-              icon {
-                url
-                alternativeText
-                width
-                height
-              }
+              ...LinkFields
             }
             card {
-              title
-              description
-              image {
-                url
-                alternativeText
-                width
-                height
-              }
+              ...CardFields
             }
           }
         }
       }
     }
   }
+  ${MEDIA_FIELDS}
+  ${LINK_FIELDS}
+  ${CARD_FIELDS}
 `;
 
 function normalizeHeader(data: AddactHeaderData): AddactHeaderData {
   if (!data) return data;
 
-  const normalizeLink = (l?: HeaderLink): HeaderLink | undefined => {
-    if (!l) return l;
+  const normalizeLink = (l?: HeaderLink | null): HeaderLink | undefined => {
+    if (!l) return undefined;
     return {
       ...l,
       SubDisc: l.SubDisc || l.subDisc,
@@ -236,8 +102,8 @@ function normalizeHeader(data: AddactHeaderData): AddactHeaderData {
     };
   };
 
-  const normalizeCard = (c?: HeaderCard): HeaderCard | undefined => {
-    if (!c) return c;
+  const normalizeCard = (c?: HeaderCard | null): HeaderCard | undefined => {
+    if (!c) return undefined;
     return {
       ...c,
       link: normalizeLink(c.link),

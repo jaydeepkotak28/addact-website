@@ -1,91 +1,44 @@
 import { gql } from "graphql-request";
 import { fetchStrapi } from "@/lib/fetchStrapi";
 
-export interface FooterImage {
-  url?: string;
-  alternativeText?: string;
-  width?: number;
-  height?: number;
-  name?: string;
-}
+import type {
+  ImageType,
+  FooterImage,
+  FooterLink,
+  FooterColumn,
+  OfficeAddress,
+  SocialLink,
+  AddressInformationItem,
+  FooterMilestoneTitle,
+  FooterMilestoneImage,
+  FooterViewModel,
+  FooterData,
+  FootersQueryResponse,
+  FooterProps,
+} from "@/types/footer";
 
-export interface FooterLink {
-  id?: string;
-  href?: string;
-  label?: string;
-  target?: string;
-  isExternal?: boolean;
-}
+export type {
+  ImageType,
+  FooterImage,
+  FooterLink,
+  FooterColumn,
+  OfficeAddress,
+  SocialLink,
+  AddressInformationItem,
+  FooterMilestoneTitle,
+  FooterMilestoneImage,
+  FooterViewModel,
+  FooterData,
+  FootersQueryResponse,
+  FooterProps,
+};
 
-export interface FooterColumn {
-  title?: string;
-  links?: FooterLink[];
-  NavLink?: Array<{ Title?: string } | FooterLink>;
-}
-
-export interface OfficeAddress {
-  officeName?: string;
-  Title?: string;
-  urlKeyword?: string;
-  description?: string;
-  Description?: string;
-  region?: string;
-  address?: string;
-  phone?: string;
-  email?: string;
-  mapLink?: string;
-  icon?: FooterImage;
-  Icon?: FooterImage;
-  Link?: {
-    href?: string;
-    isExternal?: boolean;
-    label?: string;
-    SubDisc?: string;
-    target?: string;
-    Icon?: FooterImage;
-  };
-}
-
-export interface SocialLink {
-  id?: string;
-  href?: string;
-  label?: string;
-  target?: string;
-  isExternal?: boolean;
-  icon?: FooterImage;
-  Icon?: FooterImage;
-}
-
-export interface FooterData {
-  documentId?: string;
-  internalName?: string;
-  region?: string;
-  milestonesTitle?: string;
-  milestonestitle?: {
-    CommonTitle?: Array<{ Title?: string; Description?: string }>;
-  };
-  copyrightText?: string;
-  CopyrightText?: string;
-  siteSlogan?: string;
-  SiteSlog?: string;
-  logo?: FooterImage;
-  Logo?: { Image?: FooterImage };
-  backgroundImage?: FooterImage;
-  BackGroundImage?: { Image?: FooterImage };
-  backgroundImageMobile?: FooterImage;
-  BackGroundImageMobile?: { Image?: FooterImage };
-  milestonesImages?: FooterImage[];
-  milestonesimage?: Array<{ Image?: FooterImage }>;
-  addressInformation?: OfficeAddress[];
-  AddressInformation?: OfficeAddress[];
-  footerColumns?: FooterColumn[];
-  footerlinks?: FooterColumn[];
-  socialMedia?: SocialLink[];
-}
-
-export interface FootersQueryResponse {
-  footers: FooterData[];
-}
+import { MEDIA_FIELDS } from "@/graphql/fragments/media";
+import {
+  LINK_FIELDS,
+  OFFICE_ADDRESS_FIELDS,
+  FOOTER_COLUMN_FIELDS,
+} from "@/graphql/fragments/shared";
 
 export const GET_FOOTER = gql`
   query GetFooters($region: String) {
@@ -97,76 +50,32 @@ export const GET_FOOTER = gql`
       copyrightText
       siteSlogan
       logo {
-        url
-        alternativeText
-        width
-        height
-        name
+        ...MediaFields
       }
       backgroundImage {
-        url
-        alternativeText
-        width
-        height
-        name
+        ...MediaFields
       }
       backgroundImageMobile {
-        url
-        alternativeText
-        width
-        height
-        name
+        ...MediaFields
       }
       milestonesImages(pagination: { limit: -1 }) {
-        url
-        alternativeText
-        width
-        height
-        name
+        ...MediaFields
       }
       addressInformation(pagination: { limit: -1 }) {
-        officeName
-        urlKeyword
-        description
-        region
-        address
-        phone
-        email
-        mapLink
-        icon {
-          url
-          alternativeText
-          width
-          height
-          name
-        }
+        ...OfficeAddressFields
       }
       footerColumns(pagination: { limit: -1 }) {
-        title
-        links(pagination: { limit: -1 }) {
-          id
-          href
-          label
-          target
-          isExternal
-        }
+        ...FooterColumnFields
       }
       socialMedia(pagination: { limit: -1 }) {
-        id
-        href
-        label
-        target
-        isExternal
-        icon {
-          url
-          alternativeText
-          width
-          height
-          name
-        }
+        ...LinkFields
       }
     }
   }
+  ${MEDIA_FIELDS}
+  ${LINK_FIELDS}
+  ${OFFICE_ADDRESS_FIELDS}
+  ${FOOTER_COLUMN_FIELDS}
 `;
 
 function normalizeFooter(footer: FooterData): FooterData {

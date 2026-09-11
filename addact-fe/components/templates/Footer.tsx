@@ -4,79 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-import type { Footer as FooterData } from "@/graphql/queries/footer";
-
-type ImageType = {
-  url?: string;
-  alternativeText?: string;
-  width?: number;
-  height?: number;
-  name?: string;
-};
-
-type FooterLink = {
-  id?: string;
-  href?: string;
-  label?: string;
-  target?: string;
-  isExternal?: boolean;
-};
-
-type FooterColumn = {
-  NavLink?: ({ Title?: string } | FooterLink)[];
-};
-
-type IconLink = {
-  id?: string;
-  href?: string;
-  label?: string;
-  target?: string;
-  isExternal?: boolean;
-  Icon?: ImageType;
-};
-
-type AddressInformationItem = {
-  __typename?: string;
-  Title?: string;
-  Description?: string;
-  urlKeyword?: string;
-  Link?: {
-    href?: string;
-    isExternal?: boolean;
-    label?: string;
-    SubDisc?: string | null;
-    target?: string;
-    Icon?: ImageType | null;
-  } | null;
-};
-
-type FooterProps = {
-  data?:
-    | (FooterData & {
-        contacticons?: {
-          Icon?: ImageType;
-        }[];
-      })
-    | null;
-};
-
-type FooterViewModel = {
-  Logo?: { Image?: ImageType | null } | null;
-  AddressInformation?: AddressInformationItem[];
-  footerlinks?: FooterColumn[];
-  milestonestitle?: {
-    CommonTitle?: {
-      Title?: string;
-      Description?: string;
-    }[];
-  } | null;
-  milestonesimage?: {
-    Image?: ImageType | null;
-  }[];
-  socialMedia?: IconLink[];
-  CopyrightText?: string;
-  SiteSlog?: string;
-};
+import type {
+  FooterProps,
+  FooterViewModel,
+  FooterLink,
+} from "@/types/footer";
 
 export default function Footer({ data }: FooterProps) {
   const pathname = usePathname();

@@ -5,22 +5,14 @@ import type {
   HeaderLink,
   HeaderMenuItem,
   HeaderSubLayer,
-} from "@/graphql/queries/addact-header";
+  HeaderProps,
+} from "@/types/header";
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-// import {
-//   openContactDrawer,
-//   shouldOpenContactDrawer,
-// } from "@/lib/contactDrawer";
 import { ChevronRightIcon } from "../atom/icons";
-
-interface HeaderProps {
-  headerData?: AddactHeaderData | null;
-  transparentHeader?: boolean;
-}
 
 // ─── helpers ─────────────────────────────────────────────────────────────────
 
