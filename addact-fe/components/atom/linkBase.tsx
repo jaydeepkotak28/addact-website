@@ -1,27 +1,29 @@
 import React from "react";
-import type { SharedLink } from "@/types";
+import type { BaseLink } from "@/types";
+import { GenericLink, type GenericLinkProps } from "@/components/atoms/GenericLink";
 
-export interface LinkBaseProps extends Partial<SharedLink> {
-  href?: string | null;
-  label?: string | null;
-  className?: string;
-}
+export interface LinkBaseProps<T extends Partial<BaseLink> = BaseLink>
+  extends GenericLinkProps<T> {}
 
-export default function LinkBase({
+export default function LinkBase<T extends Partial<BaseLink> = BaseLink>({
   href = "#",
   label = "",
   target,
   isExternal,
   className = "",
-}: LinkBaseProps) {
+  children,
+  ...rest
+}: LinkBaseProps<T>) {
   return (
-    <a
-      href={href || "#"}
-      target={isExternal ? "_blank" : target || undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
+    <GenericLink
+      href={href}
+      label={label}
+      target={target}
+      isExternal={isExternal}
       className={`block text-black hover:text-[#5865F2] underline text-[22px] ${className}`.trim()}
+      {...rest}
     >
-      {label}
-    </a>
+      {children || label}
+    </GenericLink>
   );
 }
