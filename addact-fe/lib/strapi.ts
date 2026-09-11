@@ -55,12 +55,8 @@ export function getStrapiClient(): GraphQLClient {
     fetch: (url, options) =>
       fetch(url, {
         ...options,
-        cache:
-          process.env.NODE_ENV === "development" ? "no-store" : "default",
-        next:
-          process.env.NODE_ENV === "development"
-            ? undefined
-            : { revalidate: STRAPI_REVALIDATE_SECONDS, tags: ["strapi"] },
+        cache: "default",
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS, tags: ["strapi"] },
       }),
   });
 }

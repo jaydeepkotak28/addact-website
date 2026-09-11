@@ -131,7 +131,9 @@ function normalizeFooter(footer: FooterData): FooterData {
   };
 }
 
-export async function getFooterData(region: string = "global"): Promise<FooterData | null> {
+import { cache } from "react";
+
+export const getFooterData = cache(async (region: string = "global"): Promise<FooterData | null> => {
   const data = await fetchStrapi<FootersQueryResponse>(
     GET_FOOTER,
     { region },
@@ -158,6 +160,6 @@ export async function getFooterData(region: string = "global"): Promise<FooterDa
     return fallback?.footers?.[0] ? normalizeFooter(fallback.footers[0]) : null;
   }
   return null;
-}
+});
 
 export default getFooterData;

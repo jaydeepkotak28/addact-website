@@ -81,6 +81,10 @@ export const OurVisionMission: React.FC<OurVisionMissionProps> = ({
                       alt={itemAlt}
                       width={600}
                       height={400}
+                      preload={index === 0}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      fetchPriority={index === 0 ? "high" : "auto"}
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="rounded-xl object-cover w-full max-w-full"
                     />
                   </div>

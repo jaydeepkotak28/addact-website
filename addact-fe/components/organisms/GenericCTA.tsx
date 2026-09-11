@@ -2,6 +2,7 @@
 
 import React, { type CSSProperties } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { openContactDrawer, shouldOpenContactDrawer } from "@/lib/contactDrawer";
 import { getStrapiMediaUrl } from "@/lib/media";
 import DynamicTitle from "../atoms/DynamicTitle";
@@ -117,11 +118,18 @@ export const GenericCTA: React.FC<CTAProps> = ({
   // --------------------------------------------------------------------------
   if (isCta2) {
     return (
-      <section data-ref="cta-banner2" className={className}>
-        <div
-          className="text-white bg-center bg-cover bg-no-repeat w-full h-full shadow-md"
-          style={{ backgroundImage: imageUrl ? `url(${imageUrl})` : "none" }}
-        >
+      <section data-ref="cta-banner2" className={`relative overflow-hidden ${className}`}>
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            alt={headingText || "CTA Background"}
+            fill
+            sizes="100vw"
+            quality={80}
+            className="object-cover object-center -z-10"
+          />
+        )}
+        <div className="relative text-white w-full h-full shadow-md">
           <div className="container-main">
             <div className="flex flex-col justify-center items-center py-24 text-center">
               {headingText && (
@@ -172,17 +180,19 @@ export const GenericCTA: React.FC<CTAProps> = ({
   // VARIANT 2: Home CTA (Left-aligned, Figma SVG triangle decoration & gradient)
   // --------------------------------------------------------------------------
   if (isHome) {
-    const bgVars: CSSVars = {
-      "--cta-bg-mobile": imageUrl ? `url(${imageUrl})` : "none",
-      "--cta-bg-desktop": imageUrl ? `url(${imageUrl})` : "none",
-    };
-
     return (
       <section className={`relative overflow-hidden ${className}`}>
-        <div
-          className="cta-bg relative text-white w-full h-full shadow-md bg-no-repeat bg-cover bg-center"
-          style={bgVars}
-        >
+        <div className="relative text-white w-full h-full shadow-md overflow-hidden">
+          {imageUrl && (
+            <Image
+              src={imageUrl}
+              alt={headingText || "CTA Background"}
+              fill
+              sizes="100vw"
+              quality={80}
+              className="object-cover object-center -z-10"
+            />
+          )}
           {/* Figma backdrop blur geometric triangle decoration */}
           <div className="absolute -bottom-10 right-0 hidden md:block pointer-events-none z-0">
             <svg
@@ -276,18 +286,6 @@ export const GenericCTA: React.FC<CTAProps> = ({
             </div>
           </div>
         </div>
-
-        <style jsx>{`
-          .cta-bg {
-            background-image: var(--cta-bg-mobile) !important;
-          }
-
-          @media (min-width: 768px) {
-            .cta-bg {
-              background-image: var(--cta-bg-desktop) !important;
-            }
-          }
-        `}</style>
       </section>
     );
   }
@@ -300,12 +298,21 @@ export const GenericCTA: React.FC<CTAProps> = ({
 
   return (
     <section
-      className={`relative w-full bg-cover bg-center bg-no-repeat ${className}`}
+      className={`relative w-full overflow-hidden ${className}`}
       style={{
-        backgroundImage: imageUrl ? `url(${imageUrl})` : "none",
         minHeight: sectionMinHeight,
       }}
     >
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          alt={headingText || "CTA Background"}
+          fill
+          sizes="100vw"
+          quality={80}
+          className="object-cover object-center -z-10"
+        />
+      )}
       <div
         className="relative container-main flex py-[30px]"
         style={{ minHeight: sectionMinHeight }}

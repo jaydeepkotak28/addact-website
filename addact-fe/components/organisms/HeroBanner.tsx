@@ -66,8 +66,10 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           src={backgroundImageUrl}
           alt={title || "Hero Image"}
           fill
+          priority
+          sizes="100vw"
+          quality={80}
           className="object-cover object-center z-0"
-          fetchPriority="high"
         />
       ) : null}
 

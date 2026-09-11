@@ -72,9 +72,9 @@ function createConfiguredClient(options: QueryOptions): GraphQLClient {
   const token = getAuthToken();
 
   const isDev = process.env.NODE_ENV === "development";
-  const revalidate = options.revalidate ?? (isDev ? undefined : STRAPI_REVALIDATE_SECONDS);
+  const revalidate = options.revalidate !== undefined ? options.revalidate : STRAPI_REVALIDATE_SECONDS;
   const tags = options.tags ? ["strapi", ...options.tags] : ["strapi"];
-  const cache = options.cache ?? (isDev ? "no-store" : "default");
+  const cache = options.cache ?? (options.revalidate === false ? "no-store" : "default");
 
   return new GraphQLClient(endpoint, {
     headers: {

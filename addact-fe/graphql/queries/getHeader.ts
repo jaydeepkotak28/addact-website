@@ -134,7 +134,9 @@ function normalizeHeader(data: AddactHeaderData): AddactHeaderData {
   };
 }
 
-export async function getHeaderData(region: string = "global"): Promise<AddactHeaderData | null> {
+import { cache } from "react";
+
+export const getHeaderData = cache(async (region: string = "global"): Promise<AddactHeaderData | null> => {
   const data = await fetchStrapi<HeadersQueryResponse>(
     GET_HEADER,
     { region },
@@ -161,6 +163,6 @@ export async function getHeaderData(region: string = "global"): Promise<AddactHe
     return fallback?.headers?.[0] ? normalizeHeader(fallback.headers[0]) : null;
   }
   return null;
-}
+});
 
 export default getHeaderData;

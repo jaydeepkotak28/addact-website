@@ -26,14 +26,8 @@ export const StrapiImage: React.FC<StrapiImageProps> = ({
   const fullUrl = getStrapiMediaUrl(src);
   if (!fullUrl) return null;
 
-  // In Next.js, local Strapi URLs on localhost:1337 return 400 Bad Request
-  // if not unoptimized, unless the dev server was started with exact remotePatterns.
-  // Using unoptimized for local dev ensures images are always visible.
-  const isLocal =
-    fullUrl.includes("localhost") ||
-    fullUrl.includes("127.0.0.1") ||
-    process.env.NODE_ENV === "development";
-  const shouldBeUnoptimized = unoptimized ?? isLocal;
+  // Respect explicit unoptimized prop if passed, otherwise let Next.js optimize
+  const shouldBeUnoptimized = unoptimized ?? false;
 
   if (fill) {
     return (

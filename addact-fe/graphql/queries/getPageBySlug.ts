@@ -81,10 +81,13 @@ export const GET_PAGE_BY_SLUG = gql`
   }
 `;
 
+import { cache } from "react";
+
 /**
  * Universal Query function to fetch any Dynamic Page by its slug
+ * Memoized with React cache() to prevent duplicate requests between generateMetadata and Page components.
  */
-export async function getPageBySlug(slug: string): Promise<PageItemData | null> {
+export const getPageBySlug = cache(async (slug: string): Promise<PageItemData | null> => {
   const cleanSlug = slug.replace(/^\/+/, "");
   const slugWithSlash = `/${cleanSlug}`;
 
@@ -99,4 +102,4 @@ export async function getPageBySlug(slug: string): Promise<PageItemData | null> 
   );
 
   return data?.pages?.[0] || null;
-}
+});

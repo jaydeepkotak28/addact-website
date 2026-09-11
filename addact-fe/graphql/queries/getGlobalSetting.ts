@@ -45,7 +45,9 @@ export const GET_GLOBAL_SETTING = gql`
   }
 `;
 
-export async function getGlobalSetting(): Promise<GlobalSettingData | null> {
+import { cache } from "react";
+
+export const getGlobalSetting = cache(async (): Promise<GlobalSettingData | null> => {
   return fetchStrapi<GlobalSettingData>(
     GET_GLOBAL_SETTING,
     undefined,
@@ -55,4 +57,4 @@ export async function getGlobalSetting(): Promise<GlobalSettingData | null> {
       revalidate: 60,
     }
   );
-}
+});
