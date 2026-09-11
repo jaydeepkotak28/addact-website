@@ -205,6 +205,44 @@ export const CtaRelationBlockSchema = z.object({
 export type CtaRelationBlockData = z.infer<typeof CtaRelationBlockSchema>;
 
 /**
+ * Testimonial Item Schema ('feature.testimonial-item')
+ */
+export const TestimonialItemSchema = z.object({
+  id: z.union([z.string(), z.number()]).optional(),
+  quote: z.any().nullable().optional(),
+  author_name: z.string().nullable().optional(),
+  author_position: z.string().nullable().optional(),
+  rating: z.string().nullable().optional(),
+});
+
+export type TestimonialItemData = z.infer<typeof TestimonialItemSchema>;
+
+/**
+ * Client Testimonial Collection Schema ('api::client-testimonial.client-testimonial')
+ */
+export const ClientTestimonialSchema = z.object({
+  documentId: z.string().optional(),
+  Title: z.string().nullable().optional(),
+  bgText: z.string().nullable().optional(),
+  rating: z.string().nullable().optional(),
+  ratingImage: StrapiMediaSchema.nullable().optional(),
+  Item: z.array(TestimonialItemSchema).nullable().optional(),
+});
+
+export type ClientTestimonialData = z.infer<typeof ClientTestimonialSchema>;
+
+/**
+ * Zod Schema for 'content-relation.testimonial-relation' component
+ */
+export const TestimonialRelationBlockSchema = z.object({
+  __typename: z.literal("ComponentContentRelationTestimonialRelation").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  clientTestimonial: ClientTestimonialSchema.nullable().optional(),
+});
+
+export type TestimonialRelationBlockData = z.infer<typeof TestimonialRelationBlockSchema>;
+
+/**
  * Zod Schema for 'feature.capabilities' component
  */
 export const CapabilitiesFeatureSchema = z.object({
@@ -394,6 +432,8 @@ export interface DynamicZoneComponentMap {
   "feature.promo": PromoBlockData;
   ComponentAiAnimationBanner: AnimationBannerBlockData;
   "ai.animation-banner": AnimationBannerBlockData;
+  ComponentContentRelationTestimonialRelation: TestimonialRelationBlockData;
+  "content-relation.testimonial-relation": TestimonialRelationBlockData;
   // Future components:
   // ComponentHeroHero: HeroBlockData;
   // ComponentFeatureAccordion: AccordionBlockData;
@@ -424,7 +464,8 @@ export type AnyDynamicZoneBlock =
       Partial<CtaRelationBlockData> &
       Partial<CapabilitiesRelationBlockData> &
       Partial<VideoRelationBlockData> &
-      Partial<AnimationBannerBlockData>)
+      Partial<AnimationBannerBlockData> &
+      Partial<TestimonialRelationBlockData>)
   | KnownDynamicZoneBlock
   | BaseDynamicZoneBlock;
 

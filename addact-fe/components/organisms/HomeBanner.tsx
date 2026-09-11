@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { openContactDrawer, shouldOpenContactDrawer } from "@/lib/contactDrawer";
+import { getStrapiMediaUrl } from "@/lib/media";
 
 export interface AnimationBanner {
   bannerTitle?: string | null;
@@ -40,7 +41,8 @@ const HomeBanner = ({ data }: HomeBannerProps) => {
   const buttonLink = data?.bannerLink?.href || "/";
   const buttonTarget = data?.bannerLink?.isExternal ? "_blank" : "_self";
   const useContactDrawer = !data?.bannerLink?.isExternal && shouldOpenContactDrawer(buttonLink);
-  const backgroundImage = data?.bannerImage?.url || "";
+  const rawBg = data?.bannerImage?.url || "";
+  const backgroundImage = rawBg ? getStrapiMediaUrl(rawBg) : "";
 
   const handleBannerCtaClick = (event: React.MouseEvent<HTMLElement>) => {
     if (!useContactDrawer) {

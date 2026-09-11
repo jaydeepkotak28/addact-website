@@ -13,6 +13,7 @@ import {
   CAPABILITIES_RELATION_FRAGMENT,
   VIDEO_RELATION_FRAGMENT,
   ANIMATION_BANNER_FRAGMENT,
+  TESTIMONIAL_RELATION_FRAGMENT,
 } from "../fragments/dynamicZone";
 import type { StandardPageData } from "@/lib/schemas/dynamicZoneSchema";
 
@@ -42,7 +43,8 @@ export const GET_PAGE_BY_SLUG = gql`
   ${CAPABILITIES_RELATION_FRAGMENT}
   ${VIDEO_RELATION_FRAGMENT}
   ${ANIMATION_BANNER_FRAGMENT}
-  query GetPageBySlug($slug: String!, $slugWithSlash: String!) {
+  ${TESTIMONIAL_RELATION_FRAGMENT}
+  query GetPageBySlug($slug: String, $slugWithSlash: String) {
     pages(
       filters: {
         or: [
@@ -80,6 +82,9 @@ export const GET_PAGE_BY_SLUG = gql`
         }
         ... on ComponentAiAnimationBanner {
           ...AnimationBannerFields
+        }
+        ... on ComponentContentRelationTestimonialRelation {
+          ...TestimonialRelationFields
         }
       }
     }

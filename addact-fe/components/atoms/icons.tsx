@@ -28,4 +28,5 @@ export const RightArrowIcon: React.FC<{ className?: string }> = ({
   </svg>
 );
 
+export * from "./TestimonialWatermarkIcon";
 export default RightArrowIcon;

@@ -602,6 +602,41 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiClientTestimonialClientTestimonial
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'client_testimonials';
+  info: {
+    displayName: 'ClientTestimonial';
+    pluralName: 'client-testimonials';
+    singularName: 'client-testimonial';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bgText: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Item: Schema.Attribute.Component<'feature.testimonial-item', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::client-testimonial.client-testimonial'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.String;
+    ratingImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    Title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCtaCta extends Struct.CollectionTypeSchema {
   collectionName: 'ctas';
   info: {
@@ -902,6 +937,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'content-relation.capabilities-relation',
         'media-relation.video-relation',
         'ai.animation-banner',
+        'content-relation.testimonial-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -1731,6 +1767,7 @@ declare module '@strapi/strapi' {
       'api::banner.banner': ApiBannerBanner;
       'api::blog.blog': ApiBlogBlog;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
+      'api::client-testimonial.client-testimonial': ApiClientTestimonialClientTestimonial;
       'api::cta.cta': ApiCtaCta;
       'api::event.event': ApiEventEvent;
       'api::footer.footer': ApiFooterFooter;

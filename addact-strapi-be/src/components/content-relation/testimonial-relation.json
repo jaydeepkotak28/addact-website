@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_content_relation_testimonial_relations",
+  "info": {
+    "displayName": "Testimonial Relation",
+    "icon": "message",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "clientTestimonial": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::client-testimonial.client-testimonial"
+    }
+  },
+  "config": {}
+}

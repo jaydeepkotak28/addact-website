@@ -7,6 +7,8 @@ import type {
   BaseCard,
   BaseLink,
   BaseTitle,
+  BaseTestimonial,
+  BaseTestimonialItem,
   ImageType,
   Nullable,
 } from "@/types/common";
@@ -168,4 +170,59 @@ export function normalizeCollection<TRaw, TNormalized>(
     }
   }
   return result;
+}
+
+/**
+ * Normalizes testimonial entity into standardized BaseTestimonial
+ */
+export function normalizeTestimonial(raw?: any): BaseTestimonial | null {
+  if (!raw || typeof raw !== "object") return null;
+
+  const title = normalizeTitle(raw.Title || raw.title || "Client Testimonials");
+  const ratingImage = normalizeMedia(raw.ratingImage || raw.rating_image);
+  const bgText =
+    typeof raw.bgText === "string"
+      ? raw.bgText
+      : typeof raw.bg_text === "string"
+      ? raw.bg_text
+      : "TESTIMONIAL";
+  const rating = typeof raw.rating === "string" ? raw.rating : "4.8";
+
+  const rawItems = raw.Item || raw.item || raw.items || [];
+  const items = normalizeCollection(rawItems, (item: any): BaseTestimonialItem => {
+    let quoteText = "";
+    if (typeof item.quote === "string") {
+      quoteText = item.quote;
+    } else if (Array.isArray(item.quote)) {
+      quoteText = item.quote
+        .map((p: any) =>
+          p?.children?.map((c: any) => c?.text || "").join("") || ""
+        )
+        .filter(Boolean)
+        .join("\n");
+    }
+
+    const ratingStr = item.rating || "star5";
+    const match = String(ratingStr).match(/star(\d)/);
+    const ratingNumber = match ? parseInt(match[1], 10) : 5;
+
+    return {
+      id: item.id,
+      quote: quoteText,
+      rawQuote: item.quote,
+      authorName: item.author_name || item.authorName || "",
+      authorPosition: item.author_position || item.authorPosition || "",
+      rating: ratingStr,
+      ratingNumber,
+    };
+  });
+
+  return {
+    documentId: raw.documentId || raw.document_id,
+    title,
+    bgText,
+    rating,
+    ratingImage,
+    items,
+  };
 }

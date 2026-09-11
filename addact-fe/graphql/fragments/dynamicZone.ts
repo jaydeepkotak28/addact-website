@@ -159,3 +159,29 @@ export const ANIMATION_BANNER_FRAGMENT = gql`
     }
   }
 `;
+
+/**
+ * Reusable GraphQL Fragment for 'content-relation.testimonial-relation'
+ */
+export const TESTIMONIAL_RELATION_FRAGMENT = gql`
+  fragment TestimonialRelationFields on ComponentContentRelationTestimonialRelation {
+    clientTestimonial {
+      documentId
+      Title
+      bgText
+      rating
+      Item {
+        quote
+        author_name
+        author_position
+        rating
+      }
+      ratingImage {
+        url
+        alternativeText
+        width
+        height
+      }
+    }
+  }
+`;

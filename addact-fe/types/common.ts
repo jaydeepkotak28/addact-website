@@ -53,7 +53,24 @@ export interface BaseCard {
   Link?: BaseLink | null;
 }
 
-export type SharedCard = BaseCard;
+export interface BaseTestimonialItem {
+  id?: string | number | null;
+  quote?: string | null;
+  rawQuote?: any;
+  authorName?: string | null;
+  authorPosition?: string | null;
+  rating?: string | null;
+  ratingNumber?: number;
+}
+
+export interface BaseTestimonial {
+  documentId?: string | null;
+  title?: BaseTitle | string | null;
+  bgText?: string | null;
+  rating?: string | null;
+  ratingImage?: ImageType | null;
+  items: BaseTestimonialItem[];
+}
 
 /**
  * ─── Generic Utility Types ─────────────────────────────────────────────────────

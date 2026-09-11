@@ -94,6 +94,22 @@ export interface ContentRelationPromoRelation extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentRelationTestimonialRelation
+  extends Struct.ComponentSchema {
+  collectionName: 'components_content_relation_testimonial_relations';
+  info: {
+    description: '';
+    displayName: 'Testimonial Relation';
+    icon: 'message';
+  };
+  attributes: {
+    clientTestimonial: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::client-testimonial.client-testimonial'
+    >;
+  };
+}
+
 export interface FeatureBaseHeading extends Struct.ComponentSchema {
   collectionName: 'components_feature_base_headings';
   info: {
@@ -189,6 +205,23 @@ export interface FeaturePromo extends Struct.ComponentSchema {
       ]
     > &
       Schema.Attribute.DefaultTo<'about_us_content'>;
+  };
+}
+
+export interface FeatureTestimonialItem extends Struct.ComponentSchema {
+  collectionName: 'components_feature_testimonial_items';
+  info: {
+    description: '';
+    displayName: 'Testimonial Item';
+    icon: 'message';
+  };
+  attributes: {
+    author_name: Schema.Attribute.String;
+    author_position: Schema.Attribute.String;
+    quote: Schema.Attribute.Blocks;
+    rating: Schema.Attribute.Enumeration<
+      ['star1', 'star2', 'star3', 'star4', 'star5']
+    >;
   };
 }
 
@@ -501,11 +534,13 @@ declare module '@strapi/strapi' {
       'content-relation.content-relation': ContentRelationContentRelation;
       'content-relation.cta-relation': ContentRelationCtaRelation;
       'content-relation.promo-relation': ContentRelationPromoRelation;
+      'content-relation.testimonial-relation': ContentRelationTestimonialRelation;
       'feature.base-heading': FeatureBaseHeading;
       'feature.body': FeatureBody;
       'feature.capabilities': FeatureCapabilities;
       'feature.content': FeatureContent;
       'feature.promo': FeaturePromo;
+      'feature.testimonial-item': FeatureTestimonialItem;
       'media-relation.video-relation': MediaRelationVideoRelation;
       'media.i-frame': MediaIFrame;
       'page-structure.page': PageStructurePage;

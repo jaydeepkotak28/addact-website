@@ -8,6 +8,7 @@ import CtaRelationBlock from "./blocks/CtaRelationBlock";
 import CapabilitiesRelationBlock from "./blocks/CapabilitiesRelationBlock";
 import VideoRelationBlock from "./blocks/VideoRelationBlock";
 import AnimationBannerBlock from "./blocks/AnimationBannerBlock";
+import TestimonialRelationBlock from "./blocks/TestimonialRelationBlock";
 import type { DynamicZoneComponentMap } from "@/lib/schemas/dynamicZoneSchema";
 
 /**
@@ -62,5 +63,9 @@ export const componentRegistry: ComponentRegistryType = {
   // Strapi GraphQL __typename for component 'ai.animation-banner'
   ComponentAiAnimationBanner: AnimationBannerBlock,
   "ai.animation-banner": AnimationBannerBlock,
+
+  // Strapi GraphQL __typename for component 'content-relation.testimonial-relation'
+  ComponentContentRelationTestimonialRelation: TestimonialRelationBlock,
+  "content-relation.testimonial-relation": TestimonialRelationBlock,
 };
 

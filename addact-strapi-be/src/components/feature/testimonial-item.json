@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_feature_testimonial_items",
+  "info": {
+    "displayName": "Testimonial Item",
+    "icon": "message",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "quote": {
+      "type": "blocks"
+    },
+    "author_name": {
+      "type": "string"
+    },
+    "author_position": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "enumeration",
+      "enum": [
+        "star1",
+        "star2",
+        "star3",
+        "star4",
+        "star5"
+      ]
+    }
+  },
+  "config": {}
+}
