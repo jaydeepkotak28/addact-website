@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat, Poppins } from "next/font/google";
 import { getGlobalSetting } from "@/graphql/queries/getGlobalSetting";
+import { getHeaderData } from "@/graphql/queries/getHeader";
+import { getFooterData } from "@/graphql/queries/getFooter";
 import { getStrapiMediaUrl } from "@/lib/media";
-import Header from "@/components/organisms/Header";
-import Footer from "@/components/organisms/Footer";
+import Header from "@/components/templates/header";
+import Footer from "@/components/templates/Footer";
 import "./globals.css";
 import "../styles/custom.scss";
 import LayoutWrapper from "./LayoutWrapper";
@@ -55,11 +57,15 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const globalData = await getGlobalSetting().catch(() => null);
+  const [globalData, headerData, footerData] = await Promise.all([
+    getGlobalSetting().catch(() => null),
+    getHeaderData("global").catch(() => null),
+    getFooterData("global").catch(() => null),
+  ]);
+
   const theme = globalData?.globalSetting?.themeColors;
   const typography = globalData?.globalSetting?.typographyLayout;
   const brandAssets = globalData?.globalSetting?.brandAssets;
-  const siteInfo = globalData?.globalSetting?.siteInfo;
   const favicon = brandAssets?.favicon;
   const faviconUrl = favicon?.url ? getStrapiMediaUrl(favicon.url) : null;
 
@@ -85,19 +91,15 @@ export default async function RootLayout({
         `}</style>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${poppins.variable} antialiased flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${poppins.variable} antialiased flex flex-col min-h-screen bg-[#0F0F0F] text-white`}
       >
-        <Header headerLogo={brandAssets?.headerLogo} />
+        <Header headerData={headerData} />
         <LayoutWrapper>
-          <div className="flex-1">{children}</div>
+          <div className="flex-1 pt-20 lg:pt-24">{children}</div>
         </LayoutWrapper>
-        <Footer
-          footerLogo={brandAssets?.footerLogo}
-          copyrightText={siteInfo?.copyrightText}
-          supportEmail={siteInfo?.supportEmail}
-          socialLinks={siteInfo?.socialLinks}
-        />
+        <Footer data={footerData} />
       </body>
     </html>
   );
 }
+

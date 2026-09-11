@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "headers",
+  "info": {
+    "singularName": "header",
+    "pluralName": "headers",
+    "displayName": "Header",
+    "description": "Navigation Header with multi-region contact details support"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string",
+      "required": true
+    },
+    "region": {
+      "type": "enumeration",
+      "enum": [
+        "global",
+        "usa",
+        "australia",
+        "india",
+        "uk"
+      ],
+      "default": "global",
+      "required": true
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "menu": {
+      "type": "component",
+      "component": "shared.layer-1",
+      "repeatable": true
+    },
+    "contactButton": {
+      "type": "component",
+      "component": "shared.card",
+      "repeatable": false
+    },
+    "contactDetails": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true
+    },
+    "additionalText": {
+      "type": "string"
+    }
+  }
+}

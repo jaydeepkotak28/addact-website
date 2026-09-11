@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_shared_layer_3s",
+  "info": {
+    "displayName": "Layer 3",
+    "icon": "layer-group",
+    "description": "Navigation Submenu Layer 3"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "link": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "card": {
+      "type": "component",
+      "component": "shared.card",
+      "repeatable": false
+    },
+    "isCardShow": {
+      "type": "boolean",
+      "default": false
+    },
+    "isNavHide": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

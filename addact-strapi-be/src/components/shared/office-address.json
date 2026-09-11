@@ -1,0 +1,51 @@
+{
+  "collectionName": "components_shared_office_addresses",
+  "info": {
+    "displayName": "Office Address",
+    "icon": "building",
+    "description": "Regional office address, contact information, phone, email, and location"
+  },
+  "options": {},
+  "attributes": {
+    "officeName": {
+      "type": "string"
+    },
+    "urlKeyword": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "region": {
+      "type": "enumeration",
+      "enum": [
+        "global",
+        "usa",
+        "australia",
+        "india",
+        "uk",
+        "netherlands"
+      ],
+      "default": "global"
+    },
+    "address": {
+      "type": "text"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "mapLink": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

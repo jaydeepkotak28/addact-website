@@ -213,6 +213,84 @@ export interface PageStructurePage extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedCard extends Struct.ComponentSchema {
+  collectionName: 'components_shared_cards';
+  info: {
+    description: 'Featured card inside navigation menu or CTAs';
+    displayName: 'Card';
+    icon: 'picture';
+  };
+  attributes: {
+    description: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images'>;
+    link: Schema.Attribute.Component<'shared.link', false>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedFooterColumn extends Struct.ComponentSchema {
+  collectionName: 'components_shared_footer_columns';
+  info: {
+    description: 'Column of links in footer';
+    displayName: 'Footer Column';
+    icon: 'list-ul';
+  };
+  attributes: {
+    links: Schema.Attribute.Component<'shared.link', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedLayer1 extends Struct.ComponentSchema {
+  collectionName: 'components_shared_layer_1s';
+  info: {
+    description: 'Navigation Main Menu Layer 1';
+    displayName: 'Layer 1';
+    icon: 'layer-group';
+  };
+  attributes: {
+    card: Schema.Attribute.Component<'shared.card', false>;
+    isCardShow: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    isNavHide: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String;
+    link: Schema.Attribute.Component<'shared.link', false>;
+    subLayers: Schema.Attribute.Component<'shared.layer-2', true>;
+  };
+}
+
+export interface SharedLayer2 extends Struct.ComponentSchema {
+  collectionName: 'components_shared_layer_2s';
+  info: {
+    description: 'Navigation Submenu Layer 2';
+    displayName: 'Layer 2';
+    icon: 'layer-group';
+  };
+  attributes: {
+    card: Schema.Attribute.Component<'shared.card', false>;
+    isCardShow: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    isNavHide: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String;
+    link: Schema.Attribute.Component<'shared.link', false>;
+    subLayers: Schema.Attribute.Component<'shared.layer-3', true>;
+  };
+}
+
+export interface SharedLayer3 extends Struct.ComponentSchema {
+  collectionName: 'components_shared_layer_3s';
+  info: {
+    description: 'Navigation Submenu Layer 3';
+    displayName: 'Layer 3';
+    icon: 'layer-group';
+  };
+  attributes: {
+    card: Schema.Attribute.Component<'shared.card', false>;
+    isCardShow: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    isNavHide: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String;
+    link: Schema.Attribute.Component<'shared.link', false>;
+  };
+}
+
 export interface SharedLink extends Struct.ComponentSchema {
   collectionName: 'components_shared_links';
   info: {
@@ -234,6 +312,29 @@ export interface SharedLink extends Struct.ComponentSchema {
       ['_self', '_blank', '_parent', '_top']
     > &
       Schema.Attribute.DefaultTo<'_self'>;
+  };
+}
+
+export interface SharedOfficeAddress extends Struct.ComponentSchema {
+  collectionName: 'components_shared_office_addresses';
+  info: {
+    description: 'Regional office address, contact information, phone, email, and location';
+    displayName: 'Office Address';
+    icon: 'building';
+  };
+  attributes: {
+    address: Schema.Attribute.Text;
+    description: Schema.Attribute.Text;
+    email: Schema.Attribute.Email;
+    icon: Schema.Attribute.Media<'images'>;
+    mapLink: Schema.Attribute.String;
+    officeName: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    region: Schema.Attribute.Enumeration<
+      ['global', 'usa', 'australia', 'india', 'uk', 'netherlands']
+    > &
+      Schema.Attribute.DefaultTo<'global'>;
+    urlKeyword: Schema.Attribute.String;
   };
 }
 
@@ -376,7 +477,13 @@ declare module '@strapi/strapi' {
       'media-relation.video-relation': MediaRelationVideoRelation;
       'media.i-frame': MediaIFrame;
       'page-structure.page': PageStructurePage;
+      'shared.card': SharedCard;
+      'shared.footer-column': SharedFooterColumn;
+      'shared.layer-1': SharedLayer1;
+      'shared.layer-2': SharedLayer2;
+      'shared.layer-3': SharedLayer3;
       'shared.link': SharedLink;
+      'shared.office-address': SharedOfficeAddress;
       'shared.title': SharedTitle;
       'site-settings.brand-assets': SiteSettingsBrandAssets;
       'site-settings.seo': SiteSettingsSeo;

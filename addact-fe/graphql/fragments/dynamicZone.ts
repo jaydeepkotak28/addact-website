@@ -91,7 +91,7 @@ export const CAPABILITIES_RELATION_FRAGMENT = gql`
     title {
       ...TitleFields
     }
-    ourCapabilities {
+    ourCapabilities(pagination: { limit: -1 }) {
       documentId
       internalName
       capabilities {
@@ -103,7 +103,7 @@ export const CAPABILITIES_RELATION_FRAGMENT = gql`
         image {
           ...MediaFields
         }
-        subLinks {
+        subLinks(pagination: { limit: -1 }) {
           ...LinkFields
         }
       }
