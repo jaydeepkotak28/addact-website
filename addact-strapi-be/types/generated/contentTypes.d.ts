@@ -848,31 +848,6 @@ export interface ApiHeaderHeader extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiHomeHome extends Struct.SingleTypeSchema {
-  collectionName: 'homes';
-  info: {
-    displayName: 'Home';
-    pluralName: 'homes';
-    singularName: 'home';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::home.home'> &
-      Schema.Attribute.Private;
-    pageHeading: Schema.Attribute.Component<'page-structure.page', false>;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiOurCapabilitieOurCapabilitie
   extends Struct.CollectionTypeSchema {
   collectionName: 'our_capabilities';
@@ -1773,7 +1748,6 @@ declare module '@strapi/strapi' {
       'api::footer.footer': ApiFooterFooter;
       'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::header.header': ApiHeaderHeader;
-      'api::home.home': ApiHomeHome;
       'api::our-capabilitie.our-capabilitie': ApiOurCapabilitieOurCapabilitie;
       'api::page.page': ApiPagePage;
       'api::promo.promo': ApiPromoPromo;
