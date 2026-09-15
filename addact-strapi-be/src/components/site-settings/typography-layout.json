@@ -21,13 +21,13 @@
     "bodyFont": {
       "type": "enumeration",
       "enum": [
-        "Poppins",
         "Montserrat",
+        "Poppins",
         "Geist",
         "Inter",
         "Roboto"
       ],
-      "default": "Poppins"
+      "default": "Montserrat"
     },
     "defaultBorderRadius": {
       "type": "string",

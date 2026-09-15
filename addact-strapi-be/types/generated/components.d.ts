@@ -511,9 +511,9 @@ export interface SiteSettingsTypographyLayout extends Struct.ComponentSchema {
   };
   attributes: {
     bodyFont: Schema.Attribute.Enumeration<
-      ['Poppins', 'Montserrat', 'Geist', 'Inter', 'Roboto']
+      ['Montserrat', 'Poppins', 'Geist', 'Inter', 'Roboto']
     > &
-      Schema.Attribute.DefaultTo<'Poppins'>;
+      Schema.Attribute.DefaultTo<'Montserrat'>;
     containerMaxWidth: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'1600px'>;
     defaultBorderRadius: Schema.Attribute.String &

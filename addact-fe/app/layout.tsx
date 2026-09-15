@@ -70,7 +70,10 @@ export default async function RootLayout({
   const faviconUrl = favicon?.url ? getStrapiMediaUrl(favicon.url) : null;
 
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${poppins.variable}`}
+    >
       <head>
         <meta
           name="google-site-verification"
@@ -91,7 +94,7 @@ export default async function RootLayout({
         `}</style>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${poppins.variable} antialiased flex flex-col min-h-screen bg-[#0F0F0F] text-white`}
+        className={`${montserrat.className} antialiased flex flex-col min-h-screen bg-[#0F0F0F] text-white`}
       >
         <Header headerData={headerData} />
         <LayoutWrapper>

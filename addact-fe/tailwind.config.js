@@ -49,7 +49,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        montserrat: ["var(--font-montserrat)"],
+        sans: ["var(--font-montserrat)", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
+        poppins: ["var(--font-poppins)", "sans-serif"],
       },
       animation: {
         marquee: "scroll-marquee 20s linear infinite",
