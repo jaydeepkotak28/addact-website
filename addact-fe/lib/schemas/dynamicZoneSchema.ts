@@ -332,6 +332,62 @@ export const AnimationBannerBlockSchema = z.object({
 
 export type AnimationBannerBlockData = z.infer<typeof AnimationBannerBlockSchema>;
 
+/**
+ * Zod Schema for 'ai.image-tool-tip' component
+ */
+export const AiImageToolTipSchema = z.object({
+  id: z.union([z.string(), z.number()]).optional(),
+  image: StrapiMediaSchema.nullable().optional(),
+  toolTip: z.string().nullable().optional(),
+});
+
+export type AiImageToolTipData = z.infer<typeof AiImageToolTipSchema>;
+
+/**
+ * Zod Schema for 'api::ai-image-tool-tip.ai-image-tool-tip' entity
+ */
+export const AiImageToolTipEntitySchema = z.object({
+  documentId: z.string().optional(),
+  internalName: z.string().nullable().optional(),
+  image: AiImageToolTipSchema.nullable().optional(),
+});
+
+export type AiImageToolTipEntityData = z.infer<typeof AiImageToolTipEntitySchema>;
+
+/**
+ * Zod Schema for 'api::ai-eco-system.ai-eco-system' entity
+ */
+export const AiEcoSystemEntitySchema = z.object({
+  documentId: z.string().optional(),
+  internalName: z.string().nullable().optional(),
+  title: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+  tagLine: z.string().nullable().optional(),
+  link: SharedLinkSchema.nullable().optional(),
+  bgImage: StrapiMediaSchema.nullable().optional(),
+  image: StrapiMediaSchema.nullable().optional(),
+  firstImage: StrapiMediaSchema.nullable().optional(),
+  secondImage: StrapiMediaSchema.nullable().optional(),
+  firstLayerLogos: z.array(AiImageToolTipEntitySchema).nullable().optional(),
+  secondLayerLogos: z.array(AiImageToolTipEntitySchema).nullable().optional(),
+  firstLayerlogos: z.array(z.any()).nullable().optional(),
+  secondLayerlogos: z.array(z.any()).nullable().optional(),
+});
+
+export type AiEcoSystemEntityData = z.infer<typeof AiEcoSystemEntitySchema>;
+
+/**
+ * Zod Schema for 'content-relation.ai-ecosystems-relation' component
+ */
+export const AiEcosystemsRelationBlockSchema = z.object({
+  __typename: z.literal("ComponentContentRelationAiEcosystemsRelation").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  aiEcoSystem: AiEcoSystemEntitySchema.nullable().optional(),
+});
+
+export type AiEcosystemsRelationBlockData = z.infer<typeof AiEcosystemsRelationBlockSchema>;
+
+
 
 /**
  * Generic Dynamic Zone Block Schema
@@ -434,6 +490,8 @@ export interface DynamicZoneComponentMap {
   "ai.animation-banner": AnimationBannerBlockData;
   ComponentContentRelationTestimonialRelation: TestimonialRelationBlockData;
   "content-relation.testimonial-relation": TestimonialRelationBlockData;
+  ComponentContentRelationAiEcosystemsRelation: AiEcosystemsRelationBlockData;
+  "content-relation.ai-ecosystems-relation": AiEcosystemsRelationBlockData;
   // Future components:
   // ComponentHeroHero: HeroBlockData;
   // ComponentFeatureAccordion: AccordionBlockData;
@@ -465,9 +523,11 @@ export type AnyDynamicZoneBlock =
       Partial<CapabilitiesRelationBlockData> &
       Partial<VideoRelationBlockData> &
       Partial<AnimationBannerBlockData> &
-      Partial<TestimonialRelationBlockData>)
+      Partial<TestimonialRelationBlockData> &
+      Partial<AiEcosystemsRelationBlockData>)
   | KnownDynamicZoneBlock
   | BaseDynamicZoneBlock;
+
 
 /**
  * Generic Dynamic Zone Type

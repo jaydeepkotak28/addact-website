@@ -52,7 +52,8 @@
         "content-relation.capabilities-relation",
         "media-relation.video-relation",
         "ai.animation-banner",
-        "content-relation.testimonial-relation"
+        "content-relation.testimonial-relation",
+        "content-relation.ai-ecosystems-relation"
       ]
     }
   }

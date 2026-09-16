@@ -31,6 +31,33 @@ export interface AiAnimationBanner extends Struct.ComponentSchema {
   };
 }
 
+export interface AiImageToolTip extends Struct.ComponentSchema {
+  collectionName: 'components_ai_image_tool_tips';
+  info: {
+    displayName: 'Image Tool Tip';
+    icon: 'crown';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    toolTip: Schema.Attribute.String;
+  };
+}
+
+export interface ContentRelationAiEcosystemsRelation
+  extends Struct.ComponentSchema {
+  collectionName: 'components_content_relation_ai_ecosystems_relations';
+  info: {
+    displayName: 'AI Ecosystems Relation';
+    icon: 'brush';
+  };
+  attributes: {
+    aiEcoSystem: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::ai-eco-system.ai-eco-system'
+    >;
+  };
+}
+
 export interface ContentRelationBannerRelation extends Struct.ComponentSchema {
   collectionName: 'components_content_relation_banner_relations';
   info: {
@@ -529,6 +556,8 @@ declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
       'ai.animation-banner': AiAnimationBanner;
+      'ai.image-tool-tip': AiImageToolTip;
+      'content-relation.ai-ecosystems-relation': ContentRelationAiEcosystemsRelation;
       'content-relation.banner-relation': ContentRelationBannerRelation;
       'content-relation.capabilities-relation': ContentRelationCapabilitiesRelation;
       'content-relation.content-relation': ContentRelationContentRelation;

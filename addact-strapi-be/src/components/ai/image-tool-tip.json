@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_ai_image_tool_tips",
+  "info": {
+    "displayName": "Image Tool Tip",
+    "icon": "crown"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "toolTip": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

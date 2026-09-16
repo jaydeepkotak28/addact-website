@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ai_eco_systems",
+  "info": {
+    "singularName": "ai-eco-system",
+    "pluralName": "ai-eco-systems",
+    "displayName": "AI Eco System"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "tagLine": {
+      "type": "string"
+    },
+    "link": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "bgImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "firstLayerLogos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ai-image-tool-tip.ai-image-tool-tip"
+    },
+    "secondLayerLogos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ai-image-tool-tip.ai-image-tool-tip"
+    }
+  }
+}

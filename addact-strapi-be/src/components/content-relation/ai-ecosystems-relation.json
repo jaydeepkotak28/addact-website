@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_relation_ai_ecosystems_relations",
+  "info": {
+    "displayName": "AI Ecosystems Relation",
+    "icon": "brush"
+  },
+  "options": {},
+  "attributes": {
+    "aiEcoSystem": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::ai-eco-system.ai-eco-system"
+    }
+  },
+  "config": {}
+}

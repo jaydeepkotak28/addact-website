@@ -443,6 +443,84 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAiEcoSystemAiEcoSystem extends Struct.CollectionTypeSchema {
+  collectionName: 'ai_eco_systems';
+  info: {
+    displayName: 'AI Eco System';
+    pluralName: 'ai-eco-systems';
+    singularName: 'ai-eco-system';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bgImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    firstLayerLogos: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ai-image-tool-tip.ai-image-tool-tip'
+    >;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    internalName: Schema.Attribute.String;
+    link: Schema.Attribute.Component<'shared.link', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ai-eco-system.ai-eco-system'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    secondLayerLogos: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ai-image-tool-tip.ai-image-tool-tip'
+    >;
+    tagLine: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiAiImageToolTipAiImageToolTip
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'ai_image_tool_tips';
+  info: {
+    displayName: 'AI Image ToolTip';
+    pluralName: 'ai-image-tool-tips';
+    singularName: 'ai-image-tool-tip';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Component<'ai.image-tool-tip', false>;
+    internalName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ai-image-tool-tip.ai-image-tool-tip'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBannerBanner extends Struct.CollectionTypeSchema {
   collectionName: 'banners';
   info: {
@@ -913,6 +991,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'media-relation.video-relation',
         'ai.animation-banner',
         'content-relation.testimonial-relation',
+        'content-relation.ai-ecosystems-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -1739,6 +1818,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::ai-eco-system.ai-eco-system': ApiAiEcoSystemAiEcoSystem;
+      'api::ai-image-tool-tip.ai-image-tool-tip': ApiAiImageToolTipAiImageToolTip;
       'api::banner.banner': ApiBannerBanner;
       'api::blog.blog': ApiBlogBlog;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;

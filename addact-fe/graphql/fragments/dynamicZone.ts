@@ -185,3 +185,49 @@ export const TESTIMONIAL_RELATION_FRAGMENT = gql`
     }
   }
 `;
+
+/**
+ * Reusable GraphQL Fragment for 'content-relation.ai-ecosystems-relation'
+ */
+export const AI_ECOSYSTEMS_RELATION_FRAGMENT = gql`
+  fragment AiEcosystemsRelationFields on ComponentContentRelationAiEcosystemsRelation {
+    id
+    aiEcoSystem {
+      documentId
+      internalName
+      title
+      description
+      tagLine
+      link {
+        ...LinkFields
+      }
+      bgImage {
+        ...MediaFields
+      }
+      image {
+        ...MediaFields
+      }
+      firstLayerLogos {
+        documentId
+        internalName
+        image {
+          toolTip
+          image {
+            ...MediaFields
+          }
+        }
+      }
+      secondLayerLogos {
+        documentId
+        internalName
+        image {
+          toolTip
+          image {
+            ...MediaFields
+          }
+        }
+      }
+    }
+  }
+`;
+

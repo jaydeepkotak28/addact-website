@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ai_image_tool_tips",
+  "info": {
+    "singularName": "ai-image-tool-tip",
+    "pluralName": "ai-image-tool-tips",
+    "displayName": "AI Image ToolTip"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string"
+    },
+    "image": {
+      "type": "component",
+      "component": "ai.image-tool-tip",
+      "repeatable": false
+    }
+  }
+}

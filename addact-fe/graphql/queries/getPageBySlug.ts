@@ -14,6 +14,7 @@ import {
   VIDEO_RELATION_FRAGMENT,
   ANIMATION_BANNER_FRAGMENT,
   TESTIMONIAL_RELATION_FRAGMENT,
+  AI_ECOSYSTEMS_RELATION_FRAGMENT,
 } from "../fragments/dynamicZone";
 import type { StandardPageData } from "@/lib/schemas/dynamicZoneSchema";
 
@@ -44,6 +45,7 @@ export const GET_PAGE_BY_SLUG = gql`
   ${VIDEO_RELATION_FRAGMENT}
   ${ANIMATION_BANNER_FRAGMENT}
   ${TESTIMONIAL_RELATION_FRAGMENT}
+  ${AI_ECOSYSTEMS_RELATION_FRAGMENT}
   query GetPageBySlug($slug: String, $slugWithSlash: String) {
     pages(
       filters: {
@@ -85,6 +87,9 @@ export const GET_PAGE_BY_SLUG = gql`
         }
         ... on ComponentContentRelationTestimonialRelation {
           ...TestimonialRelationFields
+        }
+        ... on ComponentContentRelationAiEcosystemsRelation {
+          ...AiEcosystemsRelationFields
         }
       }
     }
