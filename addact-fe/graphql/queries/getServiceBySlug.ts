@@ -16,6 +16,7 @@ import {
   ANIMATION_BANNER_FRAGMENT,
   TESTIMONIAL_RELATION_FRAGMENT,
   AI_ECOSYSTEMS_RELATION_FRAGMENT,
+  WHO_WE_ARE_RELATION_FRAGMENT,
 } from "../fragments/dynamicZone";
 import type {
   PageHeadingStructure,
@@ -66,6 +67,7 @@ export const GET_SERVICE_BY_SLUG = gql`
   ${ANIMATION_BANNER_FRAGMENT}
   ${TESTIMONIAL_RELATION_FRAGMENT}
   ${AI_ECOSYSTEMS_RELATION_FRAGMENT}
+  ${WHO_WE_ARE_RELATION_FRAGMENT}
   query GetServiceBySlug($slug: String, $slugWithSlash: String) {
     services(
       filters: {
@@ -141,6 +143,9 @@ export const GET_SERVICE_BY_SLUG = gql`
         }
         ... on ComponentContentRelationAiEcosystemsRelation {
           ...AiEcosystemsRelationFields
+        }
+        ... on ComponentContentRelationWhoWeAreRelation {
+          ...WhoWeAreRelationFields
         }
       }
     }

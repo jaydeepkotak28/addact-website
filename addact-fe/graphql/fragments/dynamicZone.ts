@@ -231,3 +231,28 @@ export const AI_ECOSYSTEMS_RELATION_FRAGMENT = gql`
   }
 `;
 
+/**
+ * Reusable GraphQL Fragment for 'content-relation.who-we-are-relation'
+ */
+export const WHO_WE_ARE_RELATION_FRAGMENT = gql`
+  fragment WhoWeAreRelationFields on ComponentContentRelationWhoWeAreRelation {
+    id
+    whoAreWe {
+      documentId
+      internalName
+      description {
+        body
+      }
+      counterCards {
+        documentId
+        internalName
+        card {
+          title
+          counter
+        }
+      }
+    }
+  }
+`;
+
+

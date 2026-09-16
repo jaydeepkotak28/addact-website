@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "counters",
+  "info": {
+    "singularName": "counter",
+    "pluralName": "counters",
+    "displayName": "Counter"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string"
+    },
+    "card": {
+      "type": "component",
+      "component": "feature.counter",
+      "repeatable": false
+    }
+  }
+}

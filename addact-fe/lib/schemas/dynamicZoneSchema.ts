@@ -387,6 +387,18 @@ export const AiEcosystemsRelationBlockSchema = z.object({
 
 export type AiEcosystemsRelationBlockData = z.infer<typeof AiEcosystemsRelationBlockSchema>;
 
+/**
+ * Zod Schema for 'content-relation.who-we-are-relation' component
+ */
+export const WhoWeAreRelationBlockSchema = z.object({
+  __typename: z.literal("ComponentContentRelationWhoWeAreRelation").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  whoAreWe: z.any().nullable().optional(),
+});
+
+export type WhoWeAreRelationBlockData = z.infer<typeof WhoWeAreRelationBlockSchema>;
+
+
 
 
 /**
@@ -492,6 +504,8 @@ export interface DynamicZoneComponentMap {
   "content-relation.testimonial-relation": TestimonialRelationBlockData;
   ComponentContentRelationAiEcosystemsRelation: AiEcosystemsRelationBlockData;
   "content-relation.ai-ecosystems-relation": AiEcosystemsRelationBlockData;
+  ComponentContentRelationWhoWeAreRelation: WhoWeAreRelationBlockData;
+  "content-relation.who-we-are-relation": WhoWeAreRelationBlockData;
   // Future components:
   // ComponentHeroHero: HeroBlockData;
   // ComponentFeatureAccordion: AccordionBlockData;

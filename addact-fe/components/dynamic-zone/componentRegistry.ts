@@ -10,6 +10,7 @@ import VideoRelationBlock from "./blocks/VideoRelationBlock";
 import AnimationBannerBlock from "./blocks/AnimationBannerBlock";
 import TestimonialRelationBlock from "./blocks/TestimonialRelationBlock";
 import AiEcosystemsRelationBlock from "./blocks/AiEcosystemsRelationBlock";
+import WhoWeAreRelationBlock from "./blocks/WhoWeAreRelationBlock";
 import type { DynamicZoneComponentMap } from "@/lib/schemas/dynamicZoneSchema";
 
 /**
@@ -72,6 +73,10 @@ export const componentRegistry: ComponentRegistryType = {
   // Strapi GraphQL __typename for component 'content-relation.ai-ecosystems-relation'
   ComponentContentRelationAiEcosystemsRelation: AiEcosystemsRelationBlock,
   "content-relation.ai-ecosystems-relation": AiEcosystemsRelationBlock,
+
+  // Strapi GraphQL __typename for component 'content-relation.who-we-are-relation'
+  ComponentContentRelationWhoWeAreRelation: WhoWeAreRelationBlock,
+  "content-relation.who-we-are-relation": WhoWeAreRelationBlock,
 };
 
 

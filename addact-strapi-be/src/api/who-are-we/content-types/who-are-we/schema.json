@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "who_are_wes",
+  "info": {
+    "singularName": "who-are-we",
+    "pluralName": "who-are-wes",
+    "displayName": "Who are We"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "component",
+      "component": "feature.content",
+      "repeatable": false
+    },
+    "counterCards": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::counter.counter"
+    }
+  }
+}

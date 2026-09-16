@@ -53,7 +53,8 @@
         "media-relation.video-relation",
         "ai.animation-banner",
         "content-relation.testimonial-relation",
-        "content-relation.ai-ecosystems-relation"
+        "content-relation.ai-ecosystems-relation",
+        "content-relation.who-we-are-relation"
       ]
     }
   }

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_relation_who_we_are_relations",
+  "info": {
+    "displayName": "Who We Are Relation",
+    "icon": "code"
+  },
+  "options": {},
+  "attributes": {
+    "whoAreWe": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::who-are-we.who-are-we"
+    }
+  },
+  "config": {}
+}

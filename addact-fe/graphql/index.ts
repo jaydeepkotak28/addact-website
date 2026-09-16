@@ -20,3 +20,4 @@ export * from "./queries/getFooter";
 export * from "./queries/getPageBySlug";
 export * from "./queries/getGlobalSetting";
 export * from "./queries/getClientTestimonialsData";
+export * from "./queries/getWhoWeAreData";

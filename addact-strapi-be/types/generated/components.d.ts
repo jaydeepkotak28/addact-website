@@ -137,6 +137,21 @@ export interface ContentRelationTestimonialRelation
   };
 }
 
+export interface ContentRelationWhoWeAreRelation
+  extends Struct.ComponentSchema {
+  collectionName: 'components_content_relation_who_we_are_relations';
+  info: {
+    displayName: 'Who We Are Relation';
+    icon: 'code';
+  };
+  attributes: {
+    whoAreWe: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::who-are-we.who-are-we'
+    >;
+  };
+}
+
 export interface FeatureBaseHeading extends Struct.ComponentSchema {
   collectionName: 'components_feature_base_headings';
   info: {
@@ -202,6 +217,18 @@ export interface FeatureContent extends Struct.ComponentSchema {
           preset: 'defaultHtml';
         }
       >;
+  };
+}
+
+export interface FeatureCounter extends Struct.ComponentSchema {
+  collectionName: 'components_feature_counters';
+  info: {
+    displayName: 'Counter';
+    icon: 'bulletList';
+  };
+  attributes: {
+    counter: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -564,10 +591,12 @@ declare module '@strapi/strapi' {
       'content-relation.cta-relation': ContentRelationCtaRelation;
       'content-relation.promo-relation': ContentRelationPromoRelation;
       'content-relation.testimonial-relation': ContentRelationTestimonialRelation;
+      'content-relation.who-we-are-relation': ContentRelationWhoWeAreRelation;
       'feature.base-heading': FeatureBaseHeading;
       'feature.body': FeatureBody;
       'feature.capabilities': FeatureCapabilities;
       'feature.content': FeatureContent;
+      'feature.counter': FeatureCounter;
       'feature.promo': FeaturePromo;
       'feature.testimonial-item': FeatureTestimonialItem;
       'media-relation.video-relation': MediaRelationVideoRelation;

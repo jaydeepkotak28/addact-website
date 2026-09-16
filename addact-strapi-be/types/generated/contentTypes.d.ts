@@ -715,6 +715,35 @@ export interface ApiClientTestimonialClientTestimonial
   };
 }
 
+export interface ApiCounterCounter extends Struct.CollectionTypeSchema {
+  collectionName: 'counters';
+  info: {
+    displayName: 'Counter';
+    pluralName: 'counters';
+    singularName: 'counter';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    card: Schema.Attribute.Component<'feature.counter', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    internalName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::counter.counter'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCtaCta extends Struct.CollectionTypeSchema {
   collectionName: 'ctas';
   info: {
@@ -1055,6 +1084,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'ai.animation-banner',
         'content-relation.testimonial-relation',
         'content-relation.ai-ecosystems-relation',
+        'content-relation.who-we-are-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -1136,6 +1166,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
         'content-relation.ai-ecosystems-relation',
         'feature.promo',
         'feature.content',
+        'content-relation.who-we-are-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -1254,6 +1285,39 @@ export interface ApiWebinarWebinar extends Struct.CollectionTypeSchema {
       ['Upcoming', 'On-Demand / Recorded']
     > &
       Schema.Attribute.DefaultTo<'Upcoming'>;
+  };
+}
+
+export interface ApiWhoAreWeWhoAreWe extends Struct.CollectionTypeSchema {
+  collectionName: 'who_are_wes';
+  info: {
+    displayName: 'Who are We';
+    pluralName: 'who-are-wes';
+    singularName: 'who-are-we';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    counterCards: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::counter.counter'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Component<'feature.content', false>;
+    internalName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::who-are-we.who-are-we'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1901,6 +1965,7 @@ declare module '@strapi/strapi' {
       'api::blog.blog': ApiBlogBlog;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
       'api::client-testimonial.client-testimonial': ApiClientTestimonialClientTestimonial;
+      'api::counter.counter': ApiCounterCounter;
       'api::cta.cta': ApiCtaCta;
       'api::event.event': ApiEventEvent;
       'api::footer.footer': ApiFooterFooter;
@@ -1914,6 +1979,7 @@ declare module '@strapi/strapi' {
       'api::title-description.title-description': ApiTitleDescriptionTitleDescription;
       'api::video-listing.video-listing': ApiVideoListingVideoListing;
       'api::webinar.webinar': ApiWebinarWebinar;
+      'api::who-are-we.who-are-we': ApiWhoAreWeWhoAreWe;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

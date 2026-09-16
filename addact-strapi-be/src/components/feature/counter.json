@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_feature_counters",
+  "info": {
+    "displayName": "Counter",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "counter": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

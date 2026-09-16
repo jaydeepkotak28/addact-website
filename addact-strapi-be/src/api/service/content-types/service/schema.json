@@ -54,7 +54,6 @@
       "target": "api::service.service",
       "mappedBy": "parent"
     },
-
     "sections": {
       "type": "dynamiczone",
       "components": [
@@ -68,7 +67,8 @@
         "content-relation.testimonial-relation",
         "content-relation.ai-ecosystems-relation",
         "feature.promo",
-        "feature.content"
+        "feature.content",
+        "content-relation.who-we-are-relation"
       ]
     }
   }

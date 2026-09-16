@@ -226,3 +226,66 @@ export function normalizeTestimonial(raw?: any): BaseTestimonial | null {
     items,
   };
 }
+
+/**
+ * Normalizes WhoAreWe entity into standard WhoWeAre component format
+ */
+export function normalizeWhoAreWe(raw?: any): {
+  documentId?: string;
+  pageReference?: string;
+  Title: Array<{ Title?: string; Description: string }>;
+  Counter: Array<{ id: string; CounterTitle: string; NumberCount: number | string }>;
+} | null {
+  if (!raw || typeof raw !== "object") return null;
+
+  // Case 1: Already in Title/Counter format
+  if (Array.isArray(raw.Counter) || Array.isArray(raw.Title)) {
+    const description =
+      raw.Title?.[0]?.Description ||
+      raw.description?.body ||
+      raw.body ||
+      "";
+    const title = raw.Title?.[0]?.Title || raw.title || "";
+    const counters = (raw.Counter || []).map((c: any, i: number) => ({
+      id: c.id || c.documentId || String(i),
+      CounterTitle: c.CounterTitle || c.title || "",
+      NumberCount: c.NumberCount ?? c.counter ?? 0,
+    }));
+
+    return {
+      documentId: raw.documentId,
+      pageReference: raw.pageReference || raw.internalName,
+      Title: [{ Title: title, Description: description }],
+      Counter: counters,
+    };
+  }
+
+  // Case 2: Strapi whoAreWe relation format
+  const entity = raw.whoAreWe || raw;
+  const description =
+    entity.description?.body ||
+    entity.description?.Description ||
+    (typeof entity.description === "string" ? entity.description : "") ||
+    "";
+  const title = entity.title || entity.internalName || "";
+
+  const counterCards = entity.counterCards || entity.Counter || [];
+  const counters = (Array.isArray(counterCards) ? counterCards : []).map(
+    (c: any, i: number) => {
+      const cardObj = c.card || c;
+      return {
+        id: c.documentId || c.id || String(i),
+        CounterTitle: cardObj.title || cardObj.CounterTitle || "",
+        NumberCount: cardObj.counter ?? cardObj.NumberCount ?? 0,
+      };
+    }
+  );
+
+  return {
+    documentId: entity.documentId,
+    pageReference: entity.internalName || entity.pageReference,
+    Title: [{ Title: title, Description: description }],
+    Counter: counters,
+  };
+}
+
