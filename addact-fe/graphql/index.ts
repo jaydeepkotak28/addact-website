@@ -21,3 +21,4 @@ export * from "./queries/getPageBySlug";
 export * from "./queries/getGlobalSetting";
 export * from "./queries/getClientTestimonialsData";
 export * from "./queries/getWhoWeAreData";
+export * from "./queries/getWhyAddactData";

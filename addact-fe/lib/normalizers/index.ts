@@ -289,3 +289,51 @@ export function normalizeWhoAreWe(raw?: any): {
   };
 }
 
+/**
+ * Normalizes WhyAddact entity into standard Accordion/WhyWorkWithUs format
+ */
+export function normalizeWhyAddact(raw?: any): {
+  documentId?: string;
+  internalName?: string;
+  title?: string;
+  items: Array<{
+    title: string;
+    description: string;
+    image?: any;
+  }>;
+} | null {
+  if (!raw || typeof raw !== "object") return null;
+
+  const entity = raw.whyAddact || raw;
+  const title =
+    entity.title?.title ||
+    entity.Title?.[0]?.h2 ||
+    (typeof entity.title === "string" ? entity.title : "") ||
+    entity.internalName ||
+    "";
+
+  let items: Array<{ title: string; description: string; image?: any }> = [];
+
+  if (Array.isArray(entity.content)) {
+    items = entity.content.map((item: any) => ({
+      title: item.Body?.title || item.title || item.internalName || "",
+      description: item.Body?.description || item.description || "",
+      image: item.image,
+    }));
+  } else if (Array.isArray(entity.GlobalCard)) {
+    items = entity.GlobalCard.map((card: any) => ({
+      title: card.Title || card.title || "",
+      description: card.Description || card.description || "",
+      image: card.Image || card.image,
+    }));
+  }
+
+  return {
+    documentId: entity.documentId,
+    internalName: entity.internalName,
+    title,
+    items,
+  };
+}
+
+
