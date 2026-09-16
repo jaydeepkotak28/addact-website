@@ -926,6 +926,69 @@ export interface ApiHeaderHeader extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiHireExpertHireExpert extends Struct.CollectionTypeSchema {
+  collectionName: 'hire_experts';
+  info: {
+    description: 'Dedicated recursive multi-layer Hire Expert staffing & talent roles';
+    displayName: 'Hire Expert';
+    pluralName: 'hire-experts';
+    singularName: 'hire-expert';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    children: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::hire-expert.hire-expert'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    experienceLevel: Schema.Attribute.String;
+    internalName: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::hire-expert.hire-expert'
+    > &
+      Schema.Attribute.Private;
+    pageHeading: Schema.Attribute.Component<'page-structure.page', false>;
+    pageType: Schema.Attribute.Enumeration<
+      ['Standard', 'Dark', 'Light', 'LegalPolicy', 'FullWidth']
+    > &
+      Schema.Attribute.DefaultTo<'Dark'>;
+    parent: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::hire-expert.hire-expert'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    roleTitle: Schema.Attribute.String;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'content-relation.promo-relation',
+        'content-relation.content-relation',
+        'content-relation.banner-relation',
+        'content-relation.cta-relation',
+        'content-relation.capabilities-relation',
+        'media-relation.video-relation',
+        'ai.animation-banner',
+        'content-relation.testimonial-relation',
+        'content-relation.ai-ecosystems-relation',
+        'feature.promo',
+        'feature.content',
+      ]
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    variant: Schema.Attribute.Enumeration<
+      ['default', 'dark', 'light', 'legal_policy']
+    > &
+      Schema.Attribute.DefaultTo<'dark'>;
+  };
+}
+
 export interface ApiOurCapabilitieOurCapabilitie
   extends Struct.CollectionTypeSchema {
   collectionName: 'our_capabilities';
@@ -1843,6 +1906,7 @@ declare module '@strapi/strapi' {
       'api::footer.footer': ApiFooterFooter;
       'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::header.header': ApiHeaderHeader;
+      'api::hire-expert.hire-expert': ApiHireExpertHireExpert;
       'api::our-capabilitie.our-capabilitie': ApiOurCapabilitieOurCapabilitie;
       'api::page.page': ApiPagePage;
       'api::promo.promo': ApiPromoPromo;

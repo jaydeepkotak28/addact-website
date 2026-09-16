@@ -5,6 +5,10 @@ import {
   getServiceBySlug,
   type ServiceItemData,
 } from "@/graphql/queries/getServiceBySlug";
+import {
+  getHireExpertBySlug,
+  type HireExpertItemData,
+} from "@/graphql/queries/getHireExpertBySlug";
 import DynamicZoneRenderer from "@/components/dynamic-zone/DynamicZoneRenderer";
 import { generateStrapiMetadata } from "@/lib/seo";
 
@@ -53,6 +57,23 @@ export async function generateMetadata({
     };
   }
 
+  // 3. Try resolving multi-layer Hire Expert
+  const hireExpert = await getHireExpertBySlug(slugPath);
+  if (hireExpert) {
+    const seo = hireExpert.pageHeading?.seo;
+    const fallbackTitle =
+      hireExpert.roleTitle ||
+      hireExpert.pageHeading?.PageHeading?.pageTitle ||
+      hireExpert.internalName ||
+      "Addact Technologies";
+    const strapiMeta = generateStrapiMetadata(seo);
+    return {
+      ...strapiMeta,
+      title: seo?.metaTitle || fallbackTitle,
+      description: seo?.metaDescription || strapiMeta.description,
+    };
+  }
+
   return {
     title: "Page Not Found",
   };
@@ -74,48 +95,19 @@ export default async function CatchAllPage({ params }: PageProps) {
   const page = await getPageBySlug(slugPath);
 
   if (page) {
-    const heading =
-      page.pageHeading?.PageHeading?.pageTitle ||
-      page.internalName ||
-      "";
     const sections = page.sections || [];
 
     const isPolicyPage = page.pageType === "LegalPolicy" || page.variant === "legal_policy";
     const isDarkPage = page.pageType === "Dark" || page.variant === "dark";
     const isLightPage = page.pageType === "Light" || page.variant === "light";
 
-    if (isPolicyPage) {
-      return (
-        <main className="bg-white company-policy min-h-screen">
-          <div className="container-main">
-            {heading && <h1>{heading}</h1>}
-            {sections.length > 0 && <DynamicZoneRenderer sections={sections} />}
-          </div>
-        </main>
-      );
-    }
-
-    const mainVariantClass = isDarkPage
-      ? "bg-siteDark text-white"
-      : isLightPage
-        ? "bg-siteLight"
-        : "";
+    const mainVariantClass = isLightPage
+      ? "bg-siteLight text-black"
+      : "bg-siteDark text-white";
 
     return (
       <main className={`${mainVariantClass} min-h-screen`.trim()}>
-        {sections.length > 0 ? (
-          <DynamicZoneRenderer sections={sections} />
-        ) : heading ? (
-          <div className="container-main py-12 text-center">
-            <h1
-              className={`text-3xl font-bold font-montserrat ${
-                isDarkPage ? "text-white" : "text-black"
-              }`}
-            >
-              {heading}
-            </h1>
-          </div>
-        ) : null}
+        {sections.length > 0 && <DynamicZoneRenderer sections={sections} />}
       </main>
     );
   }
@@ -151,6 +143,37 @@ export default async function CatchAllPage({ params }: PageProps) {
     );
   }
 
-  // Not found in pages or services
+  // 3. Check Multi-Layer Hire Expert
+  const hireExpert = await getHireExpertBySlug(slugPath);
+
+  if (hireExpert) {
+    const sections = hireExpert.sections || [];
+
+    const isPolicyPage = hireExpert.pageType === "LegalPolicy" || hireExpert.variant === "legal_policy";
+    const isDarkPage = hireExpert.pageType === "Dark" || hireExpert.variant === "dark";
+    const isLightPage = hireExpert.pageType === "Light" || hireExpert.variant === "light";
+
+    if (isPolicyPage) {
+      return (
+        <main className="bg-white company-policy min-h-screen">
+          <div className="container-main">
+            {sections.length > 0 && <DynamicZoneRenderer sections={sections} />}
+          </div>
+        </main>
+      );
+    }
+
+    const mainVariantClass = isLightPage
+      ? "bg-siteLight text-black"
+      : "bg-siteDark text-white";
+
+    return (
+      <main className={`${mainVariantClass} min-h-screen`.trim()}>
+        {sections.length > 0 && <DynamicZoneRenderer sections={sections} />}
+      </main>
+    );
+  }
+
+  // Not found in pages, services, or hire experts
   notFound();
 }
