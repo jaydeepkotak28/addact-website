@@ -70,11 +70,11 @@ export const GenericCTA: React.FC<CTAProps> = ({
   const { text: headingText, tag: headingTag } = getHeadingData(title);
   const descriptionHtml = getDescriptionHtml(description);
 
-  const rawImageUrl = image?.url || "";
-  const imageUrl = rawImageUrl ? getStrapiMediaUrl(rawImageUrl) : "";
+  const rawImageUrl = image?.url || (typeof image === "string" ? image : "");
+  const imageUrl = rawImageUrl ? getStrapiMediaUrl(rawImageUrl) : (image ? getStrapiMediaUrl(image) : "");
 
-  const href = (link as any)?.href || (link as any)?.url || "";
-  const label = link?.label || "";
+  const href = (link as any)?.href || (link as any)?.url || "/contact-us";
+  const label = link?.label || "Connect Now!";
   const isExternal = Boolean(link?.isExternal);
   const target = isExternal ? "_blank" : (link?.target as string) || "_self";
 
@@ -118,7 +118,7 @@ export const GenericCTA: React.FC<CTAProps> = ({
   // --------------------------------------------------------------------------
   if (isCta2) {
     return (
-      <section data-ref="cta-banner2" className={`relative overflow-hidden ${className}`}>
+      <section data-ref="cta-banner2" className={`relative overflow-hidden isolate ${className}`}>
         {imageUrl && (
           <Image
             src={imageUrl}
@@ -126,10 +126,10 @@ export const GenericCTA: React.FC<CTAProps> = ({
             fill
             sizes="100vw"
             quality={80}
-            className="object-cover object-center -z-10"
+            className="object-cover object-center z-0"
           />
         )}
-        <div className="relative text-white w-full h-full shadow-md">
+        <div className="relative text-white w-full h-full shadow-md z-10">
           <div className="container-main">
             <div className="flex flex-col justify-center items-center py-24 text-center">
               {headingText && (
@@ -181,7 +181,7 @@ export const GenericCTA: React.FC<CTAProps> = ({
   // --------------------------------------------------------------------------
   if (isHome) {
     return (
-      <section className={`relative overflow-hidden ${className}`}>
+      <section className={`relative overflow-hidden isolate ${className}`}>
         <div className="relative text-white w-full h-full shadow-md overflow-hidden">
           {imageUrl && (
             <Image
@@ -190,7 +190,7 @@ export const GenericCTA: React.FC<CTAProps> = ({
               fill
               sizes="100vw"
               quality={80}
-              className="object-cover object-center -z-10"
+              className="object-cover object-center z-0"
             />
           )}
           {/* Figma backdrop blur geometric triangle decoration */}
@@ -298,7 +298,7 @@ export const GenericCTA: React.FC<CTAProps> = ({
 
   return (
     <section
-      className={`relative w-full overflow-hidden ${className}`}
+      className={`relative w-full overflow-hidden isolate ${className}`}
       style={{
         minHeight: sectionMinHeight,
       }}
@@ -310,11 +310,14 @@ export const GenericCTA: React.FC<CTAProps> = ({
           fill
           sizes="100vw"
           quality={80}
-          className="object-cover object-center -z-10"
+          className="object-cover object-center z-0"
         />
       )}
+      {imageUrl && (
+        <div className="absolute inset-0 bg-linear-to-r from-[#0f0f0f] from-[38.053%] via-[rgba(15,15,15,0.7)] via-[58.884%] to-[rgba(15,15,15,0)] to-[80.044%] z-0 pointer-events-none" />
+      )}
       <div
-        className="relative container-main flex py-[30px]"
+        className="relative container-main flex py-[30px] z-10"
         style={{ minHeight: sectionMinHeight }}
       >
         <div className="flex flex-col w-full justify-end lg:justify-center text-white max-w-xl text-left">

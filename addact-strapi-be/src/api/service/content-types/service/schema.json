@@ -16,6 +16,27 @@
       "type": "string",
       "required": true
     },
+    "pageType": {
+      "type": "enumeration",
+      "default": "Dark",
+      "enum": [
+        "Standard",
+        "Dark",
+        "Light",
+        "LegalPolicy",
+        "FullWidth"
+      ]
+    },
+    "variant": {
+      "type": "enumeration",
+      "default": "dark",
+      "enum": [
+        "default",
+        "dark",
+        "light",
+        "legal_policy"
+      ]
+    },
     "pageHeading": {
       "type": "component",
       "component": "page-structure.page",
@@ -23,25 +44,29 @@
     },
     "parent": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::service.service"
+      "relation": "manyToOne",
+      "target": "api::service.service",
+      "inversedBy": "children"
     },
-    "icon": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+    "children": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::service.service",
+      "mappedBy": "parent"
     },
-    "shortDescription": {
-      "type": "text"
-    },
+
     "sections": {
       "type": "dynamiczone",
       "components": [
         "content-relation.promo-relation",
         "content-relation.content-relation",
+        "content-relation.banner-relation",
+        "content-relation.cta-relation",
+        "content-relation.capabilities-relation",
+        "media-relation.video-relation",
+        "ai.animation-banner",
+        "content-relation.testimonial-relation",
+        "content-relation.ai-ecosystems-relation",
         "feature.promo",
         "feature.content"
       ]
