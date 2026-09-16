@@ -68,7 +68,8 @@
         "content-relation.ai-ecosystems-relation",
         "feature.promo",
         "feature.content",
-        "content-relation.who-we-are-relation"
+        "content-relation.who-we-are-relation",
+        "content-relation.why-addact-relation"
       ]
     }
   }

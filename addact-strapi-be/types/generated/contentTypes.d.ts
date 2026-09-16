@@ -1006,6 +1006,8 @@ export interface ApiHireExpertHireExpert extends Struct.CollectionTypeSchema {
         'content-relation.ai-ecosystems-relation',
         'feature.promo',
         'feature.content',
+        'content-relation.who-we-are-relation',
+        'content-relation.why-addact-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -1085,6 +1087,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'content-relation.testimonial-relation',
         'content-relation.ai-ecosystems-relation',
         'content-relation.who-we-are-relation',
+        'content-relation.why-addact-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -1167,6 +1170,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
         'feature.promo',
         'feature.content',
         'content-relation.who-we-are-relation',
+        'content-relation.why-addact-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -1315,6 +1319,39 @@ export interface ApiWhoAreWeWhoAreWe extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWhyAddactWhyAddact extends Struct.CollectionTypeSchema {
+  collectionName: 'why_addacts';
+  info: {
+    displayName: 'Why Addact';
+    pluralName: 'why-addacts';
+    singularName: 'why-addact';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::title-description.title-description'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    internalName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::why-addact.why-addact'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.Component<'shared.title', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1980,6 +2017,7 @@ declare module '@strapi/strapi' {
       'api::video-listing.video-listing': ApiVideoListingVideoListing;
       'api::webinar.webinar': ApiWebinarWebinar;
       'api::who-are-we.who-are-we': ApiWhoAreWeWhoAreWe;
+      'api::why-addact.why-addact': ApiWhyAddactWhyAddact;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

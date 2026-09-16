@@ -152,6 +152,21 @@ export interface ContentRelationWhoWeAreRelation
   };
 }
 
+export interface ContentRelationWhyAddactRelation
+  extends Struct.ComponentSchema {
+  collectionName: 'components_content_relation_why_addact_relations';
+  info: {
+    displayName: 'Why Addact Relation';
+    icon: 'command';
+  };
+  attributes: {
+    whyAddact: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::why-addact.why-addact'
+    >;
+  };
+}
+
 export interface FeatureBaseHeading extends Struct.ComponentSchema {
   collectionName: 'components_feature_base_headings';
   info: {
@@ -592,6 +607,7 @@ declare module '@strapi/strapi' {
       'content-relation.promo-relation': ContentRelationPromoRelation;
       'content-relation.testimonial-relation': ContentRelationTestimonialRelation;
       'content-relation.who-we-are-relation': ContentRelationWhoWeAreRelation;
+      'content-relation.why-addact-relation': ContentRelationWhyAddactRelation;
       'feature.base-heading': FeatureBaseHeading;
       'feature.body': FeatureBody;
       'feature.capabilities': FeatureCapabilities;

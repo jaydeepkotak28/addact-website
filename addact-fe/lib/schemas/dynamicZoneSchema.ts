@@ -398,6 +398,18 @@ export const WhoWeAreRelationBlockSchema = z.object({
 
 export type WhoWeAreRelationBlockData = z.infer<typeof WhoWeAreRelationBlockSchema>;
 
+/**
+ * Zod Schema for 'content-relation.why-addact-relation' component
+ */
+export const WhyAddactRelationBlockSchema = z.object({
+  __typename: z.literal("ComponentContentRelationWhyAddactRelation").optional(),
+  id: z.union([z.string(), z.number()]).optional(),
+  whyAddact: z.any().nullable().optional(),
+});
+
+export type WhyAddactRelationBlockData = z.infer<typeof WhyAddactRelationBlockSchema>;
+
+
 
 
 
@@ -506,6 +518,8 @@ export interface DynamicZoneComponentMap {
   "content-relation.ai-ecosystems-relation": AiEcosystemsRelationBlockData;
   ComponentContentRelationWhoWeAreRelation: WhoWeAreRelationBlockData;
   "content-relation.who-we-are-relation": WhoWeAreRelationBlockData;
+  ComponentContentRelationWhyAddactRelation: WhyAddactRelationBlockData;
+  "content-relation.why-addact-relation": WhyAddactRelationBlockData;
   // Future components:
   // ComponentHeroHero: HeroBlockData;
   // ComponentFeatureAccordion: AccordionBlockData;

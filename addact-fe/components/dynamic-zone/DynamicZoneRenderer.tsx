@@ -66,12 +66,13 @@ export const DynamicZoneRenderer: React.FC<DynamicZoneRendererProps> = ({
           block.__typename || (block as any).__component || "";
 
         const Component = resolveComponent(typeName);
+        const blockKey = `${typeName}-${block.documentId || block.id || "block"}-${index}`;
 
         if (!Component) {
           if (process.env.NODE_ENV === "development") {
             return (
               <div
-                key={block.id || index}
+                key={blockKey}
                 className="p-4 my-2 border border-dashed border-amber-500 bg-amber-50 rounded text-amber-800 text-sm"
               >
                 ⚠️ <strong>Unregistered Component:</strong> <code>{typeName}</code>.
@@ -84,7 +85,7 @@ export const DynamicZoneRenderer: React.FC<DynamicZoneRendererProps> = ({
 
         return (
           <GenericErrorBoundary
-            key={block.id || block.documentId || index}
+            key={blockKey}
             componentName={typeName}
           >
             <Component {...block} />

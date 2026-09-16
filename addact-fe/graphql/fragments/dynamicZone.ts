@@ -255,4 +255,29 @@ export const WHO_WE_ARE_RELATION_FRAGMENT = gql`
   }
 `;
 
+/**
+ * Reusable GraphQL Fragment for 'content-relation.why-addact-relation'
+ */
+export const WHY_ADDACT_RELATION_FRAGMENT = gql`
+  fragment WhyAddactRelationFields on ComponentContentRelationWhyAddactRelation {
+    id
+    whyAddact {
+      documentId
+      internalName
+      title {
+        ...TitleFields
+      }
+      content {
+        documentId
+        internalName
+        Body {
+          title
+          description
+        }
+      }
+    }
+  }
+`;
+
+
 

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_relation_why_addact_relations",
+  "info": {
+    "displayName": "Why Addact Relation",
+    "icon": "command"
+  },
+  "options": {},
+  "attributes": {
+    "whyAddact": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::why-addact.why-addact"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "why_addacts",
+  "info": {
+    "singularName": "why-addact",
+    "pluralName": "why-addacts",
+    "displayName": "Why Addact"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string"
+    },
+    "title": {
+      "type": "component",
+      "component": "shared.title",
+      "repeatable": false
+    },
+    "content": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::title-description.title-description"
+    }
+  }
+}

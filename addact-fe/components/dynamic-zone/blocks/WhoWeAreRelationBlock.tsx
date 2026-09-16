@@ -10,9 +10,14 @@ export interface WhoWeAreRelationBlockProps {
 }
 
 export const WhoWeAreRelationBlock: React.FC<WhoWeAreRelationBlockProps> = (props) => {
-  const normalizedData = normalizeWhoAreWe(props.whoAreWe || props);
+  const data = props.whoAreWe;
 
-  if (!normalizedData) return null;
+  // Only render if whoAreWe relation is selected in BE
+  if (!data) return null;
+
+  const normalizedData = normalizeWhoAreWe(data);
+
+  if (!normalizedData || !normalizedData.Counter || normalizedData.Counter.length === 0) return null;
 
   return (
     <GenericErrorBoundary componentName="WhoWeAreRelationBlock">

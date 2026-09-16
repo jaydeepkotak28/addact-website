@@ -16,6 +16,7 @@ import {
   TESTIMONIAL_RELATION_FRAGMENT,
   AI_ECOSYSTEMS_RELATION_FRAGMENT,
   WHO_WE_ARE_RELATION_FRAGMENT,
+  WHY_ADDACT_RELATION_FRAGMENT,
 } from "../fragments/dynamicZone";
 import type { StandardPageData } from "@/lib/schemas/dynamicZoneSchema";
 
@@ -48,6 +49,7 @@ export const GET_PAGE_BY_SLUG = gql`
   ${TESTIMONIAL_RELATION_FRAGMENT}
   ${AI_ECOSYSTEMS_RELATION_FRAGMENT}
   ${WHO_WE_ARE_RELATION_FRAGMENT}
+  ${WHY_ADDACT_RELATION_FRAGMENT}
   query GetPageBySlug($slug: String, $slugWithSlash: String) {
     pages(
       filters: {
@@ -95,6 +97,9 @@ export const GET_PAGE_BY_SLUG = gql`
         }
         ... on ComponentContentRelationWhoWeAreRelation {
           ...WhoWeAreRelationFields
+        }
+        ... on ComponentContentRelationWhyAddactRelation {
+          ...WhyAddactRelationFields
         }
       }
     }
