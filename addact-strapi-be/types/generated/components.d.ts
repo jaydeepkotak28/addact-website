@@ -110,6 +110,21 @@ export interface ContentRelationCtaRelation extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentRelationLifeAtAddactRelation
+  extends Struct.ComponentSchema {
+  collectionName: 'components_content_relation_life_at_addact_relations';
+  info: {
+    displayName: 'Life At Addact Relation';
+    icon: 'picture';
+  };
+  attributes: {
+    lifeAtAddact: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::life-at-addact.life-at-addact'
+    >;
+  };
+}
+
 export interface ContentRelationPromoRelation extends Struct.ComponentSchema {
   collectionName: 'components_content_relation_promo_relations';
   info: {
@@ -604,6 +619,7 @@ declare module '@strapi/strapi' {
       'content-relation.capabilities-relation': ContentRelationCapabilitiesRelation;
       'content-relation.content-relation': ContentRelationContentRelation;
       'content-relation.cta-relation': ContentRelationCtaRelation;
+      'content-relation.life-at-addact-relation': ContentRelationLifeAtAddactRelation;
       'content-relation.promo-relation': ContentRelationPromoRelation;
       'content-relation.testimonial-relation': ContentRelationTestimonialRelation;
       'content-relation.who-we-are-relation': ContentRelationWhoWeAreRelation;

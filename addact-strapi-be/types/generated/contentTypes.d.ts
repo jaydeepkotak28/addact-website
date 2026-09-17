@@ -875,6 +875,40 @@ export interface ApiFooterFooter extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiGalleryAlbumGalleryAlbum
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'gallery_albums';
+  info: {
+    description: 'Albums and events for Life at Addact gallery';
+    displayName: 'Gallery Album';
+    pluralName: 'gallery-albums';
+    singularName: 'gallery-album';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    category: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    images: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::gallery-album.gallery-album'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    year: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
   collectionName: 'global_settings';
   info: {
@@ -1078,6 +1112,42 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiLifeAtAddactLifeAtAddact
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'life_at_addacts';
+  info: {
+    description: 'Life At Addact gallery section with albums';
+    displayName: 'Life At Addact';
+    pluralName: 'life-at-addacts';
+    singularName: 'life-at-addact';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    albums: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::gallery-album.gallery-album'
+    >;
+    badge: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    internalName: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::life-at-addact.life-at-addact'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.Component<'shared.title', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiOurCapabilitieOurCapabilitie
   extends Struct.CollectionTypeSchema {
   collectionName: 'our_capabilities';
@@ -1146,6 +1216,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'content-relation.ai-ecosystems-relation',
         'content-relation.who-we-are-relation',
         'content-relation.why-addact-relation',
+        'content-relation.life-at-addact-relation',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -2064,10 +2135,12 @@ declare module '@strapi/strapi' {
       'api::cta.cta': ApiCtaCta;
       'api::event.event': ApiEventEvent;
       'api::footer.footer': ApiFooterFooter;
+      'api::gallery-album.gallery-album': ApiGalleryAlbumGalleryAlbum;
       'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::header.header': ApiHeaderHeader;
       'api::hire-expert.hire-expert': ApiHireExpertHireExpert;
       'api::industry.industry': ApiIndustryIndustry;
+      'api::life-at-addact.life-at-addact': ApiLifeAtAddactLifeAtAddact;
       'api::our-capabilitie.our-capabilitie': ApiOurCapabilitieOurCapabilitie;
       'api::page.page': ApiPagePage;
       'api::promo.promo': ApiPromoPromo;

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_relation_life_at_addact_relations",
+  "info": {
+    "displayName": "Life At Addact Relation",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "lifeAtAddact": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::life-at-addact.life-at-addact"
+    }
+  },
+  "config": {}
+}

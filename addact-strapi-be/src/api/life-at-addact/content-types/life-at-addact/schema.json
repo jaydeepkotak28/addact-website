@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "life_at_addacts",
+  "info": {
+    "singularName": "life-at-addact",
+    "pluralName": "life-at-addacts",
+    "displayName": "Life At Addact",
+    "description": "Life At Addact gallery section with albums"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalName": {
+      "type": "string",
+      "required": true
+    },
+    "badge": {
+      "type": "string"
+    },
+    "title": {
+      "type": "component",
+      "component": "shared.title",
+      "repeatable": false
+    },
+    "albums": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::gallery-album.gallery-album"
+    }
+  }
+}
