@@ -14,11 +14,26 @@ export interface AnimationBannerBlockProps extends AnimationBannerBlockData {
 }
 
 export const AnimationBannerBlock: React.FC<AnimationBannerBlockProps> = (props) => {
+  if (!props) return null;
+
   const normalizedBannerImage = normalizeMedia(props.bannerImage);
   const normalizedFirstAnimationImage = normalizeMedia(props.firstAnimationImage);
   const normalizedSecondAnimationImage = normalizeMedia(props.secondAnimationImage);
   const normalizedBannerLink = normalizeLink(props.bannerLink);
   const normalizedSubTitles = normalizeCollection(props.bannerSubTitle, normalizeTitle);
+
+  const hasContent = Boolean(
+    props.bannerTitle?.trim() ||
+    props.animationTitle?.trim() ||
+    props.bannerDescription?.trim() ||
+    normalizedBannerImage?.url ||
+    (normalizedSubTitles && normalizedSubTitles.length > 0) ||
+    normalizedBannerLink?.href
+  );
+
+  if (!hasContent) {
+    return null;
+  }
 
   const bannerData = {
     ...props,

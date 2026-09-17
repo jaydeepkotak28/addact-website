@@ -29,7 +29,28 @@ export const BannerRelationBlock: React.FC<BannerRelationBlockProps> = ({
     internalName,
   } = banner;
 
-  const button = bannerLink?.href
+  const hasTitle = Boolean(bannerTitle?.trim());
+  const hasDescription = Boolean(bannerDescription?.trim());
+  const hasImage = Boolean(bannerImage?.url);
+  const hasVideo = Boolean(videoLink?.trim());
+  const hasLink = Boolean(bannerLink?.href?.trim());
+  const hasChips = Boolean(chipsText && chipsText.length > 0);
+  const hasAnchorLinks = Boolean(anchorLinks && anchorLinks.length > 0);
+
+  // Strict null guard: If no content from BE, render nothing
+  if (
+    !hasTitle &&
+    !hasDescription &&
+    !hasImage &&
+    !hasVideo &&
+    !hasLink &&
+    !hasChips &&
+    !hasAnchorLinks
+  ) {
+    return null;
+  }
+
+  const button = bannerLink?.href?.trim()
     ? {
         label: bannerLink.label || "Read Now",
         url: bannerLink.href,
@@ -39,7 +60,7 @@ export const BannerRelationBlock: React.FC<BannerRelationBlockProps> = ({
 
   return (
     <HeroBanner
-      title={bannerTitle || internalName || ""}
+      title={bannerTitle || ""}
       description={bannerDescription || ""}
       backgroundImageUrl={bannerImage?.url || ""}
       isVideo={Boolean(isVideo)}

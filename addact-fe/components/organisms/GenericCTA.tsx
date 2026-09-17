@@ -73,10 +73,23 @@ export const GenericCTA: React.FC<CTAProps> = ({
   const rawImageUrl = image?.url || (typeof image === "string" ? image : "");
   const imageUrl = rawImageUrl ? getStrapiMediaUrl(rawImageUrl) : (image ? getStrapiMediaUrl(image) : "");
 
-  const href = (link as any)?.href || (link as any)?.url || "/contact-us";
-  const label = link?.label || "Connect Now!";
+  const href = (link as any)?.href || (link as any)?.url || "";
+  const label = link?.label || (href ? "Connect Now!" : "");
   const isExternal = Boolean(link?.isExternal);
   const target = isExternal ? "_blank" : (link?.target as string) || "_self";
+
+  // Strict null guard: If no data from backend, never render static/default fallback
+  const hasContent = Boolean(
+    headingText?.trim() ||
+    descriptionHtml?.trim() ||
+    imageUrl?.trim() ||
+    label?.trim() ||
+    href?.trim()
+  );
+
+  if (!hasContent) {
+    return null;
+  }
 
   const useContactDrawer = !isExternal && shouldOpenContactDrawer(href);
 

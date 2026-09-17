@@ -102,10 +102,10 @@ export function RadialDiagram({ activeIndex, onSpokeClick, mobileRotateOnly }: R
                         <motion.path
                             key={i}
                             d={d}
+                            stroke="#3C4CFF"
+                            strokeWidth={1}
                             animate={{
                                 fill: isActive ? "#3C4CFF" : "rgba(60,76,255,0)",
-                                stroke: "#3C4CFF",
-                                strokeWidth: 1,
                                 opacity: isActive ? 1 : 0.72,
                             }}
                             transition={{ duration: 0.42, ease: "easeInOut" }}

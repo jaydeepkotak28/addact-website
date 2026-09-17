@@ -25,6 +25,21 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
   logoUrl,
   className = "",
 }) => {
+  const hasContent = Boolean(
+    title?.trim() ||
+    description?.trim() ||
+    backgroundImageUrl?.trim() ||
+    (isVideo && videoUrl?.trim()) ||
+    (button?.url?.trim() && button?.label?.trim()) ||
+    logoUrl?.trim() ||
+    (chipsText && chipsText.length > 0) ||
+    (anchorLinks && anchorLinks.length > 0)
+  );
+
+  if (!hasContent) {
+    return null;
+  }
+
   const shouldRenderVideo = isVideo && Boolean(videoUrl);
   const textAlignmentClasses = isTextAlignCenter ? "text-center items-center" : "text-left";
 

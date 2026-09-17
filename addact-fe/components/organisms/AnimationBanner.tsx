@@ -9,6 +9,8 @@ export interface AnimationBannerProps {
 }
 
 const AnimationBanner = ({ data }: AnimationBannerProps) => {
+  if (!data) return null;
+
   const [isIntroVisible, setIsIntroVisible] = useState(true);
 
   useEffect(() => {

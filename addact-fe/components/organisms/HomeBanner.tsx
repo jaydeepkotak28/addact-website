@@ -35,14 +35,29 @@ const HomeBanner = ({ data }: HomeBannerProps) => {
   // Use data from props
   const staticTitle = data?.bannerTitle || "";
   const rotatingTexts =
-    data?.bannerSubTitle?.map((item) => item?.Title || item?.title || "") || [];
+    data?.bannerSubTitle
+      ?.map((item) => item?.Title || item?.title || "")
+      .filter((t) => Boolean(t?.trim())) || [];
   const description = data?.bannerDescription || "";
   const buttonLabel = data?.bannerLink?.label || "";
-  const buttonLink = data?.bannerLink?.href || "/";
+  const buttonLink = data?.bannerLink?.href || "";
   const buttonTarget = data?.bannerLink?.isExternal ? "_blank" : "_self";
   const useContactDrawer = !data?.bannerLink?.isExternal && shouldOpenContactDrawer(buttonLink);
   const rawBg = data?.bannerImage?.url || "";
   const backgroundImage = rawBg ? getStrapiMediaUrl(rawBg) : "";
+
+  // Strict null guard: If no data from BE, render nothing
+  const hasContent = Boolean(
+    staticTitle?.trim() ||
+    rotatingTexts.length > 0 ||
+    description?.trim() ||
+    backgroundImage?.trim() ||
+    (buttonLabel?.trim() && buttonLink?.trim())
+  );
+
+  if (!hasContent) {
+    return null;
+  }
 
   const handleBannerCtaClick = (event: React.MouseEvent<HTMLElement>) => {
     if (!useContactDrawer) {
@@ -127,48 +142,49 @@ const HomeBanner = ({ data }: HomeBannerProps) => {
           </p>
 
           {/* CTA Button */}
-          {useContactDrawer ? (
-            <button
-              type="button"
-              onClick={handleBannerCtaClick}
-              className="inline-flex items-center gap-3 rounded-[6px] bg-[#3C4CFF] px-6 py-3 text-[16px] font-semibold text-white transition-all duration-300 hover:bg-[#2d3be6] md:px-8 md:py-4 md:text-[20px]"
-              aria-label={buttonLabel}
-            >
-              {buttonLabel}
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+          {buttonLabel && buttonLink &&
+            (useContactDrawer ? (
+              <button
+                type="button"
+                onClick={handleBannerCtaClick}
+                className="inline-flex items-center gap-3 rounded-[6px] bg-[#3C4CFF] px-6 py-3 text-[16px] font-semibold text-white transition-all duration-300 hover:bg-[#2d3be6] md:px-8 md:py-4 md:text-[20px]"
+                aria-label={buttonLabel}
               >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-          ) : (
-            <Link
-              href={buttonLink}
-              target={buttonTarget}
-              className="inline-flex items-center gap-3 rounded-lg bg-[#3C4CFF] px-6 py-3 text-[18px] font-semibold text-white transition-all duration-300 hover:bg-[#2d3be6] md:px-8 md:py-4 md:text-[20px]"
-            >
-              {buttonLabel}
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                {buttonLabel}
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            ) : (
+              <Link
+                href={buttonLink}
+                target={buttonTarget}
+                className="inline-flex items-center gap-3 rounded-lg bg-[#3C4CFF] px-6 py-3 text-[18px] font-semibold text-white transition-all duration-300 hover:bg-[#2d3be6] md:px-8 md:py-4 md:text-[20px]"
               >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-          )}
+                {buttonLabel}
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+            ))}
         </div>
       </div>
 
