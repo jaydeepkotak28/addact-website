@@ -639,6 +639,8 @@ export interface StrapiPagesMap {
   webinar: StandardPageData;
   sitemapPage: StandardPageData;
   thankYou: StandardPageData;
+  industry: StandardPageData;
+  industries: StandardPageData;
   [pageKey: string]: StandardPageData;
 }
 

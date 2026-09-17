@@ -22,3 +22,6 @@ export * from "./queries/getGlobalSetting";
 export * from "./queries/getClientTestimonialsData";
 export * from "./queries/getWhoWeAreData";
 export * from "./queries/getWhyAddactData";
+export * from "./queries/getServiceBySlug";
+export * from "./queries/getHireExpertBySlug";
+export * from "./queries/getIndustryBySlug";

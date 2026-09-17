@@ -9,6 +9,10 @@ import {
   getHireExpertBySlug,
   type HireExpertItemData,
 } from "@/graphql/queries/getHireExpertBySlug";
+import {
+  getIndustryBySlug,
+  type IndustryItemData,
+} from "@/graphql/queries/getIndustryBySlug";
 import DynamicZoneRenderer from "@/components/dynamic-zone/DynamicZoneRenderer";
 import { generateStrapiMetadata } from "@/lib/seo";
 
@@ -74,6 +78,23 @@ export async function generateMetadata({
     };
   }
 
+  // 4. Try resolving multi-layer Industry
+  const industry = await getIndustryBySlug(slugPath);
+  if (industry) {
+    const seo = industry.pageHeading?.seo;
+    const fallbackTitle =
+      industry.industryTitle ||
+      industry.pageHeading?.PageHeading?.pageTitle ||
+      industry.internalName ||
+      "Addact Technologies";
+    const strapiMeta = generateStrapiMetadata(seo);
+    return {
+      ...strapiMeta,
+      title: seo?.metaTitle || fallbackTitle,
+      description: seo?.metaDescription || strapiMeta.description,
+    };
+  }
+
   return {
     title: "Page Not Found",
   };
@@ -81,7 +102,7 @@ export async function generateMetadata({
 
 /**
  * Universal Dynamic Catch-All Page & Multi-Layer Service Router
- * Matches any URL (e.g. /career, /development-services/cms-development/sitecore)
+ * Matches any URL (e.g. /career, /development-services/cms-development/sitecore, /industries/it-industry)
  * and dynamically renders Strapi Dynamic Zone components and multi-layer sub-services.
  * 
  * NO static hardcoded banners or static placeholders are used:
@@ -174,6 +195,37 @@ export default async function CatchAllPage({ params }: PageProps) {
     );
   }
 
-  // Not found in pages, services, or hire experts
+  // 4. Check Multi-Layer Industry
+  const industry = await getIndustryBySlug(slugPath);
+
+  if (industry) {
+    const sections = industry.sections || [];
+
+    const isPolicyPage = industry.pageType === "LegalPolicy" || industry.variant === "legal_policy";
+    const isDarkPage = industry.pageType === "Dark" || industry.variant === "dark";
+    const isLightPage = industry.pageType === "Light" || industry.variant === "light";
+
+    if (isPolicyPage) {
+      return (
+        <main className="bg-white company-policy min-h-screen">
+          <div className="container-main">
+            {sections.length > 0 && <DynamicZoneRenderer sections={sections} />}
+          </div>
+        </main>
+      );
+    }
+
+    const mainVariantClass = isLightPage
+      ? "bg-siteLight text-black"
+      : "bg-siteDark text-white";
+
+    return (
+      <main className={`${mainVariantClass} min-h-screen`.trim()}>
+        {sections.length > 0 && <DynamicZoneRenderer sections={sections} />}
+      </main>
+    );
+  }
+
+  // Not found in pages, services, hire experts, or industries
   notFound();
 }

@@ -1020,6 +1020,64 @@ export interface ApiHireExpertHireExpert extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
+  collectionName: 'industries';
+  info: {
+    description: 'Dedicated recursive multi-layer Industry sectors & verticals';
+    displayName: 'Industry';
+    pluralName: 'industries';
+    singularName: 'industry';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    children: Schema.Attribute.Relation<'oneToMany', 'api::industry.industry'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    industryTitle: Schema.Attribute.String;
+    internalName: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::industry.industry'
+    > &
+      Schema.Attribute.Private;
+    pageHeading: Schema.Attribute.Component<'page-structure.page', false>;
+    pageType: Schema.Attribute.Enumeration<
+      ['Standard', 'Dark', 'Light', 'LegalPolicy', 'FullWidth']
+    > &
+      Schema.Attribute.DefaultTo<'Dark'>;
+    parent: Schema.Attribute.Relation<'manyToOne', 'api::industry.industry'>;
+    publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'content-relation.promo-relation',
+        'content-relation.content-relation',
+        'content-relation.banner-relation',
+        'content-relation.cta-relation',
+        'content-relation.capabilities-relation',
+        'media-relation.video-relation',
+        'ai.animation-banner',
+        'content-relation.testimonial-relation',
+        'content-relation.ai-ecosystems-relation',
+        'feature.promo',
+        'feature.content',
+        'content-relation.who-we-are-relation',
+        'content-relation.why-addact-relation',
+      ]
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    variant: Schema.Attribute.Enumeration<
+      ['default', 'dark', 'light', 'legal_policy']
+    > &
+      Schema.Attribute.DefaultTo<'dark'>;
+  };
+}
+
 export interface ApiOurCapabilitieOurCapabilitie
   extends Struct.CollectionTypeSchema {
   collectionName: 'our_capabilities';
@@ -2009,6 +2067,7 @@ declare module '@strapi/strapi' {
       'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::header.header': ApiHeaderHeader;
       'api::hire-expert.hire-expert': ApiHireExpertHireExpert;
+      'api::industry.industry': ApiIndustryIndustry;
       'api::our-capabilitie.our-capabilitie': ApiOurCapabilitieOurCapabilitie;
       'api::page.page': ApiPagePage;
       'api::promo.promo': ApiPromoPromo;
