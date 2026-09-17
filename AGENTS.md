@@ -64,3 +64,11 @@ Always use the standardized generic atoms from `@/components/atoms`:
 - Any new collection with a URL must define a `slug` attribute.
 - The revalidation service in `addact-strapi-be/src/services/revalidation.ts` automatically discovers content types, plural names, single types, and slugs.
 - Never re-introduce hardcoded `switch(model)` cases in Strapi revalidation.
+
+---
+
+## 7. 🚫 Zero Dummy Data & Pure Backend-Driven Content Policy
+- **Never seed or hardcode dummy relations**: Never insert dummy components, fake relations, or placeholder data into the database or frontend components.
+- **Pure Strapi Admin control**: Components must render ONLY what is explicitly selected and published by the user in Strapi Admin.
+- **Strict null guards**: If a dynamic zone relation or block is unselected or empty in Strapi, it MUST return `null` and render nothing on the frontend.
+
