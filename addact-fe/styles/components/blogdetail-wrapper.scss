@@ -1,5 +1,5 @@
-@import "./../base/variables";
-@import "./../base/typography";
+@use "./../base/variables" as *;
+@use "./../base/typography" as *;
 
 .blogdetail-wrapper {
   padding: 0 0 70px 0;

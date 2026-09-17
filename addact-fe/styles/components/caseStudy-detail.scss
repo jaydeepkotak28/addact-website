@@ -1,5 +1,5 @@
-@import "./../base/variables";
-@import "./../base/typography";
+@use "./../base/variables" as *;
+@use "./../base/typography" as *;
 
 .caseStudy-wrapper {
     h1,

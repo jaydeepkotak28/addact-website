@@ -28,6 +28,7 @@
     "react-slick": "^0.31.0",
     "react-snowfall": "^2.4.0",
     "shadcn": "^4.21.0",
+    "sharp": "^0.35.4",
     "slick-carousel": "^1.8.1",
     "slick-image-compare": "^0.4.11",
     "tailwind-merge": "^3.6.0",

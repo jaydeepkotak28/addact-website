@@ -6,7 +6,12 @@ const nextConfig: NextConfig = {
   httpAgentOptions: {
     keepAlive: true,
   },
+  sassOptions: {
+    silenceDeprecations: ["import", "legacy-js-api"],
+  },
   images: {
+    formats: ["image/avif", "image/webp"],
+    qualities: [75, 80],
     remotePatterns: [
       {
         protocol: "http",

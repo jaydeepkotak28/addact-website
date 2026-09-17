@@ -80,9 +80,11 @@ const HomeBanner = ({ data }: HomeBannerProps) => {
             src={backgroundImage}
             alt="Hero Banner"
             fill
-            className="object-cover object-[72%_top] md:object-center"
+            priority
             fetchPriority="high"
-            loading="eager"
+            sizes="100vw"
+            quality={75}
+            className="object-cover object-[72%_top] md:object-center"
           />
         </div>
       )}
