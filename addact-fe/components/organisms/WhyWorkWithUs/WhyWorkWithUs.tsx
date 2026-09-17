@@ -15,9 +15,10 @@ export default function WhyWorkWithUs({ data, className = "" }: WhyWorkWithUsPro
   const [mobileCardIndex, setMobileCardIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Transform API data to AccordionItem format
+  // Transform API data or normalized data to AccordionItem format
   const entity = data?.whyAddact || data;
   const items: AccordionItem[] =
+    (Array.isArray(entity?.items) ? entity.items : null) ||
     entity?.GlobalCard?.map((card: any) => ({
       title: card.Title || card.title,
       description: card.Description || card.description,
@@ -31,11 +32,12 @@ export default function WhyWorkWithUs({ data, className = "" }: WhyWorkWithUsPro
     [];
 
   const heading =
+    (typeof entity?.title === "string" ? entity.title : null) ||
     entity?.title?.title ||
     entity?.Title?.[0]?.h2 ||
-    (typeof entity?.title === "string" ? entity.title : null) ||
+    entity?.title?.h2 ||
     entity?.internalName ||
-    "";
+    "Why work with us";
 
   if (!items || items.length === 0) {
     return null;
